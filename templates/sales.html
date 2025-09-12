@@ -19,7 +19,7 @@
                     <option value="all">Todos los Sorteos</option>
                     {% for raffle in raffles %}
                     <option value="{{ raffle.id }}" {% if selected_raffle_id == raffle.id|string %}selected{% endif %}>
-                        Sorteo del {{ raffle.raffle_date.split(' ')[0] }}
+                        Sorteo del {{ raffle.raffle_date.strftime('%Y-%m-%d') }}
                     </option>
                     {% endfor %}
                 </select>
@@ -75,7 +75,7 @@
         {% for sale in sales %}
         <tr>
             <td>{{ sale['id'] }}</td>
-            <td>{{ sale['raffle_date'].split(' ')[0] }}</td>
+            <td>{{ sale['raffle_date'].strftime('%Y-%m-%d') }}</td>
             <td>{{ sale['client_name'] }} {{ sale['client_last_name'] }}</td>
             {% if session['user_role'] == 'admin' %}
             <td>{{ sale['seller_name'] }}</td>

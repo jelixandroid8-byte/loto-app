@@ -81,6 +81,49 @@ def logout():
     flash('Has cerrado sesión.', 'success')
     return redirect(url_for('login'))
 
+@app.route('/change_password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    if request.method == 'POST':
+        current_password = request.form['current_password']
+        new_password = request.form['new_password']
+        confirm_password = request.form['confirm_password']
+
+        conn = get_db_connection()
+        cur = get_cursor(conn)
+        cur.execute('SELECT id, password FROM users WHERE id = %s', (session['user_id'],))
+        user = cur.fetchone()
+        cur.close()
+        conn.close()
+
+        if user is None:
+            flash('Usuario no encontrado.', 'danger')')
+            return redirect(url_for('login'))
+
+        if not check_password_hash(user['password'], current_password):
+            flash('Contraseña actual incorrecta.', 'danger')
+            return render_template('change_password.html')
+
+        if new_password != confirm_password:
+            flash('Las nuevas contraseñas no coinciden.', 'danger')
+            return render_template('change_password.html')
+
+        if len(new_password) < 6:
+            flash('La nueva contraseña debe tener al menos 6 caracteres.', 'danger')
+            return render_template('change_password.html')
+
+        conn = get_db_connection()
+        cur = get_cursor(conn)
+        cur.execute('UPDATE users SET password = %s WHERE id = %s', (generate_password_hash(new_password), session['user_id']))
+        conn.commit()
+        cur.close()
+        conn.close()
+
+        flash('Contraseña actualizada exitosamente.', 'success')
+        return redirect(url_for('index'))
+
+    return render_template('change_password.html')
+
 # --- Dashboard Routes ---
 @app.route('/')
 @login_required

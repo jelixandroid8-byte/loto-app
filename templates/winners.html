@@ -16,7 +16,7 @@
                 <option value="">-- Escoja un sorteo --</option>
                 {% for raffle in raffles %}
                     <option value="{{ raffle.id }}" {% if selected_raffle and selected_raffle.id == raffle.id %}selected{% endif %}>
-                        Sorteo del {{ raffle.raffle_date.split(' ')[0] }}
+                        Sorteo del {{ raffle.raffle_date.strftime('%Y-%m-%d') }}
                     </option>
                 {% endfor %}
             </select>
@@ -25,7 +25,7 @@
 </div>
 
 {% if selected_raffle %}
-    <h3>Resultados para el sorteo del {{ selected_raffle.raffle_date.split(' ')[0] }}</h3>
+    <h3>Resultados para el sorteo del {{ selected_raffle.raffle_date.strftime('%Y-%m-%d') }}</h3>
     <div class="raffle-results">
         <p><strong>1er Premio:</strong> {{ selected_raffle.first_prize }}</p>
         <p><strong>2do Premio:</strong> {{ selected_raffle.second_prize }}</p>

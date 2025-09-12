@@ -11,7 +11,7 @@
             <select id="raffle_id" name="raffle_id" required>
                 {% for raffle in raffles %}
                     <option value="{{ raffle['id'] }}">
-                        Sorteo del {{ raffle['raffle_date'] }}
+                        Sorteo del {{ raffle['raffle_date'].strftime('%Y-%m-%d') }}
                     </option>
                 {% endfor %}
             </select>

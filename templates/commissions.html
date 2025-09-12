@@ -27,7 +27,7 @@
                 <option value="all">Todos</option>
                 {% for raffle in raffles %}
                     <option value="{{ raffle.id }}" {% if selected_raffle_id == raffle.id|string %}selected{% endif %}>
-                        Sorteo del {{ raffle.raffle_date.split(' ')[0] }}
+                        Sorteo del {{ raffle.raffle_date.strftime('%Y-%m-%d') }}
                     </option>
                 {% endfor %}
             </select>
@@ -52,7 +52,7 @@
             {% if row['total_sales'] > 0 %}
             <tr>
                 <td>{{ row['seller_name'] }}</td>
-                <td>{{ row['raffle_date'].split(' ')[0] if row['raffle_date'] else 'N/A' }}</td>
+                <td>{{ row['raffle_date'].strftime('%Y-%m-%d') if row['raffle_date'] else 'N/A' }}</td>
                 <td>${{ '%.2f'|format(row['total_sales']) }}</td>
                 <td>${{ '%.2f'|format(row['commission_amount']) }}</td>
                 <td>${{ '%.2f'|format(row['total_winnings']) }}</td>

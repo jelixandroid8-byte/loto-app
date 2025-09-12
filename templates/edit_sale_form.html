@@ -11,7 +11,7 @@
             <label for="raffle_id">Sorteo</label>
             <select id="raffle_id" name="raffle_id" required>
                 <!-- Option for the current raffle -->
-                <option value="{{ invoice.raffle_id }}">Sorteo del {{ invoice.raffle_date }} (Actual)</option>
+                <option value="{{ invoice.raffle_id }}">Sorteo del {{ invoice.raffle_date.strftime('%Y-%m-%d') }} (Actual)</option>
                 {% for raffle in raffles %}
                     <option value="{{ raffle['id'] }}">
                         Sorteo del {{ raffle['raffle_date'] }}

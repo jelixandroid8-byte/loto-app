@@ -21,7 +21,7 @@
         {% for raffle in raffles %}
         <tr>
             <td>{{ raffle['id'] }}</td>
-            <td>{{ raffle['raffle_date'] }}</td>
+            <td>{{ raffle['raffle_date'].strftime('%Y-%m-%d %H:%M') }}</td>
             <td>
                 {% if raffle['results_entered'] %}
                     <span class="status-yes">Sí</span>

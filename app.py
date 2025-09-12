@@ -97,7 +97,7 @@ def change_password():
         conn.close()
 
         if user is None:
-            flash('Usuario no encontrado.', 'danger')')
+            flash('Usuario no encontrado.', 'danger')
             return redirect(url_for('login'))
 
         if not check_password_hash(user['password'], current_password):

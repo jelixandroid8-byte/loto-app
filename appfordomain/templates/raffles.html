@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+{% block title %}Gestionar Sorteos{% endblock %}
+
+{% block content %}
+<div class="header-bar">
+    <h1>Sorteos</h1>
+    <a href="{{ url_for('create_raffle') }}" class="btn">Crear Nuevo Sorteo</a>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID Sorteo</th>
+            <th>Fecha y Hora</th>
+            <th>Resultados Ingresados</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for raffle in raffles %}
+        <tr>
+            <td>{{ raffle['id'] }}</td>
+            <td>{{ raffle['raffle_date'] }}</td>
+            <td>
+                {% if raffle['results_entered'] %}
+                    <span class="status-yes">Sí</span>
+                {% else %}
+                    <span class="status-no">No</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{{ url_for('enter_raffle_results', raffle_id=raffle['id']) }}" class="btn btn-secondary">
+                    {% if raffle['results_entered'] %}
+                        Ver Ganadores
+                    {% else %}
+                        Ingresar Resultados
+                    {% endif %}
+                </a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4">No hay sorteos creados.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('admin_dashboard') }}" class="btn-back">Volver al Dashboard</a>
+{% endblock %}

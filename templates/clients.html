@@ -1,0 +1,51 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}Gestionar Clientes{% endblock %}
+
+{% block content %}
+<div class="header-bar">
+    <h1>Clientes</h1>
+    <a href="{{ url_for('create_client') }}" class="btn">Crear Nuevo Cliente</a>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            {% if session['user_role'] == 'admin' %}
+            <th>Vendedor Asignado</th>
+            {% endif %}
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for client in clients %}
+        <tr>
+            <td>{{ client['name'] }}</td>
+            <td>{{ client['last_name'] }}</td>
+            <td>{{ client['phone'] }}</td>
+            <td>{{ client['address'] }}</td>
+            {% if session['user_role'] == 'admin' %}
+            <td>{{ client['seller_name'] }}</td>
+            {% endif %}
+            <td>
+                <a href="{{ url_for('edit_client', client_id=client['id']) }}" class="btn btn-secondary">Editar</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="{{ 6 if session['user_role'] == 'admin' else 5 }}">No hay clientes registrados.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% if session['user_role'] == 'admin' %}
+<a href="{{ url_for('admin_dashboard') }}" class="btn-back">Volver al Dashboard</a>
+{% else %}
+<a href="{{ url_for('seller_dashboard') }}" class="btn-back">Volver al Dashboard</a>
+{% endif %}
+{% endblock %}

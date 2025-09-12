@@ -1,0 +1,94 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}Ganadores del Sorteo{% endblock %}
+
+{% block content %}
+<div class="header-bar">
+    <h1>Ganadores</h1>
+</div>
+
+<div class="filter-form">
+    <form method="get" action="{{ url_for('list_winners') }}">
+        <div class="form-group">
+            <label for="raffle_id">Seleccionar Sorteo:</label>
+            <select name="raffle_id" onchange="this.form.submit()">
+                <option value="">-- Escoja un sorteo --</option>
+                {% for raffle in raffles %}
+                    <option value="{{ raffle.id }}" {% if selected_raffle and selected_raffle.id == raffle.id %}selected{% endif %}>
+                        Sorteo del {{ raffle.raffle_date.split(' ')[0] }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+</div>
+
+{% if selected_raffle %}
+    <h3>Resultados para el sorteo del {{ selected_raffle.raffle_date.split(' ')[0] }}</h3>
+    <div class="raffle-results">
+        <p><strong>1er Premio:</strong> {{ selected_raffle.first_prize }}</p>
+        <p><strong>2do Premio:</strong> {{ selected_raffle.second_prize }}</p>
+        <p><strong>3er Premio:</strong> {{ selected_raffle.third_prize }}</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                {% if session['user_role'] == 'admin' %}<th>Vendedor</th>{% endif %}
+                <th>Número Ganador</th>
+                <th>Tipo de Premio</th>
+                <th>Cantidad Jugada</th>
+                <th>Total a Pagar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for winner in winners %}
+            <tr>
+                <td>{{ winner['client_name'] }}</td>
+                {% if session['user_role'] == 'admin' %}<td>{{ winner['seller_name'] }}</td>{% endif %}
+                <td>{{ winner['winning_number'] }}</td>
+                <td>{{ winner['prize_type'] }}</td>
+                <td>{{ winner['quantity'] }}</td>
+                <td>${{ '%.2f'|format(winner['total_payout']) }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6">No se encontraron ganadores para este sorteo.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Por favor, seleccione un sorteo para ver los ganadores.</p>
+{% endif %}
+
+{% if session['user_role'] == 'admin' %}
+<a href="{{ url_for('admin_dashboard') }}" class="btn-back">Volver al Dashboard</a>
+{% else %}
+<a href="{{ url_for('seller_dashboard') }}" class="btn-back">Volver al Dashboard</a>
+{% endif %}
+
+<style>
+.filter-form {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.raffle-results {
+    background: #e9ecef;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+.raffle-results p {
+    margin: 0;
+    font-size: 1.2rem;
+}
+</style>
+
+{% endblock %}

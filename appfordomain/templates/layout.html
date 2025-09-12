@@ -1,0 +1,33 @@
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}LotoWeb{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <nav class="navbar">
+        <a href="{{ url_for('index') }}" class="navbar-brand">LotoWeb</a>
+        {% if 'user_id' in session %}
+            <div class="navbar-menu">
+                <span class="navbar-item">Usuario: {{ session['username'] }} ({{ session['user_role'] }})</span>
+                <a href="{{ url_for('logout') }}" class="navbar-item">Cerrar Sesión</a>
+            </div>
+        {% endif %}
+    </nav>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

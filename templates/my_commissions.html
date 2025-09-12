@@ -1,0 +1,46 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}Mis Comisiones{% endblock %}
+
+{% block content %}
+<div class="header-bar">
+    <h1>Mis Comisiones</h1>
+</div>
+
+<div class="card">
+    <p>Aquí se muestra un resumen de sus ventas, comisiones, premios pagados y balance final por cada sorteo.</p>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Sorteo</th>
+            <th>Total Ventas</th>
+            <th>Comisión</th>
+            <th>Premios Pagados</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in report_data %}
+        <tr>
+            <td>Sorteo del {{ item.raffle_date.split(' ')[0] }}</td>
+            <td>${{ '%.2f'|format(item.total_sales) }}</td>
+            <td>${{ '%.2f'|format(item.commission_amount) }}</td>
+            <td style="color: red;">${{ '%.2f'|format(item.total_winnings) }}</td>
+            <td style="font-weight: bold; color: {{ 'green' if item.balance >= 0 else 'red' }};">
+                ${{ '%.2f'|format(item.balance) }}
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5">No hay datos de comisiones para mostrar.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ url_for('seller_dashboard') }}" class="btn-back">Volver al Dashboard</a>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+Reglas para calcular ganadores
+
+Recuerda: Los numeros ganadores de cada sorteo se llaman "premio". Los numeros de 2 cifras se llaman "chance", los numeros de 4 cifras se llaman "billete".
+
+Si en el sorteo salieron numeros de 4 cifras en el primero, segundo y tercer premio, calcularas los ganadores asi:
+
+Calculo de ganadores para billete:
+si el cliente compro un billete y acierta el primer premio, ganara $2000 por cada unidad de billete que compro. si acierta el segundo premio ganara $600. si acierta el tercer premio ganara $300. si acierta las 3 primeras o 3 ultimas cifras del primer premio ganara $50. si acierta las 2 primeras o 2 ultimas cifras del primer premio ganara $3. si acierta la ultima cifra del primer premio ganara $1. si acierta las 2 primeras cifras y ultima cifra del primer premio ganara $4. si acierta las 3 primeras o 3 ultimas cifras del segundo premio ganara $20. si acierta las 2 ultimas cifras del segundo premio ganara $2. si acierta las 3 primeras o 3 ultimas cifras del tercer premio ganara $10. si acierta las 2 ultimas cifras del tercer premio ganara $1. un cliente solo puede ganar con una de estas reglas (la de mayor ganancia) por cada billete que compra.
+
+Si el cliente compro chance (2 cifras), ganara de la siguiente manera: Si acierta las 2 ultimas cifras del primer premio ganara $14 por cada unidad de chance que compro. Si acierta las 2 ultimas cifras del segundo premio, ganara $3. Si acierta las 2 ultimas cifras del tercer premio ganara $2.
+
+Si en el sorteo salieron numeros de 4 cifras en el primer premio, 2 cifras en el segundo premio y 2 cifras en el tercer premio, calcularas los ganadores asi:
+
+Calculo de ganadores para billete:
+si el cliente compro un billete y acierta el primer premio, ganara $2000 por cada unidad de billete que compro. si acierta el segundo premio ganara $600. si acierta el tercer premio ganara $300. si acierta las 3 primeras o 3 ultimas cifras del primer premio ganara $50. si acierta las 2 primeras o 2 ultimas cifras del primer premio ganara $3. si acierta la ultima cifra del primer premio ganara $1. si acierta las 2 primeras cifras y ultima cifra del primer premio ganara $4.
+No Habra calculo de ganadores de billete para segundo y tercer premio.
+Si el cliente compro chance (2 cifras), ganara de la siguiente manera: Si acierta las 2 ultimas cifras del primer premio ganara $14 por cada unidad de chance que compro. Si acierta las 2  cifras del segundo premio, ganara $3. Si acierta las 2 cifras del tercer premio ganara $2.

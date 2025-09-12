@@ -1,0 +1,67 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}Detalle de Factura #{{ invoice['id'] }}{% endblock %}
+
+{% block content %}
+<div class="detail-container">
+    <div class="header-bar">
+        <h1>Detalle de Factura #{{ invoice['id'] }}</h1>
+    </div>
+
+    <div class="detail-info">
+        <p><strong>Fecha de Sorteo:</strong> {{ invoice['raffle_date'] }}</p>
+        
+        <p><strong>Vendedor:</strong> {{ invoice['seller_name'] }}</p>
+        <p><strong>Cliente:</strong> {{ invoice['client_name'] }} {{ invoice['client_last_name'] }}</p>
+        <p><strong>Fecha de Venta:</strong> {{ invoice['creation_date'] }}</p>
+    </div>
+
+    <h3>Ítems de la Factura</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Tipo</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item['number'] }}</td>
+                <td>{{ item['item_type']|capitalize }}</td>
+                <td>{{ item['quantity'] }}</td>
+                <td>${{ '%.2f'|format(item['price_per_unit']) }}</td>
+                <td>${{ '%.2f'|format(item['sub_total']) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="total-section">
+        <h2>Total de la Venta: ${{ '%.2f'|format(invoice['total_amount']) }}</h2>
+    </div>
+
+    <a href="{{ url_for('list_sales') }}" class="btn-back">Volver a Ventas</a>
+</div>
+
+<style>
+.detail-container {
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.detail-info p {
+    margin: 5px 0;
+    font-size: 1.1rem;
+}
+.total-section {
+    text-align: right;
+    margin-top: 20px;
+}
+</style>
+{% endblock %}

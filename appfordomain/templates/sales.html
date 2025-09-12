@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+
+{% block title %}Ventas{% endblock %}
+
+{% block content %}
+<div class="header-bar">
+    <h1>Ventas / Facturas</h1>
+    {% if session['user_role'] == 'seller' %}
+    <a href="{{ url_for('new_sale') }}" class="btn">Registrar Nueva Venta</a>
+    {% endif %}
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Cód. Factura</th>
+            <th>Fecha Sorteo</th>
+            <th>Cliente</th>
+            {% if session['user_role'] == 'admin' %}
+            <th>Vendedor</th>
+            {% endif %}
+            <th>Monto Total</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sale in sales %}
+        <tr>
+            <td>{{ sale['id'] }}</td>
+            <td>{{ sale['raffle_date'].split(' ')[0] }}</td>
+            <td>{{ sale['client_name'] }}</td>
+            {% if session['user_role'] == 'admin' %}
+            <td>{{ sale['seller_name'] }}</td>
+            {% endif %}
+            <td>${{ '%.2f'|format(sale['total_amount']) }}</td>
+            <td class="actions-cell">
+                <a href="{{ url_for('sale_detail', invoice_id=sale['id']) }}" class="btn btn-secondary btn-sm">Ver</a>
+                {% if session['user_role'] == 'seller' %}
+                    {% if sale['raffle_date'] > now.strftime('%Y-%m-%d %H:%M:%S') and not sale['results_entered'] %}
+                        <a href="{{ url_for('edit_sale', invoice_id=sale['id']) }}" class="btn btn-sm">Editar</a>
+                        <form action="{{ url_for('delete_sale', invoice_id=sale['id']) }}" method="post" style="display: inline-block;">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de que desea borrar esta factura? Esta acción no se puede deshacer.');">Borrar</button>
+                        </form>
+                    {% endif %}
+                {% endif %}
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="{{ 6 if session['user_role'] == 'admin' else 5 }}">No hay ventas registradas.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if session['user_role'] == 'admin' %}
+<a href="{{ url_for('admin_dashboard') }}" class="btn-back">Volver al Dashboard</a>
+{% else %}
+<a href="{{ url_for('seller_dashboard') }}" class="btn-back">Volver al Dashboard</a>
+{% endif %}
+
+<style>
+.actions-cell {
+    display: flex;
+    gap: 5px;
+}
+</style>
+
+{% endblock %}

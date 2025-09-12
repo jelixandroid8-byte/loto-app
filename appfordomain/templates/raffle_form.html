@@ -1,0 +1,23 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}Crear Nuevo Sorteo{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Crear Nuevo Sorteo</h2>
+    <form method="post">
+        <div class="form-group">
+            <label for="raffle_date">Fecha y Hora del Sorteo</label>
+            <input type="datetime-local" id="raffle_date" name="raffle_date" required>
+        </div>
+
+        
+
+        <div class="form-actions">
+            <button type="submit" class="btn">Crear Sorteo</button>
+            <a href="{{ url_for('list_raffles') }}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

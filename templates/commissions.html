@@ -1,0 +1,79 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}Reporte de Comisiones{% endblock %}
+
+{% block content %}
+<div class="header-bar">
+    <h1>Reporte de Comisiones</h1>
+</div>
+
+<div class="filter-form">
+    <form method="get" action="{{ url_for('commissions_report') }}">
+        <div class="form-group-inline">
+            <label for="seller_id">Vendedor:</label>
+            <select name="seller_id">
+                <option value="all">Todos</option>
+                {% for seller in sellers %}
+                    <option value="{{ seller.id }}" {% if selected_seller_id == seller.id|string %}selected{% endif %}>
+                        {{ seller.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group-inline">
+            <label for="raffle_id">Sorteo:</label>
+            <select name="raffle_id">
+                <option value="all">Todos</option>
+                {% for raffle in raffles %}
+                    <option value="{{ raffle.id }}" {% if selected_raffle_id == raffle.id|string %}selected{% endif %}>
+                        Sorteo del {{ raffle.raffle_date.split(' ')[0] }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn">Filtrar</button>
+    </form>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Vendedor</th>
+            <th>Fecha Sorteo</th>
+            <th>Ventas Totales</th>
+            <th>Comisiones</th>
+            <th>Premios Pagados</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in report_data %}
+            {% if row['total_sales'] > 0 %}
+            <tr>
+                <td>{{ row['seller_name'] }}</td>
+                <td>{{ row['raffle_date'].split(' ')[0] if row['raffle_date'] else 'N/A' }}</td>
+                <td>${{ '%.2f'|format(row['total_sales']) }}</td>
+                <td>${{ '%.2f'|format(row['commission_amount']) }}</td>
+                <td>${{ '%.2f'|format(row['total_winnings']) }}</td>
+                <td>${{ '%.2f'|format(row['balance']) }}</td>
+            </tr>
+            {% endif %}
+        {% else %}
+        <tr>
+            <td colspan="6">No hay datos para mostrar con los filtros seleccionados.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ url_for('admin_dashboard') }}" class="btn-back">Volver al Dashboard</a>
+
+<style>
+.form-group-inline {
+    display: inline-block;
+    margin-right: 20px;
+}
+</style>
+
+{% endblock %}

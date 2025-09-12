@@ -1,0 +1,127 @@
+{% extends 'layout.html' %}
+
+{% block title %}Ventas{% endblock %}
+
+{% block content %}
+<div class="header-bar">
+    <h1>Ventas / Facturas</h1>
+    {% if session['user_role'] == 'seller' %}
+    <a href="{{ url_for('new_sale') }}" class="btn">Registrar Nueva Venta</a>
+    {% endif %}
+</div>
+
+<div class="filters-container card">
+    <form method="get" action="{{ url_for('list_sales') }}">
+        <div class="filter-row">
+            <div class="form-group">
+                <label for="raffle_id">Filtrar por Sorteo:</label>
+                <select name="raffle_id" id="raffle_id">
+                    <option value="all">Todos los Sorteos</option>
+                    {% for raffle in raffles %}
+                    <option value="{{ raffle.id }}" {% if selected_raffle_id == raffle.id|string %}selected{% endif %}>
+                        Sorteo del {{ raffle.raffle_date.split(' ')[0] }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            {% if session['user_role'] == 'admin' %}
+            <div class="form-group">
+                <label for="seller_id">Filtrar por Vendedor:</label>
+                <select name="seller_id" id="seller_id">
+                    <option value="all">Todos los Vendedores</option>
+                    {% for seller in sellers %}
+                    <option value="{{ seller.id }}" {% if selected_seller_id == seller.id|string %}selected{% endif %}>
+                        {{ seller.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="client_id">Filtrar por Cliente:</label>
+                <select name="client_id" id="client_id">
+                    <option value="all">Todos los Clientes</option>
+                    {% for client in clients %}
+                    <option value="{{ client.id }}" {% if selected_client_id == client.id|string %}selected{% endif %}>
+                        {{ client.name }} {{ client.last_name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-actions" style="justify-content: flex-start;">
+            <button type="submit" class="btn">Filtrar</button>
+            <a href="{{ url_for('list_sales') }}" class="btn btn-secondary">Limpiar Filtros</a>
+        </div>
+    </form>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Cód. Factura</th>
+            <th>Fecha Sorteo</th>
+            <th>Cliente</th>
+            {% if session['user_role'] == 'admin' %}
+            <th>Vendedor</th>
+            {% endif %}
+            <th>Monto Total</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sale in sales %}
+        <tr>
+            <td>{{ sale['id'] }}</td>
+            <td>{{ sale['raffle_date'].split(' ')[0] }}</td>
+            <td>{{ sale['client_name'] }} {{ sale['client_last_name'] }}</td>
+            {% if session['user_role'] == 'admin' %}
+            <td>{{ sale['seller_name'] }}</td>
+            {% endif %}
+            <td>${{ '%.2f'|format(sale['total_amount']) }}</td>
+            <td class="actions-cell">
+                <a href="{{ url_for('sale_detail', invoice_id=sale['id']) }}" class="btn btn-secondary btn-sm">Ver</a>
+                {% if session['user_role'] == 'seller' %}
+                    {% if sale['raffle_date'] > now.strftime('%Y-%m-%d %H:%M:%S') and not sale['results_entered'] %}
+                        <a href="{{ url_for('edit_sale', invoice_id=sale['id']) }}" class="btn btn-sm">Editar</a>
+                        <form action="{{ url_for('delete_sale', invoice_id=sale['id']) }}" method="post" style="display: inline-block;">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de que desea borrar esta factura? Esta acción no se puede deshacer.');">Borrar</button>
+                        </form>
+                    {% endif %}
+                {% endif %}
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="{{ 6 if session['user_role'] == 'admin' else 5 }}">No hay ventas que coincidan con los filtros seleccionados.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if session['user_role'] == 'admin' %}
+<a href="{{ url_for('admin_dashboard') }}" class="btn-back">Volver al Dashboard</a>
+{% else %}
+<a href="{{ url_for('seller_dashboard') }}" class="btn-back">Volver al Dashboard</a>
+{% endif %}
+
+<style>
+.actions-cell {
+    display: flex;
+    gap: 5px;
+}
+.filters-container {
+    margin-bottom: 20px;
+    padding: 15px;
+}
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-end;
+}
+</style>
+
+{% endblock %}

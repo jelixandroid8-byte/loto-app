@@ -1,0 +1,5 @@
+Flask
+werkzeug
+gunicorn
+waitress
+psycopg2-binary

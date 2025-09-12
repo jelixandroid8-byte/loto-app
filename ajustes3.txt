@@ -1,0 +1,9 @@
+1. Venta nueva, panel de vendedor: a. verificar si el numero ingresado en el campo de numero tiene 2 o 4 cifras, estas son los unicos numeros posibles. esta verificacion la tienes que hacer al momento de quitar el cursor o foco del box y no dejar que avance al siguiente campo. b. verificar si el numero ingresado ya fue ingresado anteriormente en el actual formulario de venta y que en vez de ingresarlo nuevamente, cambie el campo de cantidad (quiero evitar que un cliente compre un numero mas de una vez inadvertidamente o por error).
+
+2. Pantalla de Mis ventas, panel de vendedor: Agregar un dropdown con busqueda para desplegar ventas por sorteo especifico o todos y otro dropdown con busqueda para desplegar ventas por cliente o todos.
+
+3. Pantall de Ventas, panel de administrador: Agregar un dropdown con busqueda para desplegar ventas por sorteo especifico o todos, otro dropdown con busqueda para desplegar ventas por vendedor especifico o todos y otro dropdown con busqueda para desplegar ventas por cliente especifico o todos.
+
+4. Hacer una nueva pagina llamada "Mis Comisiones" en el panel de vendedor: Aqui desplegaras una lista con las siguientes columnas: Sorteo, Ventas(sumatoria de totales de facturas para este sorteo), Comisión (sumatoria de comisiones por ventas hechas para este sorteo), Pago de Premios (sumatoria de totales a pagar por premios ganados para este sorteo de este vendedor), Balance (ventas-pago de premios-comisión)
+
+5. Tengo que agregar una nueva regla al calculo de premios. En algunos sorteos, el segundo y tercer premio, solo tendrán 2 cifras. Dame la opción para ingresar 2 cifras en el segundo y tercer premio en la pantalla de ingreso de números ganadores para sorteos. Si el sorteo tiene números de 2 cifras en el segundo y tercer premio, no me calcules ganadores para billetes en el segundo y tercer premio, pero si calcula ganadores para chances.

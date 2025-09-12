@@ -1,0 +1,159 @@
+{% extends 'layout.html' %}
+
+{% block title %}Nueva Venta{% endblock %}
+
+{% block content %}
+<div class="form-container" style="max-width: 800px;">
+    <h2>Registrar Nueva Venta</h2>
+    <form method="post" id="sale-form">
+        <div class="form-group">
+            <label for="raffle_id">Sorteo</label>
+            <select id="raffle_id" name="raffle_id" required>
+                {% for raffle in raffles %}
+                    <option value="{{ raffle['id'] }}">
+                        Sorteo del {{ raffle['raffle_date'] }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="client_id">Cliente</label>
+            <select id="client_id" name="client_id" required>
+                {% for client in clients %}
+                    <option value="{{ client['id'] }}">
+                        {{ client['name'] }} {{ client['last_name'] }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <hr>
+        <h4>Ítems de la Venta</h4>
+        <p>Ingrese números de 4 cifras para billetes ($1.00) o 2 cifras para chances ($0.25).</p>
+        
+        <div id="invoice-items-container">
+            <div class="item-header">
+                <div class="item-number">Número</div>
+                <div class="item-quantity">Cantidad</div>
+                <div class="item-subtotal">Subtotal</div>
+                <div class="item-action">Acción</div>
+            </div>
+            <!-- Dynamic items will be inserted here -->
+        </div>
+        
+        <button type="button" id="add-item-btn" class="btn btn-secondary">+ Añadir Ítem</button>
+
+        <hr>
+        <h3 id="total-display">Total de la Venta: $0.00</h3>
+
+        <div class="form-actions">
+            <button type="submit" class="btn">Guardar Venta</button>
+            <a href="{{ url_for('seller_dashboard') }}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const container = document.getElementById('invoice-items-container');
+    const addItemBtn = document.getElementById('add-item-btn');
+    const totalDisplay = document.getElementById('total-display');
+
+    let itemIndex = 0;
+
+    function updateTotal() {
+        let total = 0;
+        container.querySelectorAll('.item-row').forEach(row => {
+            const subtotalSpan = row.querySelector('.item-subtotal span');
+            if (subtotalSpan) {
+                total += parseFloat(subtotalSpan.textContent.replace('$', ''));
+            }
+        });
+        totalDisplay.textContent = `Total de la Venta: $${total.toFixed(2)}`;
+    }
+
+    function calculateSubtotal(row) {
+        const numberInput = row.querySelector('input[name^="number"]');
+        const quantityInput = row.querySelector('input[name^="quantity"]');
+        const subtotalSpan = row.querySelector('.item-subtotal span');
+
+        const number = numberInput.value;
+        const quantity = parseInt(quantityInput.value, 10) || 0;
+        let price = 0;
+
+        numberInput.setCustomValidity(''); // Clear previous validation errors
+
+        if (number.length === 4) {
+            price = 1.00;
+        } else if (number.length === 2) {
+            price = 0.25;
+        } else if (number.length > 0) {
+            numberInput.setCustomValidity('El número debe tener 2 o 4 cifras.');
+        }
+        
+        const subtotal = price * quantity;
+        subtotalSpan.textContent = `$${subtotal.toFixed(2)}`;
+        updateTotal();
+    }
+
+    function addNewItem() {
+        itemIndex++;
+        const itemRow = document.createElement('div');
+        itemRow.classList.add('item-row');
+        itemRow.innerHTML = `
+            <input type="text" name="number" class="item-number" placeholder="Número (2 o 4 cifras)" required>
+            <input type="number" name="quantity" class="item-quantity" placeholder="Cantidad" min="1" required>
+            <div class="item-subtotal"><span>$0.00</span></div>
+            <button type="button" class="btn btn-danger btn-sm delete-item-btn">Borrar</button>
+        `;
+        container.appendChild(itemRow);
+
+        // Add event listeners for the new row
+        itemRow.querySelector('input[name^="number"]').addEventListener('input', () => calculateSubtotal(itemRow));
+        itemRow.querySelector('input[name^="quantity"]').addEventListener('input', () => calculateSubtotal(itemRow));
+        itemRow.querySelector('.delete-item-btn').addEventListener('click', function() {
+            this.closest('.item-row').remove();
+            updateTotal();
+        });
+    }
+
+    // Add one item to start with
+    addNewItem();
+
+    // Add new item when button is clicked
+    addItemBtn.addEventListener('click', addNewItem);
+
+    // Form validation before submit
+    document.getElementById('sale-form').addEventListener('submit', function(e) {
+        let hasInvalid = false;
+        container.querySelectorAll('.item-row').forEach(row => {
+            const numberInput = row.querySelector('input[name^="number"]');
+            if (numberInput.value.length > 0 && ![2, 4].includes(numberInput.value.length)) {
+                numberInput.setCustomValidity('El número debe tener 2 o 4 cifras.');
+                hasInvalid = true;
+            }
+        });
+
+        if (hasInvalid) {
+            e.preventDefault();
+            alert('Por favor, corrija los errores en los ítems antes de guardar.');
+        }
+    });
+});
+</script>
+
+<style>
+    .item-header, .item-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        gap: 10px;
+    }
+    .item-number { flex: 3; }
+    .item-quantity { flex: 2; }
+    .item-subtotal { flex: 2; font-weight: bold; }
+    .item-action { flex: 1; }
+    .btn-sm { padding: 5px 10px; font-size: 0.8rem; }
+</style>
+{% endblock %}

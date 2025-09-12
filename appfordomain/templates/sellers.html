@@ -1,0 +1,45 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}Gestionar Vendedores{% endblock %}
+
+{% block content %}
+<div class="header-bar">
+    <h1>Vendedores</h1>
+    <a href="{{ url_for('create_seller') }}" class="btn">Crear Nuevo Vendedor</a>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Provincia</th>
+            <th>Comisión (%)</th>
+            <th>Fecha de Ingreso</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for seller in sellers %}
+        <tr>
+            <td>{{ seller['username'] }}</td>
+            <td>{{ seller['name'] }}</td>
+            <td>{{ seller['phone'] }}</td>
+            <td>{{ seller['province'] }}</td>
+            <td>{{ seller['commission_percentage'] }}</td>
+            <td>{{ seller['join_date'].split(' ')[0] }}</td>
+            <td>
+                <a href="{{ url_for('edit_seller', seller_id=seller['id']) }}" class="btn btn-secondary">Editar</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="7">No hay vendedores registrados.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('admin_dashboard') }}" class="btn-back">Volver al Dashboard</a>
+{% endblock %}

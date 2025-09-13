@@ -224,85 +224,34 @@ tbody tr:hover {
 }
 
 @media (max-width: 576px) {
-    .item-row {
-        flex-wrap: wrap; /* Allow wrapping */
-        align-items: center;
-        gap: 5px;
-    }
-    .item-number-wrapper {
-        flex: 1 1 100%; /* Number input takes full width, forcing others to wrap */
-        margin-bottom: 10px; /* Add space below number input */
-    }
-    .item-quantity {
-        flex: 1 1 0%; /* Allow quantity to grow/shrink */
-        max-width: 80px; /* Limit max width for quantity */
-        margin-right: 5px; /* Small gap */
-        margin-bottom: 0;
-    }
-    .item-subtotal {
-        flex: 1 1 auto; /* Subtotal takes remaining space */
-        text-align: right;
-        margin-bottom: 0;
-    }
-    .item-action {
-        flex: 0 0 auto; /* Button takes its natural width */
-        margin-bottom: 0;
+    .item-header, .item-row {
+        flex-wrap: wrap;
+        gap: 10px;
     }
 
-    /* To align with titles, we need to adjust the item-header as well */
-    .item-header {
-        flex-wrap: wrap;
-        gap: 5px;
+    .item-number-wrapper {
+        flex: 1 1 100%; /* Ocupa todo el ancho y fuerza el salto de línea */
     }
-    .item-header .item-number-wrapper {
-        flex: 1 1 100%;
-        margin-bottom: 10px;
+
+    .item-quantity {
+        flex: 1 1 50px; /* Base flexible de 50px, puede crecer */
     }
-    .item-header .item-quantity {
-        flex: 1 1 0%;
-        max-width: 80px;
-        margin-right: 5px;
-        margin-bottom: 0;
+
+    .item-subtotal {
+        flex: 2 1 auto; /* Crece para ocupar el espacio restante */
+        text-align: right;
+        padding-top: 8px; /* Alineación vertical */
     }
-    .item-header .item-subtotal {
+
+    .item-action {
         flex: 1 1 auto;
         text-align: right;
-        margin-bottom: 0;
     }
-    .item-header .item-action {
-        flex: 0 0 auto;
-        margin-bottom: 0;
-    }
-}
 
-
-@media (max-width: 576px) {
-    .item-row {
-        flex-wrap: nowrap; /* Force items onto a single line */
-        align-items: center;
-        gap: 5px; /* Reduce gap to save space */
-    }
-    .item-number-wrapper {
-        flex: 2 1 0%; /* Number input gets more space */
-        margin-bottom: 0;
-    }
-    .item-number {
-        width: 100%; /* Fill its wrapper */
-    }
-    .item-quantity {
-        flex: 2 1 0%; /* Quantity input gets similar space */
-        margin-right: 0;
-        margin-bottom: 0;
-    }
-    .item-subtotal {
-        flex: 1 1 auto; /* Subtotal takes minimal space, but can grow */
-        min-width: 60px; /* Ensure subtotal has enough space */
-        text-align: right;
-        margin-bottom: 0;
-    }
-    .item-action {
-        flex: 0 0 auto; /* Button takes its natural width */
-        margin-bottom: 0;
+    /* Ajuste para el botón de borrar para que no sea tan grande */
+    .item-action .btn {
+        width: auto;
+        padding: 5px 10px;
     }
 }
 

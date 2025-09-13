@@ -217,8 +217,21 @@ tbody tr:hover {
         -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
     }
 
-    table {
-        white-space: nowrap; /* Prevent text wrapping inside table cells */
-        width: auto; /* Allow table to be wider than its container */
+    @media (max-width: 576px) { /* Targeting smaller mobile screens */
+    .item-row {
+        flex-wrap: wrap; /* Allow items to wrap to next line */
+    }
+    .item-number-wrapper,
+    .item-quantity,
+    .item-subtotal,
+    .item-action {
+        flex: 1 1 100%; /* Take full width on small screens */
+        margin-bottom: 10px; /* Add some vertical spacing */
+    }
+    .item-subtotal {
+        text-align: left; /* Adjust alignment if it was centered */
+    }
+    .item-action {
+        margin-bottom: 0; /* No extra margin for the last item */
     }
 }

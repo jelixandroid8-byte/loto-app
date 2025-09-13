@@ -217,21 +217,27 @@ tbody tr:hover {
         -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
     }
 
-    @media (max-width: 576px) { /* Targeting smaller mobile screens */
+    @media (max-width: 576px) {
     .item-row {
-        flex-wrap: wrap; /* Allow items to wrap to next line */
+        flex-wrap: wrap; /* Allow items to wrap */
+        align-items: center; /* Align items in the row */
     }
-    .item-number-wrapper,
-    .item-quantity,
-    .item-subtotal,
-    .item-action {
-        flex: 1 1 100%; /* Take full width on small screens */
-        margin-bottom: 10px; /* Add some vertical spacing */
+    .item-number-wrapper {
+        flex: 1 1 100%; /* Number input takes full width */
+        margin-bottom: 10px;
+    }
+    .item-quantity {
+        flex: 0 0 80px; /* Fixed width for quantity, or a smaller flex-basis */
+        margin-right: 10px; /* Space between quantity and button */
+        margin-bottom: 0;
     }
     .item-subtotal {
-        text-align: left; /* Adjust alignment if it was centered */
+        flex: 1 1 auto; /* Allow subtotal to take remaining space */
+        text-align: right;
+        margin-bottom: 0;
     }
     .item-action {
-        margin-bottom: 0; /* No extra margin for the last item */
+        flex: 0 0 auto; /* Button takes its natural width */
+        margin-bottom: 0;
     }
 }

@@ -30,14 +30,19 @@ La aplicación tiene dos roles de usuario:
 
 ## 2. Estructura de la Base de Datos
 
-La base de datos (`lottery.db`) es un archivo SQLite que contiene las siguientes tablas:
+La aplicación está diseñada para ser flexible con la base de datos:
 
-- `users`: Almacena la información de los usuarios (administradores y vendedores), incluyendo sus credenciales y porcentaje de comisión.
-- `clients`: Guarda los datos de los clientes finales, asociados a un vendedor.
-- `raffles`: Contiene la información de cada sorteo, incluyendo la fecha y los números ganadores una vez que se ingresan.
-- `invoices`: La cabecera de cada factura o venta, asociada a un sorteo, un cliente y un vendedor.
-- `invoice_items`: El detalle de cada venta, guardando cada número, la cantidad, y el tipo (billete o chance).
-- `winners`: Una vez que se calculan los resultados, esta tabla almacena cada número ganador, el cliente, el tipo de premio y el monto a pagar.
+-   **Desarrollo Local (SQLite)**: Por defecto, si no se especifica una `DATABASE_URL`, la aplicación utiliza un archivo SQLite (`lottery.db`). Este es ideal para el desarrollo y pruebas locales.
+-   **Producción (PostgreSQL)**: Para entornos de producción (como Render), la aplicación se conecta a una base de datos PostgreSQL si la variable de entorno `DATABASE_URL` está configurada.
+
+Ambas bases de datos contienen las siguientes tablas principales:
+
+-   `users`: Almacena la información de los usuarios (administradores y vendedores), incluyendo sus credenciales y porcentaje de comisión.
+-   `clients`: Guarda los datos de los clientes finales, asociados a un vendedor.
+-   `raffles`: Contiene la información de cada sorteo, incluyendo la fecha y los números ganadores una vez que se ingresan.
+-   `invoices`: La cabecera de cada factura o venta, asociada a un sorteo, un cliente y un vendedor.
+-   `invoice_items`: El detalle de cada venta, guardando cada número, la cantidad, y el tipo (billete o chance).
+-   `winners`: Una vez que se calculan los resultados, esta tabla almacena cada número ganador, el cliente, el tipo de premio y el monto a pagar.
 
 ## 3. Tecnologías Utilizadas
 
@@ -73,15 +78,17 @@ Necesitarás instalar Flask y Werkzeug (para las contraseñas).
 pip install Flask werkzeug
 ```
 
-### Paso 4: Inicializar la Base de Datos
+### Paso 4: Inicializar la Base de Datos (Solo para SQLite local)
 
-Este comando creará el archivo `lottery.db` y las tablas necesarias. También creará los dos usuarios por defecto. **Solo necesitas ejecutarlo una vez.**
+Este comando creará el archivo `lottery.db` y las tablas necesarias para el desarrollo local con SQLite. También creará los dos usuarios por defecto. **Solo necesitas ejecutarlo una vez.**
 
 ```bash
 flask --app app initdb
 ```
 
 Verás mensajes indicando que la base de datos y los usuarios por defecto fueron creados.
+
+**Nota para Producción (PostgreSQL):** Si estás desplegando en un entorno como Render que usa PostgreSQL, la inicialización de la base de datos (creación de tablas y usuarios iniciales) deberá realizarse directamente en la base de datos PostgreSQL, posiblemente ejecutando el esquema `schema_postgres.sql` y scripts de inserción de datos apropiados. La función `init_db()` en `database.py` actualmente solo soporta la inicialización de SQLite.
 
 ### Paso 5: Ejecutar la Aplicación
 

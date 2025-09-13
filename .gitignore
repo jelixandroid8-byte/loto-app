@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+lottery.db
+*.sqlite3
+*.log
+*.pot
+*.mo
+*.egg-info/
+.installed.cfg
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
+dist/
+build/
+*.egg
+*.whl
+
+# IDEs
+.idea/
+.vscode/
+
+# OS generated files
+.DS_Store
+.Trashes
+Thumbs.db
+
+# Render specific
+render-info.txt

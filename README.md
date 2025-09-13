@@ -100,6 +100,21 @@ La aplicación estará corriendo. Abre tu navegador web y ve a la siguiente dire
 
 **http://127.0.0.1:5000**
 
+## 6. Flujo de Trabajo y Despliegue
+
+Este proyecto sigue un flujo de trabajo que integra desarrollo local, control de versiones con GitHub y despliegue continuo con Render.
+
+-   **Control de Versiones (GitHub)**: El código fuente se gestiona en un repositorio de GitHub. Los cambios locales se suben a este repositorio para mantener un historial de versiones y facilitar la colaboración.
+-   **Despliegue Continuo (Render)**: La aplicación está configurada para desplegarse automáticamente en Render.com cada vez que se suben cambios a la rama principal (main) del repositorio de GitHub. Render utiliza la variable de entorno `DATABASE_URL` para conectarse a una base de datos PostgreSQL en producción.
+
+### Cambios Recientes Realizados
+
+Durante la sesión actual, se han implementado los siguientes cambios:
+
+-   **Actualización del `README.md`**: Se ha clarificado la estrategia de base de datos (SQLite para desarrollo local, PostgreSQL para producción) y se ha añadido esta sección de flujo de trabajo.
+-   **Gestión de Archivos de Git**: Se creó un archivo `.gitignore` para excluir archivos generados (como `__pycache__`, `venv/`, `lottery.db`) del control de versiones, y se des-rastreó un archivo `__pycache__` que estaba siendo seguido por error.
+-   **Validación de Cantidad en Nueva Venta**: Se añadió validación en el servidor (en `app.py`) y en el cliente (en `templates/new_sale_form.html`) para asegurar que el campo "cantidad" solo acepte números enteros.
+
 ## 5. Credenciales de Acceso por Defecto
 
 - **Usuario Administrador**:

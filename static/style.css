@@ -225,6 +225,59 @@ tbody tr:hover {
 
 @media (max-width: 576px) {
     .item-row {
+        flex-wrap: wrap; /* Allow wrapping */
+        align-items: center;
+        gap: 5px;
+    }
+    .item-number-wrapper {
+        flex: 1 1 100%; /* Number input takes full width, forcing others to wrap */
+        margin-bottom: 10px; /* Add space below number input */
+    }
+    .item-quantity {
+        flex: 1 1 0%; /* Allow quantity to grow/shrink */
+        max-width: 80px; /* Limit max width for quantity */
+        margin-right: 5px; /* Small gap */
+        margin-bottom: 0;
+    }
+    .item-subtotal {
+        flex: 1 1 auto; /* Subtotal takes remaining space */
+        text-align: right;
+        margin-bottom: 0;
+    }
+    .item-action {
+        flex: 0 0 auto; /* Button takes its natural width */
+        margin-bottom: 0;
+    }
+
+    /* To align with titles, we need to adjust the item-header as well */
+    .item-header {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    .item-header .item-number-wrapper {
+        flex: 1 1 100%;
+        margin-bottom: 10px;
+    }
+    .item-header .item-quantity {
+        flex: 1 1 0%;
+        max-width: 80px;
+        margin-right: 5px;
+        margin-bottom: 0;
+    }
+    .item-header .item-subtotal {
+        flex: 1 1 auto;
+        text-align: right;
+        margin-bottom: 0;
+    }
+    .item-header .item-action {
+        flex: 0 0 auto;
+        margin-bottom: 0;
+    }
+}
+
+
+@media (max-width: 576px) {
+    .item-row {
         flex-wrap: nowrap; /* Force items onto a single line */
         align-items: center;
         gap: 5px; /* Reduce gap to save space */

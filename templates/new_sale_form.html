@@ -56,6 +56,7 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('sale-form');
     const container = document.getElementById('invoice-items-container');
     const addItemBtn = document.getElementById('add-item-btn');
     const totalDisplay = document.getElementById('total-display');
@@ -65,10 +66,32 @@ document.addEventListener('DOMContentLoaded', function () {
         container.querySelectorAll('.item-row').forEach(row => {
             const subtotalSpan = row.querySelector('.item-subtotal span');
             if (subtotalSpan) {
-                total += parseFloat(subtotalSpan.textContent.replace('$', ''));
+                total += parseFloat(subtotalSpan.textContent.replace('
+
+<style>
+    .item-header, .item-row {
+        display: flex;
+        align-items: flex-start; /* Align to top for error message */
+        margin-bottom: 10px;
+        gap: 10px;
+    }
+    .item-header > div { padding-bottom: 1em; } /* Match space of error div */
+    .item-number-wrapper { flex: 3; }
+    .item-number { width: 100%; }
+    .item-error {
+        color: #dc3545; /* Bootstrap danger color */
+        font-size: 0.875em;
+        height: 1em; /* Reserve space to prevent layout shift */
+    }
+    .item-quantity { flex: 2; }
+    .item-subtotal { flex: 2; font-weight: bold; padding-top: 8px; } /* Add padding to align with inputs */
+    .item-action { flex: 1; padding-top: 8px; }
+    .btn-sm { padding: 5px 10px; font-size: 0.8rem; }
+</style>
+{% endblock %}, ''));
             }
         });
-        totalDisplay.textContent = `Total de la Venta: $${total.toFixed(2)}`;
+        totalDisplay.textContent = `Total de la Venta: ${total.toFixed(2)}`;
     }
 
     function calculateSubtotal(row) {
@@ -87,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         
         const subtotal = price * quantity;
-        subtotalSpan.textContent = `$${subtotal.toFixed(2)}`;
+        subtotalSpan.textContent = `${subtotal.toFixed(2)}`;
         updateTotal();
     }
 
@@ -100,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const number = currentInput.value;
         if (number.length > 0 && ![2, 4].includes(number.length)) {
             errorDiv.textContent = 'El número debe tener 2 o 4 cifras.';
-            return; // Stop processing, but don't cause a focus loop
+            return;
         }
 
         // Duplicate check
@@ -119,9 +142,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 targetQuantityInput.value = targetQuantity + currentQuantity;
                 
-                // Non-blocking notification
                 const originalColor = targetRow.style.backgroundColor;
-                targetRow.style.backgroundColor = '#e8f5e9'; // A light green flash
+                targetRow.style.backgroundColor = '#e8f5e9';
                 setTimeout(() => {
                     targetRow.style.backgroundColor = originalColor;
                 }, 1000);
@@ -151,6 +173,11 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
         container.appendChild(itemRow);
         calculateSubtotal(itemRow);
+        // Focus on the new item's number input for rapid entry
+        const newNumberInput = itemRow.querySelector('input[name="number"]');
+        if (newNumberInput) {
+            newNumberInput.focus();
+        }
     }
 
     // --- Event Delegation ---
@@ -177,14 +204,47 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // --- Enter Key Navigation ---
+    form.addEventListener('keydown', function(event) {
+        if (event.key !== 'Enter') return;
+
+        const target = event.target;
+
+        // Prevent form submission on Enter unless it's a submit button
+        if (target.type !== 'submit') {
+            event.preventDefault();
+        }
+
+        if (target.matches('input[name="number"]')) {
+            const itemRow = target.closest('.item-row');
+            const quantityInput = itemRow.querySelector('input[name="quantity"]');
+            if (quantityInput) {
+                quantityInput.focus();
+            }
+        } else if (target.matches('input[name="quantity"]')) {
+            // Check if the current item is valid before adding a new one
+            const itemRow = target.closest('.item-row');
+            const numberInput = itemRow.querySelector('input[name="number"]');
+            if (numberInput.value.trim() !== '' && target.value.trim() !== '') {
+                addNewItem(); // This will create a new row and focus it
+            }
+        }
+    });
+
     // Add one item to start with
     addNewItem();
+    // Clear the initial item for a clean start, but keep focus
+    const firstInput = container.querySelector('input[name="number"]');
+    if(firstInput) {
+        firstInput.value = '';
+        calculateSubtotal(firstInput.closest('.item-row'));
+    }
 
     // Add new item when button is clicked
     addItemBtn.addEventListener('click', addNewItem);
 
     // Final validation before submit
-    document.getElementById('sale-form').addEventListener('submit', function(e) {
+    form.addEventListener('submit', function(e) {
         let hasInvalid = false;
         let itemCount = 0;
         container.querySelectorAll('.item-row').forEach(row => {

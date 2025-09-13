@@ -12,6 +12,7 @@
     <p>Aquí se muestra un resumen de sus ventas, comisiones, premios pagados y balance final por cada sorteo.</p>
 </div>
 
+<div class="table-responsive">
 <table>
     <thead>
         <tr>
@@ -40,6 +41,7 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
 
 <a href="{{ url_for('seller_dashboard') }}" class="btn-back">Volver al Dashboard</a>
 

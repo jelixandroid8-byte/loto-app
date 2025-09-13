@@ -32,6 +32,7 @@
         <p><strong>3er Premio:</strong> {{ selected_raffle.third_prize }}</p>
     </div>
 
+    <div class="table-responsive">
     <table>
         <thead>
             <tr>
@@ -60,6 +61,7 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
 {% else %}
     <p>Por favor, seleccione un sorteo para ver los ganadores.</p>
 {% endif %}

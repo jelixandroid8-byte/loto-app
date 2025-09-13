@@ -58,6 +58,7 @@
     </form>
 </div>
 
+<div class="table-responsive">
 <table>
     <thead>
         <tr>
@@ -100,6 +101,7 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
 
 {% if session['user_role'] == 'admin' %}
 <a href="{{ url_for('admin_dashboard') }}" class="btn-back">Volver al Dashboard</a>

@@ -210,4 +210,15 @@ tbody tr:hover {
         width: 100%;
         justify-content: space-between;
     }
+
+    /* New: Make tables horizontally scrollable */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
+    }
+
+    table {
+        white-space: nowrap; /* Prevent text wrapping inside table cells */
+        width: auto; /* Allow table to be wider than its container */
+    }
 }

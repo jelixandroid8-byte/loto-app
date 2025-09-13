@@ -142,10 +142,10 @@ document.addEventListener('DOMContentLoaded', function () {
         itemRow.classList.add('item-row');
         itemRow.innerHTML = `
             <div class="item-number-wrapper">
-                <input type="text" name="number" class="item-number" placeholder="Número (2 o 4 cifras)" required>
+                <input type="text" inputmode="numeric" pattern="[0-9]*" name="number" class="item-number" placeholder="Número (2 o 4 cifras)" required>
                 <div class="item-error"></div>
             </div>
-            <input type="number" name="quantity" class="item-quantity" placeholder="Cantidad" min="1" step="1" required>
+            <input type="number" inputmode="numeric" name="quantity" class="item-quantity" placeholder="Cantidad" min="1" step="1" required>
             <div class="item-subtotal"><span>$0.00</span></div>
             <button type="button" class="btn btn-danger btn-sm delete-item-btn">Borrar</button>
         `;

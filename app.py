@@ -384,7 +384,7 @@ def new_sale():
                 try:
                     quantity = int(quantity_str)
                     if not (number.isdigit() and len(number) in [2, 4] and quantity > 0):
-                        flash(f'Error en el ítem {i+1}: Verifique el número ({number}) y la cantidad ({quantity_str}).', 'danger')
+                        flash(f'Error en el ítem {i+1}: Verifique el número ({number}) y la cantidad ({quantity_str}). La cantidad debe ser un número entero positivo.', 'danger')
                         return render_template('new_sale_form.html', clients=clients, raffles=raffles)
                     
                     item_type = 'billete' if len(number) == 4 else 'chance'
@@ -392,7 +392,10 @@ def new_sale():
                     sub_total = quantity * price_per_unit
                     items.append({'number': number, 'quantity': quantity, 'item_type': item_type, 'price_per_unit': price_per_unit, 'sub_total': sub_total})
                     total_amount += sub_total
-                except (ValueError, IndexError):
+                except ValueError: # Catch error if quantity_str is not an integer
+                    flash(f'Error en el ítem {i+1}: La cantidad ({quantity_str}) debe ser un número entero.', 'danger')
+                    return render_template('new_sale_form.html', clients=clients, raffles=raffles)
+                except IndexError: # Keep existing IndexError catch
                     flash(f'Error procesando el ítem {i+1}. Verifique los datos.', 'danger')
                     return render_template('new_sale_form.html', clients=clients, raffles=raffles)
 

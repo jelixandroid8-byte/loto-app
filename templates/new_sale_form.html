@@ -329,8 +329,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     .item-quantity {
-        flex: 1; /* Adjust width proportion */
-        min-width: 80px; /* Ensure minimum width */
+        flex: 0.5; /* Reduce the width proportion */
+        min-width: 50px; /* Ensure a smaller minimum width */
     }
 
     .item-subtotal {
@@ -340,9 +340,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     .item-action {
-        flex: 1; /* Adjust width proportion */
-        min-width: 80px; /* Ensure minimum width */
-        text-align: center; /* Center align button */
+        flex: 1; /* Ensure enough space for the button */
+        min-width: 80px; /* Ensure the button stays on the same line */
+        text-align: center; /* Center align the button */
     }
 
     .btn-sm {
@@ -377,7 +377,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         .item-number-wrapper, .item-quantity, .item-subtotal, .item-action {
-            min-width: auto; /* Remove minimum width constraints */
+            flex: 1; /* Adjust proportions for smaller screens */
+            min-width: auto; /* Remove strict minimum width */
+        }
+
+        .item-quantity {
+            flex: 0.5; /* Keep the shorter width for cantidad */
         }
 
         .item-number, .item-quantity {

@@ -355,21 +355,56 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* Media query for smaller screens */
     @media (max-width: 600px) {
+        .form-container {
+            padding: 10px; /* Reduce padding */
+        }
+
+        .form-container h2, .form-container h3, .form-container h4 {
+            font-size: 1rem; /* Smaller font size for titles */
+            margin-bottom: 5px; /* Reduce space below titles */
+        }
+
+        .form-group label {
+            font-size: 0.9rem; /* Smaller font size for labels */
+            margin-bottom: 3px; /* Reduce space below labels */
+        }
+
+        .form-group select, .form-group input {
+            padding: 5px; /* Reduce padding inside inputs */
+            font-size: 0.9rem; /* Smaller font size for inputs */
+            margin-bottom: 10px; /* Reduce space below inputs */
+        }
+
         .item-header, .item-row {
-            flex-direction: column; /* Stack items vertically */
-            align-items: stretch; /* Stretch items to full width */
+            gap: 5px; /* Reduce gap between columns */
         }
 
         .item-number-wrapper, .item-quantity, .item-subtotal, .item-action {
-            min-width: 100%; /* Full width for each item */
+            min-width: auto; /* Remove minimum width constraints */
         }
 
         .item-number, .item-quantity {
-            width: 100%; /* Ensure inputs take full width */
+            padding: 5px; /* Reduce padding inside fields */
+            font-size: 0.9rem; /* Smaller font size */
         }
 
-        .item-subtotal, .item-action {
-            text-align: left; /* Align text to the left */
+        .item-subtotal {
+            font-size: 0.9rem; /* Smaller font size */
+        }
+
+        .btn-sm {
+            padding: 3px 8px; /* Smaller buttons */
+            font-size: 0.8rem; /* Smaller font size for buttons */
+        }
+
+        .form-actions {
+            flex-direction: column; /* Stack buttons vertically */
+            gap: 5px; /* Reduce gap between buttons */
+        }
+
+        .form-actions .btn {
+            padding: 8px 15px; /* Reduce padding for buttons */
+            font-size: 0.9rem; /* Smaller font size */
         }
     }
 </style>

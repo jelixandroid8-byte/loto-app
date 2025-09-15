@@ -249,6 +249,66 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <style>
+    .form-container {
+        margin: 0 auto; /* Center the form horizontally */
+        padding: 20px; /* Add padding around the form */
+        border: 1px solid #ddd; /* Add a light border */
+        border-radius: 8px; /* Round the corners */
+        background-color: #f9f9f9; /* Light background for better contrast */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    }
+
+    .form-container h2 {
+        text-align: center; /* Center the heading */
+        margin-bottom: 20px; /* Add space below the heading */
+    }
+
+    .form-group label {
+        display: block; /* Ensure labels are on their own line */
+        margin-bottom: 5px; /* Add space below labels */
+        font-weight: bold; /* Make labels stand out */
+    }
+
+    .form-group select, .form-group input {
+        width: 100%; /* Make inputs and selects take full width */
+        padding: 10px; /* Add padding inside inputs */
+        margin-bottom: 15px; /* Add space below inputs */
+        border: 1px solid #ccc; /* Light border for inputs */
+        border-radius: 4px; /* Round the corners */
+        box-sizing: border-box; /* Include padding and border in width */
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: space-between; /* Space out the buttons */
+        align-items: center; /* Align buttons vertically */
+    }
+
+    .form-actions .btn {
+        padding: 10px 20px; /* Add padding to buttons */
+        border: none; /* Remove default border */
+        border-radius: 4px; /* Round the corners */
+        cursor: pointer; /* Change cursor to pointer */
+    }
+
+    .form-actions .btn-secondary {
+        background-color: #f0f0f0; /* Light gray background */
+        color: #333; /* Dark text color */
+    }
+
+    .form-actions .btn-secondary:hover {
+        background-color: #e0e0e0; /* Darker gray on hover */
+    }
+
+    .form-actions .btn {
+        background-color: #007bff; /* Primary blue color */
+        color: #fff; /* White text */
+    }
+
+    .form-actions .btn:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+    }
+
     .item-header, .item-row {
         display: flex;
         align-items: center;

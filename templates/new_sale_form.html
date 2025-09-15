@@ -311,24 +311,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
     .item-header, .item-row {
         display: flex;
-        align-items: center;
+        align-items: center; /* Align items vertically */
+        justify-content: space-between; /* Distribute space evenly */
         margin-bottom: 10px;
         gap: 10px;
-        flex-wrap: wrap; /* Allow wrapping for smaller screens */
     }
 
-    .item-header > div { padding-bottom: 1em; } /* Match space of error div */
-    .item-number-wrapper { flex: 2; min-width: 120px; } /* Ensure a minimum width */
-    .item-number { width: 100%; }
-    .item-error {
-        color: #dc3545; /* Bootstrap danger color */
-        font-size: 0.875em;
-        height: 1em; /* Reserve space to prevent layout shift */
+    .item-header > div, .item-row > div {
+        text-align: center; /* Center align text */
     }
-    .item-quantity { flex: 1; min-width: 80px; } /* Ensure a minimum width */
-    .item-subtotal { flex: 1.5; min-width: 100px; font-weight: bold; text-align: center; } /* Add padding to align with inputs */
-    .item-action { flex: 1; min-width: 80px; text-align: center; }
-    .btn-sm { padding: 5px 10px; font-size: 0.8rem; }
+
+    .item-number-wrapper {
+        flex: 2; /* Adjust width proportion */
+        min-width: 100px; /* Ensure minimum width */
+    }
+
+    .item-number {
+        width: 100%; /* Ensure input takes full width */
+        box-sizing: border-box; /* Include padding and border in width */
+    }
+
+    .item-quantity {
+        flex: 1; /* Adjust width proportion */
+        min-width: 80px; /* Ensure minimum width */
+    }
+
+    .item-subtotal {
+        flex: 1.5; /* Adjust width proportion */
+        min-width: 100px; /* Ensure minimum width */
+        font-weight: bold;
+    }
+
+    .item-action {
+        flex: 1; /* Adjust width proportion */
+        min-width: 80px; /* Ensure minimum width */
+        text-align: center; /* Center align button */
+    }
+
+    .btn-sm {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
 
     /* Media query for smaller screens */
     @media (max-width: 600px) {

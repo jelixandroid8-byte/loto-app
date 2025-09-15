@@ -55,6 +55,7 @@
 </div>
 
 <script>
+{% raw %}
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('sale-form');
     const container = document.getElementById('invoice-items-container');
@@ -246,48 +247,27 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+{% endraw %}
 </script>
 
 <style>
     .item-header, .item-row {
         display: flex;
-        align-items: center;
+        align-items: flex-start; /* Align to top for error message */
         margin-bottom: 10px;
         gap: 10px;
-        flex-wrap: wrap; /* Allow wrapping for smaller screens */
     }
-
     .item-header > div { padding-bottom: 1em; } /* Match space of error div */
-    .item-number-wrapper { flex: 2; min-width: 120px; } /* Ensure a minimum width */
+    .item-number-wrapper { flex: 3; }
     .item-number { width: 100%; }
     .item-error {
         color: #dc3545; /* Bootstrap danger color */
         font-size: 0.875em;
         height: 1em; /* Reserve space to prevent layout shift */
     }
-    .item-quantity { flex: 1; min-width: 80px; } /* Ensure a minimum width */
-    .item-subtotal { flex: 1.5; min-width: 100px; font-weight: bold; text-align: center; } /* Add padding to align with inputs */
-    .item-action { flex: 1; min-width: 80px; text-align: center; }
+    .item-quantity { flex: 0.5; }
+    .item-subtotal { flex: 2; font-weight: bold; padding-top: 8px; } /* Add padding to align with inputs */
+    .item-action { flex: 1; padding-top: 8px; }
     .btn-sm { padding: 5px 10px; font-size: 0.8rem; }
-
-    /* Media query for smaller screens */
-    @media (max-width: 600px) {
-        .item-header, .item-row {
-            flex-direction: column; /* Stack items vertically */
-            align-items: stretch; /* Stretch items to full width */
-        }
-
-        .item-number-wrapper, .item-quantity, .item-subtotal, .item-action {
-            min-width: 100%; /* Full width for each item */
-        }
-
-        .item-number, .item-quantity {
-            width: 100%; /* Ensure inputs take full width */
-        }
-
-        .item-subtotal, .item-action {
-            text-align: left; /* Align text to the left */
-        }
-    }
 </style>
 {% endblock %}

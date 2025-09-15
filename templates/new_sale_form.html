@@ -329,8 +329,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     .item-quantity {
-        flex: 0.5; /* Reduce the width proportion */
-        min-width: 50px; /* Ensure a smaller minimum width */
+        flex: 0.25; /* Reduce the width proportion further */
+        max-width: 60px; /* Set a maximum width to limit size */
+        min-width: 40px; /* Ensure a smaller minimum width */
     }
 
     .item-subtotal {
@@ -340,8 +341,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     .item-action {
-        flex: 1; /* Ensure enough space for the button */
-        min-width: 80px; /* Ensure the button stays on the same line */
+        flex: 0.5; /* Adjust width proportion for the button */
+        min-width: 60px; /* Ensure the button stays on the same line */
         text-align: center; /* Center align the button */
     }
 
@@ -373,6 +374,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         .item-header, .item-row {
+            flex-wrap: nowrap; /* Prevent wrapping of items */
             gap: 5px; /* Reduce gap between columns */
         }
 
@@ -382,7 +384,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         .item-quantity {
-            flex: 0.5; /* Keep the shorter width for cantidad */
+            flex: 0.25; /* Keep the shorter width for cantidad */
+            max-width: 60px; /* Limit the size further */
         }
 
         .item-number, .item-quantity {

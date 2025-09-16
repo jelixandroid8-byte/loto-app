@@ -889,6 +889,45 @@ def get_sorteos():
     conn.close()
     return jsonify(sorteos)
 
+@app.route('/api/winner-payments')
+@seller_required
+def api_winner_payments():
+    sorteo_id = request.args.get('sorteo_id')
+    if not sorteo_id:
+        return jsonify({'error': 'sorteo_id is required'}), 400
+
+    conn = get_db_connection()
+    cur = get_cursor(conn)
+
+    # Query winners for the given raffle grouped by client
+    cur.execute(
+        'SELECT w.client_id, c.name, c.last_name, SUM(w.total_payout) as total_payout '
+        'FROM winners w JOIN clients c ON w.client_id = c.id '
+        'WHERE w.raffle_id = %s GROUP BY w.client_id, c.name, c.last_name',
+        (sorteo_id,)
+    )
+    rows = cur.fetchall()
+
+    results = []
+    for row in rows:
+        client_id = row['client_id'] if isinstance(row, dict) or hasattr(row, "__getitem__") else row[0]
+        client_name = (row['name'] + ' ' + (row['last_name'] or '')) if row['name'] else 'Cliente'
+        total_payout = row['total_payout'] if 'total_payout' in row or hasattr(row, '__contains__') else row[3]
+
+        # Fetch distinct invoice ids for that client and raffle
+        cur.execute('SELECT DISTINCT invoice_id FROM winners WHERE raffle_id = %s AND client_id = %s', (sorteo_id, client_id))
+        invoice_rows = cur.fetchall()
+        facturas = []
+        for inv in invoice_rows:
+            inv_id = inv['invoice_id'] if isinstance(inv, dict) or hasattr(inv, "__getitem__") else inv[0]
+            facturas.append({'id': inv_id})
+
+        results.append({'cliente': client_name.strip(), 'pago': total_payout, 'facturas': facturas})
+
+    cur.close()
+    conn.close()
+    return jsonify(results)
+
 
 # --- Main execution ---
 if __name__ == '__main__':

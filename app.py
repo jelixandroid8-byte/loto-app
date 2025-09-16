@@ -932,9 +932,17 @@ def api_winner_payments():
     sql_main = (
         'SELECT w.client_id, c.name, c.last_name, SUM(w.total_payout) as total_payout '
         'FROM winners w JOIN clients c ON w.client_id = c.id '
-        f'WHERE w.raffle_id = {ph} GROUP BY w.client_id, c.name, c.last_name'
+        f'WHERE w.raffle_id = {ph}'
     )
-    cur.execute(sql_main, (sorteo_id,))
+    params_main = [sorteo_id]
+
+    # If the current user is a seller, restrict results to their own sales
+    if session.get('user_role') == 'seller':
+        sql_main += f' AND w.seller_id = {ph}'
+        params_main.append(session.get('user_id'))
+
+    sql_main += ' GROUP BY w.client_id, c.name, c.last_name'
+    cur.execute(sql_main, tuple(params_main))
     rows = cur.fetchall()
 
     results = []
@@ -955,7 +963,11 @@ def api_winner_payments():
 
         # Fetch distinct invoice ids for that client and raffle
         sql_invoices = f'SELECT DISTINCT invoice_id FROM winners WHERE raffle_id = {ph} AND client_id = {ph}'
-        cur.execute(sql_invoices, (sorteo_id, client_id))
+        params_inv = [sorteo_id, client_id]
+        if session.get('user_role') == 'seller':
+            sql_invoices += f' AND seller_id = {ph}'
+            params_inv.append(session.get('user_id'))
+        cur.execute(sql_invoices, tuple(params_inv))
         invoice_rows = cur.fetchall()
         facturas = []
         for inv in invoice_rows:

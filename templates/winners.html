@@ -38,10 +38,10 @@
             <tr>
                 <th>Cliente</th>
                 {% if session['user_role'] == 'admin' %}<th>Vendedor</th>{% endif %}
-                <th>Número</th>
-                <th>Premio</th>
-                <th>Cant</th>
                 <th>Pago</th>
+                <th>Número</th>
+                <th>Cant</th>
+                <th>Premio</th>
             </tr>
         </thead>
         <tbody>
@@ -49,10 +49,10 @@
             <tr>
                 <td>{{ winner['client_name'] }}</td>
                 {% if session['user_role'] == 'admin' %}<td>{{ winner['seller_name'] }}</td>{% endif %}
-                <td>{{ winner['winning_number'] }}</td>
-                <td>{{ winner['prize_type'] }}</td>
-                <td>{{ winner['quantity'] }}</td>
                 <td>${{ '%.2f'|format(winner['total_payout']) }}</td>
+                <td>{{ winner['winning_number'] }}</td>
+                <td>{{ winner['quantity'] }}</td>
+                <td>{{ winner['prize_type'] }}</td>
             </tr>
             {% else %}
             <tr>

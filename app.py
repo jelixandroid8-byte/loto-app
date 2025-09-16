@@ -537,6 +537,13 @@ def sale_detail(invoice_id):
     return render_template('sale_detail.html', invoice=invoice, items=items)
 
 
+@app.route('/factura/<int:invoice_id>')
+@login_required
+def factura_redirect(invoice_id):
+    # Backwards-compatible route: redirect old /factura/<id> links to /sales/<id>
+    return redirect(url_for('sale_detail', invoice_id=invoice_id))
+
+
 @app.route('/sales/delete/<int:invoice_id>', methods=['POST'])
 @seller_required
 def delete_sale(invoice_id):

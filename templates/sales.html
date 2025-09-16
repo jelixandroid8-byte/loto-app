@@ -122,4 +122,15 @@
     }
 </style>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const raffleDropdown = document.getElementById('raffle_id');
+        if (raffleDropdown) {
+            raffleDropdown.addEventListener('change', function () {
+                this.form.submit(); // Automatically submit the form when a new sorteo is selected
+            });
+        }
+    });
+</script>
+
 {% endblock %}

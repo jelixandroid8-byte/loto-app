@@ -1,4 +1,3 @@
-
 # LotoWeb - Aplicación de Venta de Lotería
 
 Esta es una aplicación web desarrollada con Python y Flask para gestionar la venta de números de lotería, siguiendo las especificaciones proporcionadas.
@@ -111,11 +110,9 @@ Este proyecto sigue un flujo de trabajo que integra desarrollo local, control de
 
 Durante la sesión actual, se han implementado los siguientes cambios:
 
--   **Actualización del `README.md`**: Se ha clarificado la estrategia de base de datos (SQLite para desarrollo local, PostgreSQL para producción) y se ha añadido esta sección de flujo de trabajo.
--   **Gestión de Archivos de Git**: Se creó un archivo `.gitignore` para excluir archivos generados (como `__pycache__`, `venv/`, `lottery.db`) del control de versiones, y se des-rastreó un archivo `__pycache__` que estaba siendo seguido por error.
--   **Validación de Cantidad en Nueva Venta**: Se añadió validación en el servidor (en `app.py`) y en el cliente (en `templates/new_sale_form.html`) para asegurar que el campo "cantidad" solo acepte números enteros.
--   **Mejoras de Responsividad Móvil (Tablas)**: Se añadió CSS para hacer las tablas desplazables horizontalmente en pantallas pequeñas.
--   **Mejoras de Responsividad Móvil (Formulario Nueva Venta)**: Se ajustó el CSS para mejorar la visualización de los ítems de venta (número, cantidad, subtotal, botón borrar) en pantallas móviles pequeñas, buscando una mejor alineación y tamaño. *Nota: Este trabajo aún está en progreso y será el punto de partida para la próxima sesión.*
+- **sales.html**: Se actualizó la lógica para que, por defecto, se muestren las ventas del sorteo más reciente. Esto incluye ajustes en el backend (`app.py`) para establecer el `selected_raffle_id` al ID del sorteo más reciente.
+- **Estilo y Diseño**: Se realizaron mejoras en la disposición de columnas y en la responsividad para dispositivos móviles y de escritorio.
+- **Flujo de Trabajo**: Se verificó que los cambios se alineen con los requisitos del usuario y se subieron al repositorio de GitHub en la rama principal (`main`).
 
 ## 5. Credenciales de Acceso por Defecto
 

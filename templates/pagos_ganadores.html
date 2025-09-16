@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagos a Ganadores</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Pagos a Ganadores</h1>
+
+    <!-- Dropdown to select Sorteo -->
+    <label for="sorteo">Seleccionar Sorteo:</label>
+    <select id="sorteo" name="sorteo" onchange="fetchWinnerPayments()">
+        <!-- Options will be dynamically populated -->
+    </select>
+
+    <!-- Table to display winner payments -->
+    <table>
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Pago</th>
+                <th>Facturas</th>
+            </tr>
+        </thead>
+        <tbody id="winner-payments">
+            <!-- Rows will be dynamically populated -->
+        </tbody>
+    </table>
+
+    <script>
+        // Fetch Sorteos and populate dropdown
+        async function fetchSorteos() {
+            const response = await fetch('/api/sorteos');
+            const sorteos = await response.json();
+            const dropdown = document.getElementById('sorteo');
+
+            sorteos.forEach(sorteo => {
+                const option = document.createElement('option');
+                option.value = sorteo.id;
+                option.textContent = sorteo.date;
+                dropdown.appendChild(option);
+            });
+        }
+
+        // Fetch winner payments for the selected Sorteo
+        async function fetchWinnerPayments() {
+            const sorteoId = document.getElementById('sorteo').value;
+            const response = await fetch(`/api/winner-payments?sorteo_id=${sorteoId}`);
+            const payments = await response.json();
+            const tbody = document.getElementById('winner-payments');
+
+            tbody.innerHTML = '';
+
+            payments.forEach(payment => {
+                const row = document.createElement('tr');
+
+                // Cliente column
+                const clienteCell = document.createElement('td');
+                clienteCell.textContent = payment.cliente;
+                row.appendChild(clienteCell);
+
+                // Pago column
+                const pagoCell = document.createElement('td');
+                pagoCell.textContent = payment.pago;
+                row.appendChild(pagoCell);
+
+                // Facturas column
+                const facturasCell = document.createElement('td');
+                payment.facturas.forEach(factura => {
+                    const button = document.createElement('button');
+                    button.textContent = `Factura ${factura.id}`;
+                    button.onclick = () => window.location.href = `/factura/${factura.id}`;
+                    facturasCell.appendChild(button);
+                });
+                row.appendChild(facturasCell);
+
+                tbody.appendChild(row);
+            });
+        }
+
+        // Initialize page
+        fetchSorteos();
+    </script>
+</body>
+</html>

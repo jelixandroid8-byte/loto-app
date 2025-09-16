@@ -18,7 +18,7 @@
                 <select name="raffle_id" id="raffle_id">
                     <option value="all">Todos los Sorteos</option>
                     {% for raffle in raffles %}
-                    <option value="{{ raffle.id }}" {% if selected_raffle_id == raffle.id|string %}selected{% endif %}>
+                    <option value="{{ raffle.id }}" {% if loop.first %}selected{% endif %}>
                         Sorteo del {{ raffle.raffle_date.strftime('%Y-%m-%d') }}
                     </option>
                     {% endfor %}

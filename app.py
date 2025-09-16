@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
 from functools import wraps
 import datetime
@@ -877,6 +877,17 @@ def my_commissions():
 @seller_required
 def winner_payments():
     return render_template('pagos_ganadores.html')
+
+@app.route('/api/sorteos')
+@seller_required
+def get_sorteos():
+    conn = get_db_connection()
+    cur = get_cursor(conn)
+    cur.execute('SELECT id, date FROM raffles ORDER BY date DESC')
+    sorteos = [{'id': row['id'], 'date': row['date'].strftime('%Y-%m-%d')} for row in cur.fetchall()]
+    cur.close()
+    conn.close()
+    return jsonify(sorteos)
 
 
 # --- Main execution ---

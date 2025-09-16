@@ -62,7 +62,6 @@
 <table>
     <thead>
         <tr>
-            <th>Cód. Factura</th>
             <th>Fecha Sorteo</th>
             <th>Cliente</th>
             {% if session['user_role'] == 'admin' %}
@@ -75,7 +74,6 @@
     <tbody>
         {% for sale in sales %}
         <tr>
-            <td>{{ sale['id'] }}</td>
             <td>{{ sale['raffle_date'].strftime('%Y-%m-%d') }}</td>
             <td>{{ sale['client_name'] }} {{ sale['client_last_name'] }}</td>
             {% if session['user_role'] == 'admin' %}
@@ -96,7 +94,7 @@
         </tr>
         {% else %}
         <tr>
-            <td colspan="{{ 6 if session['user_role'] == 'admin' else 5 }}">No hay ventas que coincidan con los filtros seleccionados.</td>
+            <td colspan="{{ 5 if session['user_role'] == 'admin' else 4 }}">No hay ventas que coincidan con los filtros seleccionados.</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -110,20 +108,23 @@
 {% endif %}
 
 <style>
-.actions-cell {
-    display: flex;
-    gap: 5px;
-}
-.filters-container {
-    margin-bottom: 20px;
-    padding: 15px;
-}
-.filter-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: flex-end;
-}
+    table {
+        border-collapse: collapse; /* Remove extra space between table cells */
+    }
+
+    th, td {
+        padding: 8px 10px; /* Tighten padding for smaller spacing */
+        text-align: left; /* Align text to the left */
+    }
+
+    th {
+        background-color: #f4f4f4; /* Light background for headers */
+    }
+
+    .actions-cell {
+        display: flex;
+        gap: 5px; /* Reduce gap between action buttons */
+    }
 </style>
 
 {% endblock %}

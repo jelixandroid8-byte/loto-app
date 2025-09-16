@@ -883,8 +883,35 @@ def winner_payments():
 def get_sorteos():
     conn = get_db_connection()
     cur = get_cursor(conn)
-    cur.execute('SELECT id, date FROM raffles ORDER BY date DESC')
-    sorteos = [{'id': row['id'], 'date': row['date'].strftime('%Y-%m-%d')} for row in cur.fetchall()]
+    # raffle_date is the column name in the schema; handle both sqlite (string) and psycopg2 (datetime)
+    cur.execute('SELECT id, raffle_date FROM raffles ORDER BY raffle_date DESC')
+    rows = cur.fetchall()
+    sorteos = []
+    for row in rows:
+        # support sqlite3.Row (mapping) and psycopg2 DictRow or tuples
+        try:
+            date_val = row['raffle_date']
+        except Exception:
+            date_val = row[1]
+
+        # Normalize to YYYY-MM-DD string regardless of type
+        if date_val is None:
+            date_str = ''
+        else:
+            # psycopg2 may return a datetime, sqlite may return a string
+            try:
+                # If it's a datetime-like object
+                date_str = date_val.strftime('%Y-%m-%d')
+            except Exception:
+                # Fallback: convert to string and take date part
+                date_str = str(date_val).split(' ')[0]
+
+        try:
+            id_val = row['id']
+        except Exception:
+            id_val = row[0]
+
+        sorteos.append({'id': id_val, 'date': date_str})
     cur.close()
     conn.close()
     return jsonify(sorteos)

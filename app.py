@@ -426,8 +426,13 @@ def new_sale():
 def list_sales():
     conn = get_db_connection()
     cur = get_cursor(conn)
-    
-    selected_raffle_id = request.args.get('raffle_id', 'all')
+
+    # Fetch the most recent raffle ID
+    cur.execute('SELECT id FROM raffles ORDER BY raffle_date DESC LIMIT 1')
+    most_recent_raffle = cur.fetchone()
+    most_recent_raffle_id = most_recent_raffle['id'] if most_recent_raffle else 'all'
+
+    selected_raffle_id = request.args.get('raffle_id', most_recent_raffle_id)
     selected_client_id = request.args.get('client_id', 'all')
     selected_seller_id = request.args.get('seller_id', 'all')
 
@@ -451,7 +456,7 @@ def list_sales():
     if selected_raffle_id != 'all':
         where_clauses.append('i.raffle_id = %s')
         params.append(int(selected_raffle_id))
-    
+
     if selected_client_id != 'all':
         where_clauses.append('i.client_id = %s')
         params.append(int(selected_client_id))

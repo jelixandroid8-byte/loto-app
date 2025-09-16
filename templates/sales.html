@@ -62,24 +62,18 @@
 <table>
     <thead>
         <tr>
-            <th>Fecha Sorteo</th>
             <th>Cliente</th>
-            {% if session['user_role'] == 'admin' %}
-            <th>Vendedor</th>
-            {% endif %}
             <th>Monto Total</th>
+            <th>Fecha Sorteo</th>
             <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         {% for sale in sales %}
         <tr>
-            <td>{{ sale['raffle_date'].strftime('%Y-%m-%d') }}</td>
             <td>{{ sale['client_name'] }} {{ sale['client_last_name'] }}</td>
-            {% if session['user_role'] == 'admin' %}
-            <td>{{ sale['seller_name'] }}</td>
-            {% endif %}
             <td>${{ '%.2f'|format(sale['total_amount']) }}</td>
+            <td>{{ sale['raffle_date'].strftime('%Y-%m-%d') }}</td>
             <td class="actions-cell">
                 <a href="{{ url_for('sale_detail', invoice_id=sale['id']) }}" class="btn btn-secondary btn-sm">Ver</a>
                 {% if session['user_role'] == 'seller' %}
@@ -94,7 +88,7 @@
         </tr>
         {% else %}
         <tr>
-            <td colspan="{{ 5 if session['user_role'] == 'admin' else 4 }}">No hay ventas que coincidan con los filtros seleccionados.</td>
+            <td colspan="4">No hay ventas que coincidan con los filtros seleccionados.</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -108,17 +102,14 @@
 {% endif %}
 
 <style>
-    table {
-        border-collapse: collapse; /* Remove extra space between table cells */
-    }
-
-    th, td {
-        padding: 8px 10px; /* Tighten padding for smaller spacing */
-        text-align: left; /* Align text to the left */
-    }
-
     th {
+        color: black; /* Make column titles black */
         background-color: #f4f4f4; /* Light background for headers */
+        padding: 8px 10px; /* Adjust padding */
+    }
+
+    td {
+        padding: 8px 10px; /* Adjust padding for tighter spacing */
     }
 
     .actions-cell {

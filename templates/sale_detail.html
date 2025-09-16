@@ -22,9 +22,7 @@
         <thead>
             <tr>
                 <th>Número</th>
-                <th>Tipo</th>
                 <th>Cantidad</th>
-                <th>Precio Unitario</th>
                 <th>Subtotal</th>
             </tr>
         </thead>
@@ -32,9 +30,7 @@
             {% for item in items %}
             <tr>
                 <td>{{ item['number'] }}</td>
-                <td>{{ item['item_type']|capitalize }}</td>
                 <td>{{ item['quantity'] }}</td>
-                <td>${{ '%.2f'|format(item['price_per_unit']) }}</td>
                 <td>${{ '%.2f'|format(item['sub_total']) }}</td>
             </tr>
             {% endfor %}

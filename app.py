@@ -873,6 +873,11 @@ def my_commissions():
 
     return render_template('my_commissions.html', report_data=processed_data)
 
+@app.route('/seller/winner-payments')
+@seller_required
+def winner_payments():
+    return render_template('pagos_ganadores.html')
+
 
 # --- Main execution ---
 if __name__ == '__main__':

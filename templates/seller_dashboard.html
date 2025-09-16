@@ -1,11 +1,9 @@
-
 {% extends 'layout.html' %}
 
-{% block title %}Dashboard de Vendedor{% endblock %}
+{% block title %}{% endblock %}
 
 {% block content %}
 <div class="dashboard">
-    <h1>Dashboard de Vendedor</h1>
     <div class="dashboard-menu">
         <a href="{{ url_for('new_sale') }}" class="dashboard-item">Nueva Venta</a>
         <a href="{{ url_for('list_sales') }}" class="dashboard-item">Mis Ventas</a>

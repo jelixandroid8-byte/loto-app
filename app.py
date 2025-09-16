@@ -925,28 +925,44 @@ def api_winner_payments():
 
     conn = get_db_connection()
     cur = get_cursor(conn)
+    # Choose placeholder depending on DB adapter
+    ph = '?' if isinstance(conn, sqlite3.Connection) else '%s'
 
     # Query winners for the given raffle grouped by client
-    cur.execute(
+    sql_main = (
         'SELECT w.client_id, c.name, c.last_name, SUM(w.total_payout) as total_payout '
         'FROM winners w JOIN clients c ON w.client_id = c.id '
-        'WHERE w.raffle_id = %s GROUP BY w.client_id, c.name, c.last_name',
-        (sorteo_id,)
+        f'WHERE w.raffle_id = {ph} GROUP BY w.client_id, c.name, c.last_name'
     )
+    cur.execute(sql_main, (sorteo_id,))
     rows = cur.fetchall()
 
     results = []
     for row in rows:
-        client_id = row['client_id'] if isinstance(row, dict) or hasattr(row, "__getitem__") else row[0]
-        client_name = (row['name'] + ' ' + (row['last_name'] or '')) if row['name'] else 'Cliente'
-        total_payout = row['total_payout'] if 'total_payout' in row or hasattr(row, '__contains__') else row[3]
+        # Extract fields safely for both mapping and sequence row types
+        try:
+            client_id = row['client_id']
+            first_name = row.get('name')
+            last_name = row.get('last_name')
+            total_payout = row.get('total_payout')
+        except Exception:
+            client_id = row[0]
+            first_name = row[1]
+            last_name = row[2]
+            total_payout = row[3]
+
+        client_name = ((first_name or '') + ' ' + (last_name or '')).strip() or 'Cliente'
 
         # Fetch distinct invoice ids for that client and raffle
-        cur.execute('SELECT DISTINCT invoice_id FROM winners WHERE raffle_id = %s AND client_id = %s', (sorteo_id, client_id))
+        sql_invoices = f'SELECT DISTINCT invoice_id FROM winners WHERE raffle_id = {ph} AND client_id = {ph}'
+        cur.execute(sql_invoices, (sorteo_id, client_id))
         invoice_rows = cur.fetchall()
         facturas = []
         for inv in invoice_rows:
-            inv_id = inv['invoice_id'] if isinstance(inv, dict) or hasattr(inv, "__getitem__") else inv[0]
+            try:
+                inv_id = inv['invoice_id']
+            except Exception:
+                inv_id = inv[0]
             facturas.append({'id': inv_id})
 
         results.append({'cliente': client_name.strip(), 'pago': total_payout, 'facturas': facturas})

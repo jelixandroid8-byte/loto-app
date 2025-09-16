@@ -71,7 +71,8 @@
                 payment.facturas.forEach(factura => {
                     const button = document.createElement('button');
                     button.textContent = `Factura ${factura.id}`;
-                    button.onclick = () => window.location.href = `/factura/${factura.id}`;
+                    // Navigate to the existing sale detail route
+                    button.onclick = () => window.location.href = `/sales/${factura.id}`;
                     facturasCell.appendChild(button);
                 });
                 row.appendChild(facturasCell);

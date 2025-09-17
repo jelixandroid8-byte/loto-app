@@ -5,6 +5,9 @@ from functools import wraps
 import datetime
 from database import get_db_connection
 import psycopg2.extras
+from io import BytesIO
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'a_very_secret_key_that_should_be_changed'
@@ -574,6 +577,107 @@ def print_invoice(invoice_id):
     conn.close()
 
     return render_template('print_invoice.html', invoice=invoice, items=items)
+
+
+@app.route('/sales/<int:invoice_id>/pdf')
+@login_required
+def invoice_pdf(invoice_id):
+    # Generate a simple PDF invoice on the server and return it as a response
+    conn = get_db_connection()
+    cur = get_cursor(conn)
+
+    # reuse sale query
+    base_query = '''
+        SELECT i.id, i.total_amount, i.creation_date, 
+               r.raffle_date, 
+               c.name as client_name, c.last_name as client_last_name, 
+               u.name as seller_name
+        FROM invoices i
+        JOIN raffles r ON i.raffle_id = r.id
+        JOIN clients c ON i.client_id = c.id
+        JOIN users u ON i.seller_id = u.id
+        WHERE i.id = %s
+    '''
+    params = [invoice_id]
+    if session['user_role'] == 'seller':
+        base_query += ' AND i.seller_id = %s'
+        params.append(session['user_id'])
+
+    cur.execute(base_query, tuple(params))
+    invoice = cur.fetchone()
+    if invoice is None:
+        cur.close()
+        conn.close()
+        flash('Factura no encontrada o sin permiso para verla.', 'danger')
+        return redirect(url_for('list_sales'))
+
+    cur.execute('SELECT * FROM invoice_items WHERE invoice_id = %s', (invoice_id,))
+    items = cur.fetchall()
+
+    # Prepare PDF in memory
+    buffer = BytesIO()
+    p = canvas.Canvas(buffer, pagesize=A4)
+    width, height = A4
+
+    y = height - 50
+    p.setFont('Helvetica-Bold', 14)
+    p.drawString(50, y, f'Factura #{invoice[0]}')
+    y -= 30
+    p.setFont('Helvetica', 10)
+    raffle_date = invoice['raffle_date'] if isinstance(invoice, dict) or hasattr(invoice, '__getitem__') else invoice[3]
+    p.drawString(50, y, f'Fecha Sorteo: {str(raffle_date)}')
+    y -= 20
+    p.drawString(50, y, f'Vendedor: {invoice[6] if "seller_name" in invoice else invoice[6]}')
+    y -= 20
+    client_name = (invoice['client_name'] + ' ' + (invoice['client_last_name'] or '')) if 'client_name' in invoice else f'{invoice[4]} {invoice[5]}'
+    p.drawString(50, y, f'Cliente: {client_name}')
+    y -= 30
+
+    p.drawString(50, y, 'Numero')
+    p.drawString(200, y, 'Cantidad')
+    p.drawString(300, y, 'Subtotal')
+    y -= 15
+    p.line(50, y, 550, y)
+    y -= 15
+
+    for item in items:
+        if y < 80:
+            p.showPage()
+            y = height - 50
+        p.drawString(50, y, str(item['number']))
+        p.drawRightString(260, y, str(item['quantity']))
+        p.drawRightString(550, y, f"${item['sub_total']:.2f}")
+        y -= 18
+
+    y -= 10
+    p.setFont('Helvetica-Bold', 12)
+    p.drawRightString(550, y, f"Total: ${invoice['total_amount']:.2f}")
+
+    p.showPage()
+    p.save()
+
+    buffer.seek(0)
+
+    # Build filename: raffledate_invoiceid.pdf
+    try:
+        raffle_date_str = invoice['raffle_date'].strftime('%Y-%m-%d')
+    except Exception:
+        raffle_date_str = str(invoice['raffle_date']).split(' ')[0]
+    filename = f"factura_{raffle_date_str}_{invoice_id}.pdf"
+
+    cur.close()
+    conn.close()
+
+    return (buffer.getvalue(), 200, {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': f'attachment; filename="{filename}"'
+    })
+
+@app.route('/sales/<int:invoice_id>/printpdf')
+@login_required
+def printpdf(invoice_id):
+    # Return the PDF and let client handle printing / sharing
+    return invoice_pdf(invoice_id)
 
 
 @app.route('/factura/<int:invoice_id>')

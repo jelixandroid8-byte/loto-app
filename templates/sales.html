@@ -76,7 +76,7 @@
             <td>{{ sale['raffle_date'].strftime('%Y-%m-%d') }}</td>
             <td class="actions-cell">
                 <a href="{{ url_for('sale_detail', invoice_id=sale['id']) }}" class="btn btn-secondary btn-sm">Ver</a>
-                <a href="{{ url_for('print_invoice', invoice_id=sale['id']) }}?auto=1" target="_blank" class="btn btn-secondary btn-sm">Imprimir</a>
+                <a href="{{ url_for('printpdf', invoice_id=sale['id']) }}" target="_blank" class="btn btn-secondary btn-sm">Imprimir</a>
                 {% if session['user_role'] == 'seller' %}
                     {% if sale['raffle_date'] > now and not sale['results_entered'] %}
                         <a href="{{ url_for('edit_sale', invoice_id=sale['id']) }}" class="btn btn-sm">Editar</a>

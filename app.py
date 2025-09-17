@@ -537,6 +537,45 @@ def sale_detail(invoice_id):
     return render_template('sale_detail.html', invoice=invoice, items=items)
 
 
+@app.route('/sales/<int:invoice_id>/print')
+@login_required
+def print_invoice(invoice_id):
+    conn = get_db_connection()
+    cur = get_cursor(conn)
+
+    base_query = '''
+        SELECT i.id, i.total_amount, i.creation_date, 
+               r.raffle_date, 
+               c.name as client_name, c.last_name as client_last_name, 
+               u.name as seller_name
+        FROM invoices i
+        JOIN raffles r ON i.raffle_id = r.id
+        JOIN clients c ON i.client_id = c.id
+        JOIN users u ON i.seller_id = u.id
+        WHERE i.id = %s
+    '''
+    params = [invoice_id]
+    if session['user_role'] == 'seller':
+        base_query += ' AND i.seller_id = %s'
+        params.append(session['user_id'])
+
+    cur.execute(base_query, tuple(params))
+    invoice = cur.fetchone()
+
+    if invoice is None:
+        flash('Factura no encontrada o sin permiso para verla.', 'danger')
+        cur.close()
+        conn.close()
+        return redirect(url_for('list_sales'))
+
+    cur.execute('SELECT * FROM invoice_items WHERE invoice_id = %s', (invoice_id,))
+    items = cur.fetchall()
+    cur.close()
+    conn.close()
+
+    return render_template('print_invoice.html', invoice=invoice, items=items)
+
+
 @app.route('/factura/<int:invoice_id>')
 @login_required
 def factura_redirect(invoice_id):

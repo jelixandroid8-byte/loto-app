@@ -56,3 +56,15 @@
 </style>
 
 {% endblock %}
+
+{% block scripts %}
+<script>
+    // If the querystring contains auto=1 then trigger the print dialog on load
+    (function(){
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('auto') === '1') {
+            window.print();
+        }
+    })();
+</script>
+{% endblock %}

@@ -6,7 +6,7 @@ import datetime
 from database import get_db_connection
 import psycopg2.extras
 from io import BytesIO
-from reportlab.lib.pagesizes import A4
+from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 
 app = Flask(__name__)
@@ -616,8 +616,8 @@ def invoice_pdf(invoice_id):
 
     # Prepare PDF in memory
     buffer = BytesIO()
-    p = canvas.Canvas(buffer, pagesize=A4)
-    width, height = A4
+    p = canvas.Canvas(buffer, pagesize=letter)
+    width, height = letter
 
     y = height - 50
     p.setFont('Helvetica-Bold', 14)

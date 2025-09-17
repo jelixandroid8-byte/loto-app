@@ -5,6 +5,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from functools import wraps
 import datetime
 from database import get_db_connection, init_db
+from io import BytesIO
+from reportlab.lib.units import inch
+from reportlab.pdfgen import canvas
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'a_very_secret_key_that_should_be_changed'
@@ -403,6 +406,169 @@ def sale_detail(invoice_id):
     conn.close()
 
     return render_template('sale_detail.html', invoice=invoice, items=items)
+
+
+@app.route('/sales/<int:invoice_id>/print')
+@login_required
+def print_invoice(invoice_id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    base_query = '''
+        SELECT i.id, i.total_amount, i.creation_date, 
+               r.raffle_date, 
+               c.name as client_name, c.last_name as client_last_name, 
+               u.name as seller_name
+        FROM invoices i
+        JOIN raffles r ON i.raffle_id = r.id
+        JOIN clients c ON i.client_id = c.id
+        JOIN users u ON i.seller_id = u.id
+        WHERE i.id = ?
+    '''
+    params = [invoice_id]
+    if session.get('user_role') == 'seller':
+        base_query += ' AND i.seller_id = ?'
+        params.append(session['user_id'])
+
+    cur.execute(base_query, tuple(params))
+    invoice = cur.fetchone()
+    if invoice is None:
+        flash('Factura no encontrada o sin permiso para verla.', 'danger')
+        conn.close()
+        return redirect(url_for('list_sales'))
+
+    cur.execute('SELECT * FROM invoice_items WHERE invoice_id = ?', (invoice_id,))
+    items = cur.fetchall()
+    conn.close()
+    return render_template('print_invoice.html', invoice=invoice, items=items)
+
+
+@app.route('/sales/<int:invoice_id>/pdf')
+@login_required
+def invoice_pdf(invoice_id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    base_query = '''
+        SELECT i.id, i.total_amount, i.creation_date, 
+               r.raffle_date, 
+               c.name as client_name, c.last_name as client_last_name, 
+               u.name as seller_name
+        FROM invoices i
+        JOIN raffles r ON i.raffle_id = r.id
+        JOIN clients c ON i.client_id = c.id
+        JOIN users u ON i.seller_id = u.id
+        WHERE i.id = ?
+    '''
+    params = [invoice_id]
+    if session.get('user_role') == 'seller':
+        base_query += ' AND i.seller_id = ?'
+        params.append(session['user_id'])
+
+    cur.execute(base_query, tuple(params))
+    invoice = cur.fetchone()
+    if invoice is None:
+        flash('Factura no encontrada o sin permiso para verla.', 'danger')
+        conn.close()
+        return redirect(url_for('list_sales'))
+
+    cur.execute('SELECT * FROM invoice_items WHERE invoice_id = ?', (invoice_id,))
+    items = cur.fetchall()
+
+    # Prepare PDF (half-letter)
+    half_letter = (5.5 * inch, 8.5 * inch)
+    buffer = BytesIO()
+    p = canvas.Canvas(buffer, pagesize=half_letter)
+    width, height = half_letter
+
+    left_margin = 40
+    right_margin = width - 40
+    usable_width = right_margin - left_margin
+
+    y = height - 50
+    p.setFont('Helvetica-Bold', 14)
+    try:
+        inv_id = invoice['id']
+    except Exception:
+        inv_id = invoice[0]
+    p.drawString(left_margin, y, f'Factura #{inv_id}')
+    y -= 24
+    p.setFont('Helvetica', 9)
+    try:
+        raffle_date = invoice['raffle_date']
+    except Exception:
+        raffle_date = invoice[3]
+    p.drawString(left_margin, y, f'Fecha Sorteo: {str(raffle_date)}')
+    y -= 16
+    try:
+        seller_name = invoice['seller_name']
+    except Exception:
+        seller_name = invoice[6]
+    p.drawString(left_margin, y, f'Vendedor: {seller_name}')
+    y -= 16
+    try:
+        client_name = f"{invoice['client_name']} {invoice.get('client_last_name','') }"
+    except Exception:
+        client_name = f"{invoice[4]} {invoice[5]}"
+    p.drawString(left_margin, y, f'Cliente: {client_name}')
+    y -= 22
+
+    col_num_x = left_margin
+    col_qty_right = left_margin + int(usable_width * 0.55)
+    col_sub_right = right_margin
+
+    p.setFont('Helvetica-Bold', 10)
+    p.drawString(col_num_x, y, 'Numero')
+    p.drawRightString(col_qty_right, y, 'Cantidad')
+    p.drawRightString(col_sub_right, y, 'Subtotal')
+    y -= 12
+    p.line(left_margin, y, right_margin, y)
+    y -= 12
+    p.setFont('Helvetica', 9)
+
+    for item in items:
+        if y < 60:
+            p.showPage()
+            y = height - 50
+            p.setFont('Helvetica-Bold', 10)
+            p.drawString(col_num_x, y, 'Numero')
+            p.drawRightString(col_qty_right, y, 'Cantidad')
+            p.drawRightString(col_sub_right, y, 'Subtotal')
+            y -= 12
+            p.line(left_margin, y, right_margin, y)
+            y -= 12
+            p.setFont('Helvetica', 9)
+
+        p.drawString(col_num_x, y, str(item['number']))
+        p.drawRightString(col_qty_right, y, str(item['quantity']))
+        try:
+            subtotal = float(item['sub_total'])
+        except Exception:
+            try:
+                subtotal = float(item.get('subtotal', 0))
+            except Exception:
+                subtotal = 0.0
+        p.drawRightString(col_sub_right, y, f"${subtotal:.2f}")
+        y -= 14
+
+    y -= 6
+    p.setFont('Helvetica-Bold', 11)
+    try:
+        total_amount = float(invoice['total_amount'])
+    except Exception:
+        total_amount = float(invoice[1])
+    p.drawRightString(col_sub_right, y, f"Total: ${total_amount:.2f}")
+
+    p.showPage()
+    p.save()
+    buffer.seek(0)
+
+    filename = f"factura_{str(raffle_date).split(' ')[0]}_{invoice_id}.pdf"
+    conn.close()
+    return (buffer.getvalue(), 200, {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': f'attachment; filename="{filename}"'
+    })
 
 
 @app.route('/sales/delete/<int:invoice_id>', methods=['POST'])

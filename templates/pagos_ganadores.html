@@ -15,7 +15,7 @@
     <select id="sorteo" name="sorteo">
         <!-- Options will be dynamically populated -->
     </select>
-    <button class="btn" id="refresh-btn">Cargar</button>
+    <button type="button" class="btn" id="refresh-btn">Cargar</button>
 </div>
 
 <table class="table">
@@ -34,8 +34,20 @@
 <script>
     // Fetch Sorteos and populate dropdown. Select the latest by default.
     async function fetchSorteos(selectLatest = true) {
-        const response = await fetch('/api/sorteos');
-        const sorteos = await response.json();
+        let sorteos = [];
+        try {
+            const response = await fetch('/api/sorteos');
+            if (!response.ok) throw new Error('Error cargando sorteos');
+            sorteos = await response.json();
+        } catch (err) {
+            console.error('fetchSorteos error', err);
+            const dropdown = document.getElementById('sorteo');
+            dropdown.innerHTML = '';
+            const opt = document.createElement('option');
+            opt.textContent = 'Error cargando sorteos';
+            dropdown.appendChild(opt);
+            return null;
+        }
         const dropdown = document.getElementById('sorteo');
         dropdown.innerHTML = '';
 
@@ -70,12 +82,37 @@
     // Fetch winner payments for the given Sorteo id
     async function fetchWinnerPayments(sorteoId) {
         const id = sorteoId || document.getElementById('sorteo').value;
-        if (!id) return;
-        const response = await fetch(`/api/winner-payments?sorteo_id=${id}`);
-        const payments = await response.json();
         const tbody = document.getElementById('winner-payments');
+        if (!id) {
+            tbody.innerHTML = '<tr><td colspan="3">Seleccione un sorteo primero.</td></tr>';
+            return;
+        }
 
+        const btn = document.getElementById('refresh-btn');
+        btn.disabled = true;
+        btn.textContent = 'Cargando...';
         tbody.innerHTML = '';
+
+        let payments = [];
+        try {
+            const response = await fetch(`/api/winner-payments?sorteo_id=${encodeURIComponent(id)}`);
+            if (!response.ok) {
+                const text = await response.text();
+                throw new Error(`API error: ${response.status} ${text}`);
+            }
+            payments = await response.json();
+        } catch (err) {
+            console.error('fetchWinnerPayments error', err);
+            const tr = document.createElement('tr');
+            const td = document.createElement('td');
+            td.colSpan = 3;
+            td.textContent = 'Error cargando pagos. Revisa la consola o intenta de nuevo.';
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            btn.disabled = false;
+            btn.textContent = 'Cargar';
+            return;
+        }
 
         if (!Array.isArray(payments) || payments.length === 0) {
             const tr = document.createElement('tr');
@@ -122,6 +159,8 @@
     document.addEventListener('DOMContentLoaded', async () => {
         await fetchSorteos(true);
         document.getElementById('refresh-btn').addEventListener('click', () => fetchWinnerPayments());
+        // Also allow selecting another sorteo to auto-load when changed
+        document.getElementById('sorteo').addEventListener('change', (e) => fetchWinnerPayments(e.target.value));
     });
 </script>
 

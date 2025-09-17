@@ -4,3 +4,6 @@ gunicorn
 waitress
 psycopg2-binary
 reportlab
+PyJWT
+Flask-Cors
+requests

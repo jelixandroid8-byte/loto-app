@@ -8,10 +8,41 @@ from database import get_db_connection, init_db
 from io import BytesIO
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
+import jwt
+import time
+from flask_cors import CORS
+import os
+import sqlite3
+from flask import jsonify, g
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'a_very_secret_key_that_should_be_changed'
 app.config['DATABASE'] = 'lottery.db'
+
+# Enable CORS for mobile clients (adjust origins in production)
+# Configure CORS origins from environment variable CORS_ORIGINS (comma-separated) or '*' by default
+cors_origins = os.environ.get('CORS_ORIGINS', '*')
+if cors_origins.strip() == '*':
+    CORS(app)
+else:
+    origins = [o.strip() for o in cors_origins.split(',') if o.strip()]
+    CORS(app, resources={r"/api/*": {"origins": origins}, r"/api/mobile/*": {"origins": origins}})
+
+
+def generate_jwt(payload, exp_seconds=60*60*24):
+    data = payload.copy()
+    data['exp'] = int(time.time()) + exp_seconds
+    token = jwt.encode(data, app.config['SECRET_KEY'], algorithm='HS256')
+    return token
+
+
+def verify_jwt(token):
+    try:
+        data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
+        return data
+    except Exception:
+        return None
+
 
 # --- Database Initialization ---
 @app.cli.command('initdb')
@@ -45,6 +76,113 @@ def seller_required(f):
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     return decorated_function
+
+
+# --- Mobile API (seller-only) ---
+def mobile_auth_required(func):
+    def wrapper(*args, **kwargs):
+        # Try session first
+        if 'user_id' in session and session.get('user_role') == 'seller':
+            g.user_id = session['user_id']
+            return func(*args, **kwargs)
+
+        # Else try Authorization header with Bearer token
+        auth = request.headers.get('Authorization', '')
+        if auth.startswith('Bearer '):
+            token = auth.split(' ', 1)[1]
+            data = verify_jwt(token)
+            if data and data.get('role') == 'seller':
+                g.user_id = data.get('user_id')
+                return func(*args, **kwargs)
+
+        return jsonify({'error': 'Unauthorized'}), 401
+    wrapper.__name__ = func.__name__
+    return wrapper
+
+
+@app.route('/api/mobile/login', methods=['POST'])
+def mobile_login():
+    body = request.get_json() or {}
+    username = body.get('username')
+    password = body.get('password')
+    if not username or not password:
+        return jsonify({'error': 'username and password required'}), 400
+
+    conn = get_db_connection()
+    user = conn.execute('SELECT id, username, password, role, name FROM users WHERE username = ?', (username,)).fetchone()
+    conn.close()
+
+    if not user:
+        return jsonify({'error': 'invalid credentials'}), 401
+
+    if not check_password_hash(user['password'], password):
+        return jsonify({'error': 'invalid credentials'}), 401
+
+    if user['role'] != 'seller':
+        return jsonify({'error': 'user is not a seller'}), 403
+
+    token = generate_jwt({'user_id': user['id'], 'username': username, 'role': user['role']})
+    return jsonify({'token': token, 'user': {'id': user['id'], 'username': username, 'name': user.get('name')}})
+
+
+@app.route('/api/mobile/sorteos')
+@mobile_auth_required
+def mobile_get_sorteos():
+    conn = get_db_connection()
+    rows = conn.execute('SELECT id, raffle_date FROM raffles ORDER BY raffle_date DESC').fetchall()
+    sorteos = []
+    for row in rows:
+        try:
+            id_val = row['id']
+            date_val = row['raffle_date']
+        except Exception:
+            id_val = row[0]
+            date_val = row[1]
+        try:
+            date_str = date_val.strftime('%Y-%m-%d %H:%M')
+        except Exception:
+            date_str = str(date_val)
+        sorteos.append({'id': id_val, 'date': date_str})
+    conn.close()
+    return jsonify(sorteos)
+
+
+@app.route('/api/mobile/winner-payments')
+@mobile_auth_required
+def mobile_winner_payments():
+    sorteo_id = request.args.get('sorteo_id')
+    if not sorteo_id:
+        return jsonify({'error': 'sorteo_id is required'}), 400
+
+    conn = get_db_connection()
+    # Only return winners for this raffle and the current seller
+    cur = conn.execute('SELECT w.client_id, c.name, c.last_name, SUM(w.total_payout) as total_payout '
+                       'FROM winners w JOIN clients c ON w.client_id = c.id '
+                       'WHERE w.raffle_id = ? AND w.seller_id = ? '
+                       'GROUP BY w.client_id, c.name, c.last_name', (sorteo_id, g.user_id))
+    rows = cur.fetchall()
+    results = []
+    for row in rows:
+        try:
+            client_id = row['client_id']
+            first_name = row.get('name')
+            last_name = row.get('last_name')
+            total_payout = row.get('total_payout')
+        except Exception:
+            client_id = row[0]
+            first_name = row[1]
+            last_name = row[2]
+            total_payout = row[3]
+
+        client_name = ((first_name or '') + ' ' + (last_name or '')).strip() or 'Cliente'
+
+        invoice_rows = conn.execute('SELECT DISTINCT invoice_id FROM winners WHERE raffle_id = ? AND client_id = ? AND seller_id = ?', (sorteo_id, client_id, g.user_id)).fetchall()
+        facturas = [{'id': inv['invoice_id'] if isinstance(inv, sqlite3.Row) else inv[0]} for inv in invoice_rows]
+
+        results.append({'cliente': client_name, 'pago': total_payout, 'facturas': facturas})
+
+    conn.close()
+    return jsonify(results)
 
 
 # --- Authentication Routes ---

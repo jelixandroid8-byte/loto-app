@@ -30,5 +30,16 @@
         {% endwith %}
         {% block content %}{% endblock %}
     </div>
+        <!-- PWA: manifest and service worker registration (android-app/manifest.json, service-worker.js) -->
+        <link rel="manifest" href="/android-app/manifest.json">
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/android-app/service-worker.js')
+                        .then(function(reg) { console.log('ServiceWorker registered.', reg); })
+                        .catch(function(err) { console.warn('ServiceWorker registration failed:', err); });
+                });
+            }
+        </script>
   </body>
 </html>

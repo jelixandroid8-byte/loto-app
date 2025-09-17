@@ -75,7 +75,6 @@
             <td>${{ '%.2f'|format(sale['total_amount']) }}</td>
             <td>{{ sale['raffle_date'].strftime('%Y-%m-%d') }}</td>
             <td class="actions-cell">
-                <a href="{{ url_for('sale_detail', invoice_id=sale['id']) }}" class="btn btn-secondary btn-sm">Ver</a>
                 <a href="{{ url_for('printpdf', invoice_id=sale['id']) }}" target="_blank" class="btn btn-secondary btn-sm">Imprimir</a>
                 {% if session['user_role'] == 'seller' %}
                     {% if sale['raffle_date'] > now and not sale['results_entered'] %}
@@ -85,6 +84,7 @@
                         </form>
                     {% endif %}
                 {% endif %}
+                <a href="{{ url_for('sale_detail', invoice_id=sale['id']) }}" class="btn btn-secondary btn-sm ver-btn">Ver</a>
             </td>
         </tr>
         {% else %}
@@ -116,6 +116,10 @@
     .actions-cell {
         display: flex;
         gap: 5px; /* Reduce gap between action buttons */
+    }
+
+    .actions-cell .ver-btn {
+        margin-left: auto; /* Push 'Ver' to the right */
     }
 
     table {

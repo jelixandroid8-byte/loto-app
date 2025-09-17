@@ -16,20 +16,20 @@
     </div>
 
     <h3>Ítems</h3>
-    <table style="width: 100%; border-collapse: collapse;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
         <thead>
             <tr>
-                <th style="text-align:left; border-bottom: 1px solid #000;">Número</th>
-                <th style="text-align:right; border-bottom: 1px solid #000;">Cantidad</th>
-                <th style="text-align:right; border-bottom: 1px solid #000;">Subtotal</th>
+                <th style="text-align:left; border-bottom: 1px solid #000; padding-bottom:6px;">Número</th>
+                <th style="text-align:right; border-bottom: 1px solid #000; padding-bottom:6px; width:18%;">Cantidad</th>
+                <th style="text-align:right; border-bottom: 1px solid #000; padding-bottom:6px; width:30%;">Subtotal</th>
             </tr>
         </thead>
         <tbody>
             {% for item in items %}
             <tr>
-                <td style="padding: 6px 0;">{{ item['number'] }}</td>
-                <td style="padding: 6px 0; text-align:right;">{{ item['quantity'] }}</td>
-                <td style="padding: 6px 0; text-align:right;">${{ '%.2f'|format(item['sub_total']) }}</td>
+                <td style="padding: 4px 0;">{{ item['number'] }}</td>
+                <td style="padding: 4px 0; text-align:right;">{{ item['quantity'] }}</td>
+                <td style="padding: 4px 0; text-align:right;">${{ '%.2f'|format(item['sub_total']) }}</td>
             </tr>
             {% endfor %}
         </tbody>

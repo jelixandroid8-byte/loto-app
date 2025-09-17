@@ -622,39 +622,88 @@ def invoice_pdf(invoice_id):
     p = canvas.Canvas(buffer, pagesize=half_letter)
     width, height = half_letter
 
+    # Margins and column math so everything fits on the half-letter width
+    left_margin = 40
+    right_margin = width - 40
+    usable_width = right_margin - left_margin
+
     y = height - 50
     p.setFont('Helvetica-Bold', 14)
-    p.drawString(50, y, f'Factura #{invoice[0]}')
-    y -= 30
-    p.setFont('Helvetica', 10)
-    raffle_date = invoice['raffle_date'] if isinstance(invoice, dict) or hasattr(invoice, '__getitem__') else invoice[3]
-    p.drawString(50, y, f'Fecha Sorteo: {str(raffle_date)}')
-    y -= 20
-    p.drawString(50, y, f'Vendedor: {invoice[6] if "seller_name" in invoice else invoice[6]}')
-    y -= 20
-    client_name = (invoice['client_name'] + ' ' + (invoice['client_last_name'] or '')) if 'client_name' in invoice else f'{invoice[4]} {invoice[5]}'
-    p.drawString(50, y, f'Cliente: {client_name}')
-    y -= 30
+    # invoice id (try dict-style access first)
+    try:
+        inv_id = invoice['id']
+    except Exception:
+        inv_id = invoice[0]
+    p.drawString(left_margin, y, f'Factura #{inv_id}')
+    y -= 24
+    p.setFont('Helvetica', 9)
+    try:
+        raffle_date = invoice['raffle_date']
+    except Exception:
+        raffle_date = invoice[3]
+    p.drawString(left_margin, y, f'Fecha Sorteo: {str(raffle_date)}')
+    y -= 16
+    try:
+        seller_name = invoice['seller_name']
+    except Exception:
+        seller_name = invoice[6]
+    p.drawString(left_margin, y, f'Vendedor: {seller_name}')
+    y -= 16
+    try:
+        client_name = f"{invoice['client_name']} {invoice.get('client_last_name','') }"
+    except Exception:
+        client_name = f"{invoice[4]} {invoice[5]}"
+    p.drawString(left_margin, y, f'Cliente: {client_name}')
+    y -= 22
 
-    p.drawString(50, y, 'Numero')
-    p.drawString(200, y, 'Cantidad')
-    p.drawString(300, y, 'Subtotal')
-    y -= 15
-    p.line(50, y, 550, y)
-    y -= 15
+    # Column positions (tightened): Numero | Cantidad | Subtotal
+    col_num_x = left_margin
+    col_qty_right = left_margin + int(usable_width * 0.55)
+    col_sub_right = right_margin
+
+    p.setFont('Helvetica-Bold', 10)
+    p.drawString(col_num_x, y, 'Numero')
+    p.drawRightString(col_qty_right, y, 'Cantidad')
+    p.drawRightString(col_sub_right, y, 'Subtotal')
+    y -= 12
+    p.line(left_margin, y, right_margin, y)
+    y -= 12
+    p.setFont('Helvetica', 9)
 
     for item in items:
-        if y < 80:
+        if y < 60:
             p.showPage()
             y = height - 50
-        p.drawString(50, y, str(item['number']))
-        p.drawRightString(260, y, str(item['quantity']))
-        p.drawRightString(550, y, f"${item['sub_total']:.2f}")
-        y -= 18
+            p.setFont('Helvetica-Bold', 10)
+            p.drawString(col_num_x, y, 'Numero')
+            p.drawRightString(col_qty_right, y, 'Cantidad')
+            p.drawRightString(col_sub_right, y, 'Subtotal')
+            y -= 12
+            p.line(left_margin, y, right_margin, y)
+            y -= 12
+            p.setFont('Helvetica', 9)
 
-    y -= 10
-    p.setFont('Helvetica-Bold', 12)
-    p.drawRightString(550, y, f"Total: ${invoice['total_amount']:.2f}")
+        # Draw fields, assume dict-like rows (same as before)
+        p.drawString(col_num_x, y, str(item['number']))
+        p.drawRightString(col_qty_right, y, str(item['quantity']))
+        try:
+            subtotal = float(item['sub_total'])
+        except Exception:
+            # fallback: try different key or zero
+            try:
+                subtotal = float(item.get('subtotal', 0))
+            except Exception:
+                subtotal = 0.0
+        p.drawRightString(col_sub_right, y, f"${subtotal:.2f}")
+        y -= 14
+
+    y -= 6
+    p.setFont('Helvetica-Bold', 11)
+    try:
+        total_amount = float(invoice['total_amount'])
+    except Exception:
+        total_amount = float(invoice[1])
+    p.drawRightString(col_sub_right, y, f"Total: ${total_amount:.2f}")
 
     p.showPage()
     p.save()

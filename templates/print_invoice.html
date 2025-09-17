@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block title %}Imprimir Factura #{{ invoice['id'] }}{% endblock %}
+
+{% block content %}
+<div class="print-invoice" id="print-area">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h1>Factura #{{ invoice['id'] }}</h1>
+    </div>
+
+    <div>
+        <p><strong>Fecha de Sorteo:</strong> {{ invoice['raffle_date'].strftime('%Y-%m-%d %H:%M') }}</p>
+        <p><strong>Vendedor:</strong> {{ invoice['seller_name'] }}</p>
+        <p><strong>Cliente:</strong> {{ invoice['client_name'] }} {{ invoice['client_last_name'] }}</p>
+        <p><strong>Fecha de Venta:</strong> {{ invoice['creation_date'].strftime('%Y-%m-%d %H:%M') }}</p>
+    </div>
+
+    <h3>Ítems</h3>
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th style="text-align:left; border-bottom: 1px solid #000;">Número</th>
+                <th style="text-align:right; border-bottom: 1px solid #000;">Cantidad</th>
+                <th style="text-align:right; border-bottom: 1px solid #000;">Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td style="padding: 6px 0;">{{ item['number'] }}</td>
+                <td style="padding: 6px 0; text-align:right;">{{ item['quantity'] }}</td>
+                <td style="padding: 6px 0; text-align:right;">${{ '%.2f'|format(item['sub_total']) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="text-align: right; margin-top: 20px; font-size: 1.2rem;">
+        <strong>Total: ${{ '%.2f'|format(invoice['total_amount']) }}</strong>
+    </div>
+
+</div>
+
+<div style="margin-top:20px;">
+    <button onclick="window.print()" class="btn">Imprimir</button>
+    <a href="{{ url_for('sale_detail', invoice_id=invoice['id']) }}" class="btn btn-secondary">Volver</a>
+</div>
+
+<style>
+@media print {
+    /* Hide layout navigation etc. keep only print-area */
+    body * { visibility: hidden; }
+    #print-area, #print-area * { visibility: visible; }
+    #print-area { position: absolute; left: 0; top: 0; width: 100%; }
+}
+</style>
+
+{% endblock %}

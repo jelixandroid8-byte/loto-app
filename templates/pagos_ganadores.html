@@ -1,88 +1,128 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagos a Ganadores</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <h1>Pagos a Ganadores</h1>
+{% extends 'layout.html' %}
 
-    <!-- Dropdown to select Sorteo -->
+{% block title %}Pagos a Ganadores{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Pagos a Ganadores</h1>
+    <div class="page-actions">
+        <a href="{{ url_for('seller_dashboard') }}" class="btn">Volver al Dashboard</a>
+    </div>
+</div>
+
+<div class="filters">
     <label for="sorteo">Seleccionar Sorteo:</label>
-    <select id="sorteo" name="sorteo" onchange="fetchWinnerPayments()">
+    <select id="sorteo" name="sorteo">
         <!-- Options will be dynamically populated -->
     </select>
+    <button class="btn" id="refresh-btn">Cargar</button>
+</div>
 
-    <!-- Table to display winner payments -->
-    <table>
-        <thead>
-            <tr>
-                <th>Cliente</th>
-                <th>Pago</th>
-                <th>Facturas</th>
-            </tr>
-        </thead>
-        <tbody id="winner-payments">
-            <!-- Rows will be dynamically populated -->
-        </tbody>
-    </table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Pago</th>
+            <th>Facturas</th>
+        </tr>
+    </thead>
+    <tbody id="winner-payments">
+        <!-- Rows will be dynamically populated -->
+    </tbody>
+</table>
 
-    <script>
-        // Fetch Sorteos and populate dropdown
-        async function fetchSorteos() {
-            const response = await fetch('/api/sorteos');
-            const sorteos = await response.json();
-            const dropdown = document.getElementById('sorteo');
+<script>
+    // Fetch Sorteos and populate dropdown. Select the latest by default.
+    async function fetchSorteos(selectLatest = true) {
+        const response = await fetch('/api/sorteos');
+        const sorteos = await response.json();
+        const dropdown = document.getElementById('sorteo');
+        dropdown.innerHTML = '';
 
-            sorteos.forEach(sorteo => {
-                const option = document.createElement('option');
-                option.value = sorteo.id;
-                option.textContent = sorteo.date;
-                dropdown.appendChild(option);
-            });
+        if (!Array.isArray(sorteos) || sorteos.length === 0) {
+            const opt = document.createElement('option');
+            opt.textContent = 'No hay sorteos disponibles';
+            dropdown.appendChild(opt);
+            return null;
         }
 
-        // Fetch winner payments for the selected Sorteo
-        async function fetchWinnerPayments() {
-            const sorteoId = document.getElementById('sorteo').value;
-            const response = await fetch(`/api/winner-payments?sorteo_id=${sorteoId}`);
-            const payments = await response.json();
-            const tbody = document.getElementById('winner-payments');
+        // Sort by date descending just in case server order differs
+        sorteos.sort((a,b) => new Date(b.date) - new Date(a.date));
 
-            tbody.innerHTML = '';
+        sorteos.forEach((sorteo, idx) => {
+            const option = document.createElement('option');
+            option.value = sorteo.id;
+            option.textContent = sorteo.date;
+            dropdown.appendChild(option);
+        });
 
-            payments.forEach(payment => {
-                const row = document.createElement('tr');
+        // If requested, select the latest (first after sorting) and fetch payments
+        if (selectLatest) {
+            dropdown.selectedIndex = 0;
+            const latestId = dropdown.value;
+            if (latestId) fetchWinnerPayments(latestId);
+            return latestId;
+        }
 
-                // Cliente column
-                const clienteCell = document.createElement('td');
-                clienteCell.textContent = payment.cliente;
-                row.appendChild(clienteCell);
+        return null;
+    }
 
-                // Pago column
-                const pagoCell = document.createElement('td');
-                pagoCell.textContent = payment.pago;
-                row.appendChild(pagoCell);
+    // Fetch winner payments for the given Sorteo id
+    async function fetchWinnerPayments(sorteoId) {
+        const id = sorteoId || document.getElementById('sorteo').value;
+        if (!id) return;
+        const response = await fetch(`/api/winner-payments?sorteo_id=${id}`);
+        const payments = await response.json();
+        const tbody = document.getElementById('winner-payments');
 
-                // Facturas column
-                const facturasCell = document.createElement('td');
+        tbody.innerHTML = '';
+
+        if (!Array.isArray(payments) || payments.length === 0) {
+            const tr = document.createElement('tr');
+            const td = document.createElement('td');
+            td.colSpan = 3;
+            td.textContent = 'No hay pagos para este sorteo.';
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        payments.forEach(payment => {
+            const row = document.createElement('tr');
+
+            // Cliente column
+            const clienteCell = document.createElement('td');
+            clienteCell.textContent = payment.cliente || '';
+            row.appendChild(clienteCell);
+
+            // Pago column
+            const pagoCell = document.createElement('td');
+            pagoCell.textContent = payment.pago || '';
+            row.appendChild(pagoCell);
+
+            // Facturas column
+            const facturasCell = document.createElement('td');
+            if (Array.isArray(payment.facturas) && payment.facturas.length > 0) {
                 payment.facturas.forEach(factura => {
-                    const button = document.createElement('button');
-                    button.textContent = `Factura ${factura.id}`;
-                    // Navigate to the existing sale detail route
-                    button.onclick = () => window.location.href = `/sales/${factura.id}`;
-                    facturasCell.appendChild(button);
+                    const a = document.createElement('a');
+                    a.href = `/sales/${factura.id}`;
+                    a.className = 'btn btn-sm';
+                    a.textContent = `Factura ${factura.id}`;
+                    facturasCell.appendChild(a);
+                    facturasCell.appendChild(document.createTextNode(' '));
                 });
-                row.appendChild(facturasCell);
+            }
+            row.appendChild(facturasCell);
 
-                tbody.appendChild(row);
-            });
-        }
+            tbody.appendChild(row);
+        });
+    }
 
-        // Initialize page
-        fetchSorteos();
-    </script>
-</body>
-</html>
+    // Initialize page: populate sorteos and auto-select the latest
+    document.addEventListener('DOMContentLoaded', async () => {
+        await fetchSorteos(true);
+        document.getElementById('refresh-btn').addEventListener('click', () => fetchWinnerPayments());
+    });
+</script>
+
+{% endblock %}

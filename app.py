@@ -7,6 +7,7 @@ from database import get_db_connection
 import psycopg2.extras
 from io import BytesIO
 from reportlab.lib.pagesizes import letter
+from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 
 app = Flask(__name__)
@@ -615,9 +616,11 @@ def invoice_pdf(invoice_id):
     items = cur.fetchall()
 
     # Prepare PDF in memory
+    # Half-letter size in points: 5.5in x 8.5in
+    half_letter = (5.5 * inch, 8.5 * inch)
     buffer = BytesIO()
-    p = canvas.Canvas(buffer, pagesize=letter)
-    width, height = letter
+    p = canvas.Canvas(buffer, pagesize=half_letter)
+    width, height = half_letter
 
     y = height - 50
     p.setFont('Helvetica-Bold', 14)

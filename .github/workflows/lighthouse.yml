@@ -20,13 +20,18 @@ jobs:
       - name: Install lighthouse
         run: npm install -g lighthouse@10
 
+      - name: Install Chromium
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y chromium-browser chromium
+
       - name: Run Lighthouse (PWA)
         env:
           TARGET_URL: ${{ secrets.LIGHTHOUSE_URL || 'https://loto-app-45ud.onrender.com' }}
         run: |
           mkdir -p reports
-          # JSON and HTML outputs
-          lighthouse "$TARGET_URL" --only-categories=pwa --output=json --output=html --output-path=reports/lighthouse
+          # JSON and HTML outputs. Pass chrome flags to run headless in CI and disable sandbox.
+          lighthouse "$TARGET_URL" --only-categories=pwa --output=json --output=html --output-path=reports/lighthouse --chrome-flags="--headless --no-sandbox --disable-gpu"
           ls -la reports
 
       - name: Upload Lighthouse reports

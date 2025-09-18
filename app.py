@@ -1,6 +1,6 @@
 import sqlite3
 import psycopg2
-from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, g
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, g, send_from_directory
 from werkzeug.security import check_password_hash, generate_password_hash
 from functools import wraps
 import datetime
@@ -175,6 +175,17 @@ def index():
         return redirect(url_for('admin_dashboard'))
     else:
         return redirect(url_for('seller_dashboard'))
+
+
+# Serve PWA manifest and service worker at the site root so they are discoverable by Lighthouse
+@app.route('/manifest.json')
+def manifest():
+    return send_from_directory('static', 'manifest.json')
+
+
+@app.route('/service-worker.js')
+def service_worker():
+    return send_from_directory('static', 'service-worker.js')
 
 @app.route('/admin/dashboard')
 @admin_required

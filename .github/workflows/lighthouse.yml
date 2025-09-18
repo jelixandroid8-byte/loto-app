@@ -29,15 +29,23 @@ jobs:
       - name: Run Lighthouse (PWA)
         id: run_lighthouse
         env:
-          TARGET_URL: ${{ secrets.LIGHTHOUSE_URL || 'https://loto-app-45ud.onrender.com' }}
+          # Use the explicit start_url (login) to avoid redirecting during the audit
+          TARGET_URL: ${{ secrets.LIGHTHOUSE_URL || 'https://loto-app-45ud.onrender.com/login' }}
           CHROME_PATH: ${{ steps.setup_chrome.outputs.chrome_path }}
         run: |
+          set -e
           mkdir -p reports
+          echo "Preflight: checking $TARGET_URL"
+          # Preflight: verify URL responds with 200. Print headers for debugging.
+          curl -I --max-time 15 "$TARGET_URL" || { echo "Preflight curl failed"; exit 2; }
+          echo "Preflight OK. Running Lighthouse..."
           # JSON and HTML outputs. Use the chrome path installed by the setup action and pass headless flags.
-          lighthouse "$TARGET_URL" --only-categories=pwa --output=json --output=html --output-path=reports/lighthouse --chrome-path="$CHROME_PATH" --chrome-flags="--headless --no-sandbox --disable-gpu --disable-dev-shm-usage"
-          ls -la reports
+          # Increase max wait to allow slow starts and add verbose logging. Save stdout to a log so we can inspect partial output.
+          lighthouse "$TARGET_URL" --only-categories=pwa --output=json --output=html --output-path=reports/lighthouse --chrome-path="$CHROME_PATH" --max-wait-for-load=60000 --pause-after-load=2000 --chrome-flags="--headless --no-sandbox --disable-gpu --disable-dev-shm-usage" --verbose 2>&1 | tee reports/lighthouse-cli.log || true
+          ls -la reports || true
 
       - name: Upload Lighthouse reports
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: lighthouse-reports

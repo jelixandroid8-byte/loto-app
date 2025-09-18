@@ -7,7 +7,8 @@
     <title>{% block title %}LotoWeb{% endblock %}</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <meta name="theme-color" content="#2d6a4f">
-        <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+        <!-- Prefer serving manifest at root so it's discoverable at /manifest.json -->
+        <link rel="manifest" href="/manifest.json">
   </head>
   <body>
     <nav class="navbar">
@@ -36,7 +37,8 @@
         <script>
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                    navigator.serviceWorker.register("{{ url_for('static', filename='service-worker.js') }}")
+                    // Register the service worker at the site root so its scope covers the app
+                    navigator.serviceWorker.register('/service-worker.js')
                         .then(function(reg) { console.log('ServiceWorker registered.', reg); })
                         .catch(function(err) { console.warn('ServiceWorker registration failed:', err); });
                 });

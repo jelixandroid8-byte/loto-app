@@ -1,0 +1,36 @@
+name: Lighthouse PWA Audit
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [ main ]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install lighthouse
+        run: npm install -g lighthouse@10
+
+      - name: Run Lighthouse (PWA)
+        env:
+          TARGET_URL: ${{ secrets.LIGHTHOUSE_URL || 'https://loto-app-45ud.onrender.com' }}
+        run: |
+          mkdir -p reports
+          # JSON and HTML outputs
+          lighthouse "$TARGET_URL" --only-categories=pwa --output=json --output=html --output-path=reports/lighthouse
+          ls -la reports
+
+      - name: Upload Lighthouse reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: reports

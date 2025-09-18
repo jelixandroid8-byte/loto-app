@@ -1,0 +1,32 @@
+﻿2025-09-18T21:00:14.7933380Z Current runner version: '2.328.0'
+2025-09-18T21:00:14.7963318Z ##[group]Runner Image Provisioner
+2025-09-18T21:00:14.7964099Z Hosted Compute Agent
+2025-09-18T21:00:14.7964772Z Version: 20250829.383
+2025-09-18T21:00:14.7965346Z Commit: 27cb235aab5b0e52e153a26cd86b4742e89dac5d
+2025-09-18T21:00:14.7966018Z Build Date: 2025-08-29T13:48:48Z
+2025-09-18T21:00:14.7966882Z ##[endgroup]
+2025-09-18T21:00:14.7967459Z ##[group]Operating System
+2025-09-18T21:00:14.7967990Z Ubuntu
+2025-09-18T21:00:14.7968530Z 24.04.3
+2025-09-18T21:00:14.7968956Z LTS
+2025-09-18T21:00:14.7969403Z ##[endgroup]
+2025-09-18T21:00:14.7969934Z ##[group]Runner Image
+2025-09-18T21:00:14.7970464Z Image: ubuntu-24.04
+2025-09-18T21:00:14.7970971Z Version: 20250907.24.1
+2025-09-18T21:00:14.7971970Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250907.24/images/ubuntu/Ubuntu2404-Readme.md
+2025-09-18T21:00:14.7973373Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250907.24
+2025-09-18T21:00:14.7974554Z ##[endgroup]
+2025-09-18T21:00:14.7975627Z ##[group]GITHUB_TOKEN Permissions
+2025-09-18T21:00:14.7977670Z Contents: read
+2025-09-18T21:00:14.7978220Z Metadata: read
+2025-09-18T21:00:14.7978719Z Packages: read
+2025-09-18T21:00:14.7979152Z ##[endgroup]
+2025-09-18T21:00:14.7981181Z Secret source: Actions
+2025-09-18T21:00:14.7981839Z Prepare workflow directory
+2025-09-18T21:00:14.8394698Z Prepare all required actions
+2025-09-18T21:00:14.8449705Z Getting action download info
+2025-09-18T21:00:15.2208868Z Download action repository 'actions/checkout@v4' (SHA:08eba0b27e820071cde6df949e0beb9ba4906955)
+2025-09-18T21:00:15.4290219Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2025-09-18T21:00:15.5799830Z Download action repository 'browser-actions/setup-chrome@v2' (SHA:b94431e051d1c52dcbe9a7092a4f10f827795416)
+2025-09-18T21:00:15.9050747Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2025-09-18T21:00:16.1032161Z Complete job name: lighthouse

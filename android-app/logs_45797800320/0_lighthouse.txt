@@ -1,0 +1,203 @@
+﻿2025-09-18T21:00:14.7934596Z Current runner version: '2.328.0'
+2025-09-18T21:00:14.7963342Z ##[group]Runner Image Provisioner
+2025-09-18T21:00:14.7964104Z Hosted Compute Agent
+2025-09-18T21:00:14.7964776Z Version: 20250829.383
+2025-09-18T21:00:14.7965350Z Commit: 27cb235aab5b0e52e153a26cd86b4742e89dac5d
+2025-09-18T21:00:14.7966021Z Build Date: 2025-08-29T13:48:48Z
+2025-09-18T21:00:14.7966888Z ##[endgroup]
+2025-09-18T21:00:14.7967462Z ##[group]Operating System
+2025-09-18T21:00:14.7967994Z Ubuntu
+2025-09-18T21:00:14.7968533Z 24.04.3
+2025-09-18T21:00:14.7968959Z LTS
+2025-09-18T21:00:14.7969406Z ##[endgroup]
+2025-09-18T21:00:14.7969937Z ##[group]Runner Image
+2025-09-18T21:00:14.7970466Z Image: ubuntu-24.04
+2025-09-18T21:00:14.7970973Z Version: 20250907.24.1
+2025-09-18T21:00:14.7971976Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250907.24/images/ubuntu/Ubuntu2404-Readme.md
+2025-09-18T21:00:14.7973565Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250907.24
+2025-09-18T21:00:14.7974559Z ##[endgroup]
+2025-09-18T21:00:14.7975632Z ##[group]GITHUB_TOKEN Permissions
+2025-09-18T21:00:14.7977691Z Contents: read
+2025-09-18T21:00:14.7978224Z Metadata: read
+2025-09-18T21:00:14.7978722Z Packages: read
+2025-09-18T21:00:14.7979156Z ##[endgroup]
+2025-09-18T21:00:14.7981198Z Secret source: Actions
+2025-09-18T21:00:14.7981844Z Prepare workflow directory
+2025-09-18T21:00:14.8394728Z Prepare all required actions
+2025-09-18T21:00:14.8449730Z Getting action download info
+2025-09-18T21:00:15.2208910Z Download action repository 'actions/checkout@v4' (SHA:08eba0b27e820071cde6df949e0beb9ba4906955)
+2025-09-18T21:00:15.4290245Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2025-09-18T21:00:15.5799862Z Download action repository 'browser-actions/setup-chrome@v2' (SHA:b94431e051d1c52dcbe9a7092a4f10f827795416)
+2025-09-18T21:00:15.9050794Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2025-09-18T21:00:16.1032186Z Complete job name: lighthouse
+2025-09-18T21:00:16.1710169Z ##[group]Run actions/checkout@v4
+2025-09-18T21:00:16.1711056Z with:
+2025-09-18T21:00:16.1711509Z   repository: jelixandroid8-byte/loto-app
+2025-09-18T21:00:16.1712244Z   token: ***
+2025-09-18T21:00:16.1712661Z   ssh-strict: true
+2025-09-18T21:00:16.1713072Z   ssh-user: git
+2025-09-18T21:00:16.1713506Z   persist-credentials: true
+2025-09-18T21:00:16.1713982Z   clean: true
+2025-09-18T21:00:16.1714413Z   sparse-checkout-cone-mode: true
+2025-09-18T21:00:16.1714924Z   fetch-depth: 1
+2025-09-18T21:00:16.1715358Z   fetch-tags: false
+2025-09-18T21:00:16.1715783Z   show-progress: true
+2025-09-18T21:00:16.1716217Z   lfs: false
+2025-09-18T21:00:16.1716788Z   submodules: false
+2025-09-18T21:00:16.1717232Z   set-safe-directory: true
+2025-09-18T21:00:16.1717968Z ##[endgroup]
+2025-09-18T21:00:16.2805370Z Syncing repository: jelixandroid8-byte/loto-app
+2025-09-18T21:00:16.2808547Z ##[group]Getting Git version info
+2025-09-18T21:00:16.2809714Z Working directory is '/home/runner/work/loto-app/loto-app'
+2025-09-18T21:00:16.2810882Z [command]/usr/bin/git version
+2025-09-18T21:00:16.2879938Z git version 2.51.0
+2025-09-18T21:00:16.2906146Z ##[endgroup]
+2025-09-18T21:00:16.2921751Z Temporarily overriding HOME='/home/runner/work/_temp/2e419bd8-c18b-4834-84ab-b0d285507591' before making global git config changes
+2025-09-18T21:00:16.2924410Z Adding repository directory to the temporary git global config as a safe directory
+2025-09-18T21:00:16.2935814Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/loto-app/loto-app
+2025-09-18T21:00:16.2971811Z Deleting the contents of '/home/runner/work/loto-app/loto-app'
+2025-09-18T21:00:16.2975569Z ##[group]Initializing the repository
+2025-09-18T21:00:16.2980446Z [command]/usr/bin/git init /home/runner/work/loto-app/loto-app
+2025-09-18T21:00:16.3102286Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-09-18T21:00:16.3103851Z hint: is subject to change. To configure the initial branch name to use in all
+2025-09-18T21:00:16.3105490Z hint: of your new repositories, which will suppress this warning, call:
+2025-09-18T21:00:16.3106877Z hint:
+2025-09-18T21:00:16.3107627Z hint: 	git config --global init.defaultBranch <name>
+2025-09-18T21:00:16.3108850Z hint:
+2025-09-18T21:00:16.3110018Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-09-18T21:00:16.3111951Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-09-18T21:00:16.3113461Z hint:
+2025-09-18T21:00:16.3114303Z hint: 	git branch -m <name>
+2025-09-18T21:00:16.3115143Z hint:
+2025-09-18T21:00:16.3116288Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2025-09-18T21:00:16.3118549Z Initialized empty Git repository in /home/runner/work/loto-app/loto-app/.git/
+2025-09-18T21:00:16.3121716Z [command]/usr/bin/git remote add origin https://github.com/jelixandroid8-byte/loto-app
+2025-09-18T21:00:16.3156757Z ##[endgroup]
+2025-09-18T21:00:16.3158161Z ##[group]Disabling automatic garbage collection
+2025-09-18T21:00:16.3161560Z [command]/usr/bin/git config --local gc.auto 0
+2025-09-18T21:00:16.3189610Z ##[endgroup]
+2025-09-18T21:00:16.3191006Z ##[group]Setting up auth
+2025-09-18T21:00:16.3197042Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-09-18T21:00:16.3227397Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-09-18T21:00:16.3544955Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-09-18T21:00:16.3574500Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-09-18T21:00:16.3793711Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-09-18T21:00:16.3828188Z ##[endgroup]
+2025-09-18T21:00:16.3829700Z ##[group]Fetching the repository
+2025-09-18T21:00:16.3847164Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +7206208ff5705c14569b46dc5516484884819c12:refs/remotes/origin/main
+2025-09-18T21:00:16.7333556Z From https://github.com/jelixandroid8-byte/loto-app
+2025-09-18T21:00:16.7335598Z  * [new ref]         7206208ff5705c14569b46dc5516484884819c12 -> origin/main
+2025-09-18T21:00:16.7365163Z ##[endgroup]
+2025-09-18T21:00:16.7367229Z ##[group]Determining the checkout info
+2025-09-18T21:00:16.7369189Z ##[endgroup]
+2025-09-18T21:00:16.7373380Z [command]/usr/bin/git sparse-checkout disable
+2025-09-18T21:00:16.7414799Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-09-18T21:00:16.7442686Z ##[group]Checking out the ref
+2025-09-18T21:00:16.7445614Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2025-09-18T21:00:16.7591384Z Switched to a new branch 'main'
+2025-09-18T21:00:16.7593882Z branch 'main' set up to track 'origin/main'.
+2025-09-18T21:00:16.7602898Z ##[endgroup]
+2025-09-18T21:00:16.7638462Z [command]/usr/bin/git log -1 --format=%H
+2025-09-18T21:00:16.7660621Z 7206208ff5705c14569b46dc5516484884819c12
+2025-09-18T21:00:16.7963727Z ##[group]Run actions/setup-node@v4
+2025-09-18T21:00:16.7964892Z with:
+2025-09-18T21:00:16.7965706Z   node-version: 20
+2025-09-18T21:00:16.7966839Z   always-auth: false
+2025-09-18T21:00:16.7967789Z   check-latest: false
+2025-09-18T21:00:16.7968980Z   token: ***
+2025-09-18T21:00:16.7969818Z ##[endgroup]
+2025-09-18T21:00:16.9719089Z Found in cache @ /opt/hostedtoolcache/node/20.19.5/x64
+2025-09-18T21:00:16.9724666Z ##[group]Environment details
+2025-09-18T21:00:20.4879358Z node: v20.19.5
+2025-09-18T21:00:20.4879864Z npm: 10.8.2
+2025-09-18T21:00:20.4880204Z yarn: 1.22.22
+2025-09-18T21:00:20.4882947Z ##[endgroup]
+2025-09-18T21:00:20.4997340Z ##[group]Run npm install -g lighthouse@10
+2025-09-18T21:00:20.4998080Z [36;1mnpm install -g lighthouse@10[0m
+2025-09-18T21:00:20.5163021Z shell: /usr/bin/bash -e {0}
+2025-09-18T21:00:20.5163335Z ##[endgroup]
+2025-09-18T21:00:32.7126351Z npm warn deprecated intl-messageformat-parser@1.8.1: We've written a new parser that's 6x faster and is backwards compatible. Please use @formatjs/icu-messageformat-parser
+2025-09-18T21:00:33.6359406Z 
+2025-09-18T21:00:33.6360003Z added 148 packages in 13s
+2025-09-18T21:00:33.6360384Z 
+2025-09-18T21:00:33.6360888Z 11 packages are looking for funding
+2025-09-18T21:00:33.6361446Z   run `npm fund` for details
+2025-09-18T21:00:33.6667205Z ##[group]Run browser-actions/setup-chrome@v2
+2025-09-18T21:00:33.6667730Z with:
+2025-09-18T21:00:33.6668044Z   chrome-version: latest
+2025-09-18T21:00:33.6668442Z   install-dependencies: false
+2025-09-18T21:00:33.6668843Z   install-chromedriver: false
+2025-09-18T21:00:33.6669229Z   no-sudo: false
+2025-09-18T21:00:33.6669550Z ##[endgroup]
+2025-09-18T21:00:33.7418480Z Setup chrome latest
+2025-09-18T21:00:33.7989103Z Attempting to download chrome latest...
+2025-09-18T21:00:33.7991193Z Acquiring chrome 1517535 from https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F1517535%2Fchrome-linux.zip?alt=media
+2025-09-18T21:00:36.9042372Z Installing chrome...
+2025-09-18T21:00:36.9125317Z [command]/usr/bin/unzip -o -q /home/runner/work/_temp/7cb44124-11bb-431e-a330-5cb1aa131cf5
+2025-09-18T21:00:42.7908446Z Successfully Installed chrome to /opt/hostedtoolcache/setup-chrome/chrome/1517535/x64
+2025-09-18T21:00:42.7917850Z [command]/opt/hostedtoolcache/setup-chrome/chrome/1517535/x64/chrome --version
+2025-09-18T21:00:42.9960490Z Chromium 142.0.7422.0 
+2025-09-18T21:00:43.0018470Z Successfully setup chrome 142.0.7422.0
+2025-09-18T21:00:43.0142164Z ##[group]Run set -e
+2025-09-18T21:00:43.0142443Z [36;1mset -e[0m
+2025-09-18T21:00:43.0142654Z [36;1mmkdir -p reports[0m
+2025-09-18T21:00:43.0142921Z [36;1mecho "Preflight: checking $TARGET_URL"[0m
+2025-09-18T21:00:43.0143334Z [36;1m# Preflight: verify URL responds with 200. Print headers for debugging.[0m
+2025-09-18T21:00:43.0143823Z [36;1mcurl -I --max-time 15 "$TARGET_URL" || { echo "Preflight curl failed"; exit 2; }[0m
+2025-09-18T21:00:43.0144245Z [36;1mecho "Preflight OK. Running Lighthouse..."[0m
+2025-09-18T21:00:43.0144717Z [36;1m# JSON and HTML outputs. Use the chrome path installed by the setup action and pass headless flags.[0m
+2025-09-18T21:00:43.0145379Z [36;1m# Increase max wait to allow slow starts and add verbose logging. Save stdout to a log so we can inspect partial output.[0m
+2025-09-18T21:00:43.0147026Z [36;1mlighthouse "$TARGET_URL" --only-categories=pwa --output=json --output=html --output-path=reports/lighthouse --chrome-path="$CHROME_PATH" --max-wait-for-load=60000 --pause-after-load=2000 --chrome-flags="--headless --no-sandbox --disable-gpu --disable-dev-shm-usage" --verbose 2>&1 | tee reports/lighthouse-cli.log || true[0m
+2025-09-18T21:00:43.0148131Z [36;1mls -la reports || true[0m
+2025-09-18T21:00:43.0178504Z shell: /usr/bin/bash -e {0}
+2025-09-18T21:00:43.0178736Z env:
+2025-09-18T21:00:43.0178990Z   TARGET_URL: https://loto-app-45ud.onrender.com/login
+2025-09-18T21:00:43.0179287Z   CHROME_PATH: 
+2025-09-18T21:00:43.0179478Z ##[endgroup]
+2025-09-18T21:00:43.0241606Z Preflight: checking https://loto-app-45ud.onrender.com/login
+2025-09-18T21:00:43.0307434Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-18T21:00:43.0308259Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-18T21:00:43.0308614Z 
+2025-09-18T21:00:44.0735186Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-18T21:00:45.0746736Z   0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0
+2025-09-18T21:00:46.0757697Z   0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0
+2025-09-18T21:00:47.0769172Z   0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0
+2025-09-18T21:00:48.0780293Z   0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0
+2025-09-18T21:00:49.0791602Z   0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0
+2025-09-18T21:00:50.0803358Z   0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0
+2025-09-18T21:00:50.5378811Z   0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0
+2025-09-18T21:00:51.5390288Z   0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0
+2025-09-18T21:00:52.5394311Z   0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0
+2025-09-18T21:00:53.5405969Z   0     0    0     0    0     0      0      0 --:--:--  0:00:09 --:--:--     0
+2025-09-18T21:00:54.5417505Z   0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0
+2025-09-18T21:00:55.5428794Z   0     0    0     0    0     0      0      0 --:--:--  0:00:11 --:--:--     0
+2025-09-18T21:00:56.5439999Z   0     0    0     0    0     0      0      0 --:--:--  0:00:12 --:--:--     0
+2025-09-18T21:00:57.5451719Z   0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0
+2025-09-18T21:00:58.0317631Z   0     0    0     0    0     0      0      0 --:--:--  0:00:14 --:--:--     0
+2025-09-18T21:00:58.0318410Z   0     0    0     0    0     0      0      0 --:--:--  0:00:15 --:--:--     0
+2025-09-18T21:00:58.0319334Z curl: (28) Operation timed out after 15000 milliseconds with 0 bytes received
+2025-09-18T21:00:58.0343957Z Preflight curl failed
+2025-09-18T21:00:58.0358583Z ##[error]Process completed with exit code 2.
+2025-09-18T21:00:58.0414984Z ##[group]Run actions/upload-artifact@v4
+2025-09-18T21:00:58.0415254Z with:
+2025-09-18T21:00:58.0415441Z   name: lighthouse-reports
+2025-09-18T21:00:58.0415647Z   path: reports
+2025-09-18T21:00:58.0415844Z   if-no-files-found: warn
+2025-09-18T21:00:58.0416067Z   compression-level: 6
+2025-09-18T21:00:58.0416258Z   overwrite: false
+2025-09-18T21:00:58.0416796Z   include-hidden-files: false
+2025-09-18T21:00:58.0417031Z ##[endgroup]
+2025-09-18T21:00:58.2508259Z ##[warning]No files were found with the provided path: reports. No artifacts will be uploaded.
+2025-09-18T21:00:58.2620555Z Post job cleanup.
+2025-09-18T21:00:58.3543213Z [command]/usr/bin/git version
+2025-09-18T21:00:58.3578350Z git version 2.51.0
+2025-09-18T21:00:58.3621175Z Temporarily overriding HOME='/home/runner/work/_temp/ec905157-4d15-4070-82df-a7bc165c35eb' before making global git config changes
+2025-09-18T21:00:58.3622699Z Adding repository directory to the temporary git global config as a safe directory
+2025-09-18T21:00:58.3627483Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/loto-app/loto-app
+2025-09-18T21:00:58.3662530Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-09-18T21:00:58.3694372Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-09-18T21:00:58.3918463Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-09-18T21:00:58.3937984Z http.https://github.com/.extraheader
+2025-09-18T21:00:58.3950628Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2025-09-18T21:00:58.3981841Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-09-18T21:00:58.4303564Z Cleaning up orphan processes

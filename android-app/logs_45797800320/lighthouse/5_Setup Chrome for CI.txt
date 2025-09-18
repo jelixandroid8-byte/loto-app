@@ -1,0 +1,16 @@
+﻿2025-09-18T21:00:33.6667177Z ##[group]Run browser-actions/setup-chrome@v2
+2025-09-18T21:00:33.6667723Z with:
+2025-09-18T21:00:33.6668037Z   chrome-version: latest
+2025-09-18T21:00:33.6668436Z   install-dependencies: false
+2025-09-18T21:00:33.6668838Z   install-chromedriver: false
+2025-09-18T21:00:33.6669223Z   no-sudo: false
+2025-09-18T21:00:33.6669545Z ##[endgroup]
+2025-09-18T21:00:33.7418434Z Setup chrome latest
+2025-09-18T21:00:33.7989080Z Attempting to download chrome latest...
+2025-09-18T21:00:33.7991184Z Acquiring chrome 1517535 from https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F1517535%2Fchrome-linux.zip?alt=media
+2025-09-18T21:00:36.9042336Z Installing chrome...
+2025-09-18T21:00:36.9125290Z [command]/usr/bin/unzip -o -q /home/runner/work/_temp/7cb44124-11bb-431e-a330-5cb1aa131cf5
+2025-09-18T21:00:42.7908410Z Successfully Installed chrome to /opt/hostedtoolcache/setup-chrome/chrome/1517535/x64
+2025-09-18T21:00:42.7917758Z [command]/opt/hostedtoolcache/setup-chrome/chrome/1517535/x64/chrome --version
+2025-09-18T21:00:42.9960453Z Chromium 142.0.7422.0 
+2025-09-18T21:00:43.0018450Z Successfully setup chrome 142.0.7422.0

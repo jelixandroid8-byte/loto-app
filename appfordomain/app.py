@@ -55,6 +55,14 @@ def service_worker():
     return send_from_directory('static', 'service-worker.js')
 
 
+# Lightweight unauthenticated health/test endpoint for CI (serves the login page)
+# Important: keep this simple and unauthenticated so external CI can reach the PWA shell
+@app.route('/lh-test')
+def lh_test():
+    # Render the login template but don't require auth; keep it minimal to speed up cold starts
+    return render_template('login.html')
+
+
 # --- Database Initialization ---
 @app.cli.command('initdb')
 def initdb_command():

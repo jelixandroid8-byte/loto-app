@@ -1,0 +1,10 @@
+﻿2025-09-18T21:00:20.4997309Z ##[group]Run npm install -g lighthouse@10
+2025-09-18T21:00:20.4998074Z [36;1mnpm install -g lighthouse@10[0m
+2025-09-18T21:00:20.5163003Z shell: /usr/bin/bash -e {0}
+2025-09-18T21:00:20.5163331Z ##[endgroup]
+2025-09-18T21:00:32.7126290Z npm warn deprecated intl-messageformat-parser@1.8.1: We've written a new parser that's 6x faster and is backwards compatible. Please use @formatjs/icu-messageformat-parser
+2025-09-18T21:00:33.6359344Z 
+2025-09-18T21:00:33.6359977Z added 148 packages in 13s
+2025-09-18T21:00:33.6360375Z 
+2025-09-18T21:00:33.6360879Z 11 packages are looking for funding
+2025-09-18T21:00:33.6361433Z   run `npm fund` for details

@@ -29,8 +29,8 @@ jobs:
       - name: Run Lighthouse (PWA)
         id: run_lighthouse
         env:
-          # Use the explicit start_url (login) to avoid redirecting during the audit
-          TARGET_URL: ${{ secrets.LIGHTHOUSE_URL || 'https://loto-app-45ud.onrender.com/login' }}
+          # Use the explicit CI-friendly test page (lh-test) to avoid auth redirects and speed up cold starts
+          TARGET_URL: ${{ secrets.LIGHTHOUSE_URL || 'https://loto-app-45ud.onrender.com/lh-test' }}
           CHROME_PATH: ${{ steps.setup_chrome.outputs.chrome_path }}
         run: |
           set -e

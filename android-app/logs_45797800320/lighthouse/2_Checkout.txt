@@ -1,0 +1,69 @@
+﻿2025-09-18T21:00:16.1710139Z ##[group]Run actions/checkout@v4
+2025-09-18T21:00:16.1711045Z with:
+2025-09-18T21:00:16.1711505Z   repository: jelixandroid8-byte/loto-app
+2025-09-18T21:00:16.1712240Z   token: ***
+2025-09-18T21:00:16.1712657Z   ssh-strict: true
+2025-09-18T21:00:16.1713069Z   ssh-user: git
+2025-09-18T21:00:16.1713501Z   persist-credentials: true
+2025-09-18T21:00:16.1713979Z   clean: true
+2025-09-18T21:00:16.1714410Z   sparse-checkout-cone-mode: true
+2025-09-18T21:00:16.1714917Z   fetch-depth: 1
+2025-09-18T21:00:16.1715354Z   fetch-tags: false
+2025-09-18T21:00:16.1715780Z   show-progress: true
+2025-09-18T21:00:16.1716214Z   lfs: false
+2025-09-18T21:00:16.1716776Z   submodules: false
+2025-09-18T21:00:16.1717229Z   set-safe-directory: true
+2025-09-18T21:00:16.1717957Z ##[endgroup]
+2025-09-18T21:00:16.2805320Z Syncing repository: jelixandroid8-byte/loto-app
+2025-09-18T21:00:16.2808517Z ##[group]Getting Git version info
+2025-09-18T21:00:16.2809636Z Working directory is '/home/runner/work/loto-app/loto-app'
+2025-09-18T21:00:16.2810872Z [command]/usr/bin/git version
+2025-09-18T21:00:16.2879906Z git version 2.51.0
+2025-09-18T21:00:16.2906116Z ##[endgroup]
+2025-09-18T21:00:16.2921717Z Temporarily overriding HOME='/home/runner/work/_temp/2e419bd8-c18b-4834-84ab-b0d285507591' before making global git config changes
+2025-09-18T21:00:16.2924398Z Adding repository directory to the temporary git global config as a safe directory
+2025-09-18T21:00:16.2935782Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/loto-app/loto-app
+2025-09-18T21:00:16.2971778Z Deleting the contents of '/home/runner/work/loto-app/loto-app'
+2025-09-18T21:00:16.2975543Z ##[group]Initializing the repository
+2025-09-18T21:00:16.2980415Z [command]/usr/bin/git init /home/runner/work/loto-app/loto-app
+2025-09-18T21:00:16.3102253Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-09-18T21:00:16.3103833Z hint: is subject to change. To configure the initial branch name to use in all
+2025-09-18T21:00:16.3105445Z hint: of your new repositories, which will suppress this warning, call:
+2025-09-18T21:00:16.3106857Z hint:
+2025-09-18T21:00:16.3107614Z hint: 	git config --global init.defaultBranch <name>
+2025-09-18T21:00:16.3108829Z hint:
+2025-09-18T21:00:16.3109996Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-09-18T21:00:16.3111924Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-09-18T21:00:16.3113435Z hint:
+2025-09-18T21:00:16.3114295Z hint: 	git branch -m <name>
+2025-09-18T21:00:16.3115135Z hint:
+2025-09-18T21:00:16.3116271Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2025-09-18T21:00:16.3118520Z Initialized empty Git repository in /home/runner/work/loto-app/loto-app/.git/
+2025-09-18T21:00:16.3121689Z [command]/usr/bin/git remote add origin https://github.com/jelixandroid8-byte/loto-app
+2025-09-18T21:00:16.3156731Z ##[endgroup]
+2025-09-18T21:00:16.3158129Z ##[group]Disabling automatic garbage collection
+2025-09-18T21:00:16.3161530Z [command]/usr/bin/git config --local gc.auto 0
+2025-09-18T21:00:16.3189584Z ##[endgroup]
+2025-09-18T21:00:16.3190982Z ##[group]Setting up auth
+2025-09-18T21:00:16.3197002Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-09-18T21:00:16.3227362Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-09-18T21:00:16.3544911Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-09-18T21:00:16.3574450Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-09-18T21:00:16.3793672Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-09-18T21:00:16.3827815Z ##[endgroup]
+2025-09-18T21:00:16.3829663Z ##[group]Fetching the repository
+2025-09-18T21:00:16.3847131Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +7206208ff5705c14569b46dc5516484884819c12:refs/remotes/origin/main
+2025-09-18T21:00:16.7333445Z From https://github.com/jelixandroid8-byte/loto-app
+2025-09-18T21:00:16.7335586Z  * [new ref]         7206208ff5705c14569b46dc5516484884819c12 -> origin/main
+2025-09-18T21:00:16.7365136Z ##[endgroup]
+2025-09-18T21:00:16.7367201Z ##[group]Determining the checkout info
+2025-09-18T21:00:16.7369178Z ##[endgroup]
+2025-09-18T21:00:16.7373348Z [command]/usr/bin/git sparse-checkout disable
+2025-09-18T21:00:16.7414768Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-09-18T21:00:16.7442664Z ##[group]Checking out the ref
+2025-09-18T21:00:16.7445595Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2025-09-18T21:00:16.7591284Z Switched to a new branch 'main'
+2025-09-18T21:00:16.7593864Z branch 'main' set up to track 'origin/main'.
+2025-09-18T21:00:16.7602872Z ##[endgroup]
+2025-09-18T21:00:16.7638431Z [command]/usr/bin/git log -1 --format=%H
+2025-09-18T21:00:16.7660591Z 7206208ff5705c14569b46dc5516484884819c12

@@ -1,0 +1,40 @@
+﻿2025-09-18T21:00:43.0142155Z ##[group]Run set -e
+2025-09-18T21:00:43.0142440Z [36;1mset -e[0m
+2025-09-18T21:00:43.0142652Z [36;1mmkdir -p reports[0m
+2025-09-18T21:00:43.0142918Z [36;1mecho "Preflight: checking $TARGET_URL"[0m
+2025-09-18T21:00:43.0143331Z [36;1m# Preflight: verify URL responds with 200. Print headers for debugging.[0m
+2025-09-18T21:00:43.0143821Z [36;1mcurl -I --max-time 15 "$TARGET_URL" || { echo "Preflight curl failed"; exit 2; }[0m
+2025-09-18T21:00:43.0144242Z [36;1mecho "Preflight OK. Running Lighthouse..."[0m
+2025-09-18T21:00:43.0144714Z [36;1m# JSON and HTML outputs. Use the chrome path installed by the setup action and pass headless flags.[0m
+2025-09-18T21:00:43.0145376Z [36;1m# Increase max wait to allow slow starts and add verbose logging. Save stdout to a log so we can inspect partial output.[0m
+2025-09-18T21:00:43.0146993Z [36;1mlighthouse "$TARGET_URL" --only-categories=pwa --output=json --output=html --output-path=reports/lighthouse --chrome-path="$CHROME_PATH" --max-wait-for-load=60000 --pause-after-load=2000 --chrome-flags="--headless --no-sandbox --disable-gpu --disable-dev-shm-usage" --verbose 2>&1 | tee reports/lighthouse-cli.log || true[0m
+2025-09-18T21:00:43.0148128Z [36;1mls -la reports || true[0m
+2025-09-18T21:00:43.0178490Z shell: /usr/bin/bash -e {0}
+2025-09-18T21:00:43.0178733Z env:
+2025-09-18T21:00:43.0178987Z   TARGET_URL: https://loto-app-45ud.onrender.com/login
+2025-09-18T21:00:43.0179285Z   CHROME_PATH: 
+2025-09-18T21:00:43.0179476Z ##[endgroup]
+2025-09-18T21:00:43.0241589Z Preflight: checking https://loto-app-45ud.onrender.com/login
+2025-09-18T21:00:43.0307419Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-18T21:00:43.0308253Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-18T21:00:43.0308608Z 
+2025-09-18T21:00:44.0735140Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-18T21:00:45.0746647Z   0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0
+2025-09-18T21:00:46.0757657Z   0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0
+2025-09-18T21:00:47.0769125Z   0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0
+2025-09-18T21:00:48.0780259Z   0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0
+2025-09-18T21:00:49.0791568Z   0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0
+2025-09-18T21:00:50.0803316Z   0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0
+2025-09-18T21:00:50.5378784Z   0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0
+2025-09-18T21:00:51.5390255Z   0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0
+2025-09-18T21:00:52.5394273Z   0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0
+2025-09-18T21:00:53.5405927Z   0     0    0     0    0     0      0      0 --:--:--  0:00:09 --:--:--     0
+2025-09-18T21:00:54.5417432Z   0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0
+2025-09-18T21:00:55.5428750Z   0     0    0     0    0     0      0      0 --:--:--  0:00:11 --:--:--     0
+2025-09-18T21:00:56.5439967Z   0     0    0     0    0     0      0      0 --:--:--  0:00:12 --:--:--     0
+2025-09-18T21:00:57.5451674Z   0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0
+2025-09-18T21:00:58.0317589Z   0     0    0     0    0     0      0      0 --:--:--  0:00:14 --:--:--     0
+2025-09-18T21:00:58.0318402Z   0     0    0     0    0     0      0      0 --:--:--  0:00:15 --:--:--     0
+2025-09-18T21:00:58.0319329Z curl: (28) Operation timed out after 15000 milliseconds with 0 bytes received
+2025-09-18T21:00:58.0343941Z Preflight curl failed
+2025-09-18T21:00:58.0358569Z ##[error]Process completed with exit code 2.

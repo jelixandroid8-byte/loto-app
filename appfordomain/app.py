@@ -59,8 +59,8 @@ def service_worker():
 # Important: keep this simple and unauthenticated so external CI can reach the PWA shell
 @app.route('/lh-test')
 def lh_test():
-    # Render the login template but don't require auth; keep it minimal to speed up cold starts
-    return render_template('login.html')
+    # Serve a minimal static test page to make the path reliable for CI
+    return send_from_directory('static', 'lh-test.html')
 
 
 # --- Database Initialization ---

@@ -187,6 +187,11 @@ def manifest():
 def service_worker():
     return send_from_directory('static', 'service-worker.js')
 
+
+@app.route('/lh-test')
+def lh_test():
+    return send_from_directory('static', 'lh-test.html')
+
 @app.route('/admin/dashboard')
 @admin_required
 def admin_dashboard():

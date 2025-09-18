@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#2d6a4f">
+    <title>Loto App - Lighthouse Test</title>
+    <link rel="manifest" href="/manifest.json">
+    <style>body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;padding:2rem;color:#072f23}a{color:#1b4332}</style>
+  </head>
+  <body>
+    <h1>Loto App - Lighthouse Test</h1>
+    <p>This is a minimal, unauthenticated page used by CI to validate PWA artifacts (manifest & service worker).</p>
+    <p>If you see this, the test page is reachable.</p>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js', { scope: '/' }).then(function(reg){
+          console.log('SW registered', reg);
+        }).catch(function(err){
+          console.log('SW register failed', err);
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,764 @@
+﻿2025-09-18T01:01:03.0418989Z Current runner version: '2.328.0'
+2025-09-18T01:01:03.0443404Z ##[group]Runner Image Provisioner
+2025-09-18T01:01:03.0444234Z Hosted Compute Agent
+2025-09-18T01:01:03.0444807Z Version: 20250829.383
+2025-09-18T01:01:03.0445395Z Commit: 27cb235aab5b0e52e153a26cd86b4742e89dac5d
+2025-09-18T01:01:03.0446326Z Build Date: 2025-08-29T13:48:48Z
+2025-09-18T01:01:03.0447018Z ##[endgroup]
+2025-09-18T01:01:03.0447604Z ##[group]Operating System
+2025-09-18T01:01:03.0448227Z Ubuntu
+2025-09-18T01:01:03.0448713Z 24.04.3
+2025-09-18T01:01:03.0449185Z LTS
+2025-09-18T01:01:03.0449596Z ##[endgroup]
+2025-09-18T01:01:03.0450184Z ##[group]Runner Image
+2025-09-18T01:01:03.0450733Z Image: ubuntu-24.04
+2025-09-18T01:01:03.0451228Z Version: 20250907.24.1
+2025-09-18T01:01:03.0452329Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250907.24/images/ubuntu/Ubuntu2404-Readme.md
+2025-09-18T01:01:03.0453957Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250907.24
+2025-09-18T01:01:03.0454993Z ##[endgroup]
+2025-09-18T01:01:03.0456113Z ##[group]GITHUB_TOKEN Permissions
+2025-09-18T01:01:03.0458192Z Contents: read
+2025-09-18T01:01:03.0458706Z Metadata: read
+2025-09-18T01:01:03.0459204Z Packages: read
+2025-09-18T01:01:03.0459785Z ##[endgroup]
+2025-09-18T01:01:03.0461806Z Secret source: Actions
+2025-09-18T01:01:03.0462496Z Prepare workflow directory
+2025-09-18T01:01:03.0886648Z Prepare all required actions
+2025-09-18T01:01:03.0941822Z Getting action download info
+2025-09-18T01:01:03.3961994Z Download action repository 'actions/checkout@v4' (SHA:08eba0b27e820071cde6df949e0beb9ba4906955)
+2025-09-18T01:01:03.6094621Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2025-09-18T01:01:03.7002020Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2025-09-18T01:01:03.9938088Z Complete job name: lighthouse
+2025-09-18T01:01:04.0737283Z ##[group]Run actions/checkout@v4
+2025-09-18T01:01:04.0738586Z with:
+2025-09-18T01:01:04.0739433Z   repository: jelixandroid8-byte/loto-app
+2025-09-18T01:01:04.0740805Z   token: ***
+2025-09-18T01:01:04.0741488Z   ssh-strict: true
+2025-09-18T01:01:04.0742210Z   ssh-user: git
+2025-09-18T01:01:04.0742957Z   persist-credentials: true
+2025-09-18T01:01:04.0743798Z   clean: true
+2025-09-18T01:01:04.0744544Z   sparse-checkout-cone-mode: true
+2025-09-18T01:01:04.0745467Z   fetch-depth: 1
+2025-09-18T01:01:04.0746391Z   fetch-tags: false
+2025-09-18T01:01:04.0747143Z   show-progress: true
+2025-09-18T01:01:04.0747887Z   lfs: false
+2025-09-18T01:01:04.0748578Z   submodules: false
+2025-09-18T01:01:04.0749352Z   set-safe-directory: true
+2025-09-18T01:01:04.0750449Z ##[endgroup]
+2025-09-18T01:01:04.1898198Z Syncing repository: jelixandroid8-byte/loto-app
+2025-09-18T01:01:04.1901099Z ##[group]Getting Git version info
+2025-09-18T01:01:04.1902494Z Working directory is '/home/runner/work/loto-app/loto-app'
+2025-09-18T01:01:04.1904272Z [command]/usr/bin/git version
+2025-09-18T01:01:04.1975639Z git version 2.51.0
+2025-09-18T01:01:04.2004121Z ##[endgroup]
+2025-09-18T01:01:04.2019516Z Temporarily overriding HOME='/home/runner/work/_temp/0ebede75-6ca9-46b4-b1d7-691f9504f18f' before making global git config changes
+2025-09-18T01:01:04.2022362Z Adding repository directory to the temporary git global config as a safe directory
+2025-09-18T01:01:04.2032617Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/loto-app/loto-app
+2025-09-18T01:01:04.2072332Z Deleting the contents of '/home/runner/work/loto-app/loto-app'
+2025-09-18T01:01:04.2075620Z ##[group]Initializing the repository
+2025-09-18T01:01:04.2080014Z [command]/usr/bin/git init /home/runner/work/loto-app/loto-app
+2025-09-18T01:01:04.2199009Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-09-18T01:01:04.2201126Z hint: is subject to change. To configure the initial branch name to use in all
+2025-09-18T01:01:04.2202955Z hint: of your new repositories, which will suppress this warning, call:
+2025-09-18T01:01:04.2204558Z hint:
+2025-09-18T01:01:04.2205454Z hint: 	git config --global init.defaultBranch <name>
+2025-09-18T01:01:04.2207374Z hint:
+2025-09-18T01:01:04.2209134Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-09-18T01:01:04.2212031Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-09-18T01:01:04.2213568Z hint:
+2025-09-18T01:01:04.2214264Z hint: 	git branch -m <name>
+2025-09-18T01:01:04.2215079Z hint:
+2025-09-18T01:01:04.2216417Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2025-09-18T01:01:04.2218918Z Initialized empty Git repository in /home/runner/work/loto-app/loto-app/.git/
+2025-09-18T01:01:04.2224497Z [command]/usr/bin/git remote add origin https://github.com/jelixandroid8-byte/loto-app
+2025-09-18T01:01:04.2266019Z ##[endgroup]
+2025-09-18T01:01:04.2267817Z ##[group]Disabling automatic garbage collection
+2025-09-18T01:01:04.2269461Z [command]/usr/bin/git config --local gc.auto 0
+2025-09-18T01:01:04.2299595Z ##[endgroup]
+2025-09-18T01:01:04.2300819Z ##[group]Setting up auth
+2025-09-18T01:01:04.2305801Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-09-18T01:01:04.2337595Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-09-18T01:01:04.2685691Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-09-18T01:01:04.2716628Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-09-18T01:01:04.2939274Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-09-18T01:01:04.2973940Z ##[endgroup]
+2025-09-18T01:01:04.2991834Z ##[group]Fetching the repository
+2025-09-18T01:01:04.2996477Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +f1e88cafa4d97edd376283e219ee89b7989fc58a:refs/remotes/origin/main
+2025-09-18T01:01:04.6527237Z From https://github.com/jelixandroid8-byte/loto-app
+2025-09-18T01:01:04.6527911Z  * [new ref]         f1e88cafa4d97edd376283e219ee89b7989fc58a -> origin/main
+2025-09-18T01:01:04.6559669Z ##[endgroup]
+2025-09-18T01:01:04.6560495Z ##[group]Determining the checkout info
+2025-09-18T01:01:04.6562379Z ##[endgroup]
+2025-09-18T01:01:04.6567907Z [command]/usr/bin/git sparse-checkout disable
+2025-09-18T01:01:04.6607202Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-09-18T01:01:04.6634375Z ##[group]Checking out the ref
+2025-09-18T01:01:04.6638718Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2025-09-18T01:01:04.6771476Z Switched to a new branch 'main'
+2025-09-18T01:01:04.6773525Z branch 'main' set up to track 'origin/main'.
+2025-09-18T01:01:04.6779561Z ##[endgroup]
+2025-09-18T01:01:04.6815886Z [command]/usr/bin/git log -1 --format=%H
+2025-09-18T01:01:04.6838131Z f1e88cafa4d97edd376283e219ee89b7989fc58a
+2025-09-18T01:01:04.7071348Z ##[group]Run actions/setup-node@v4
+2025-09-18T01:01:04.7071773Z with:
+2025-09-18T01:01:04.7072091Z   node-version: 20
+2025-09-18T01:01:04.7072435Z   always-auth: false
+2025-09-18T01:01:04.7072773Z   check-latest: false
+2025-09-18T01:01:04.7073223Z   token: ***
+2025-09-18T01:01:04.7073537Z ##[endgroup]
+2025-09-18T01:01:04.8850732Z Found in cache @ /opt/hostedtoolcache/node/20.19.5/x64
+2025-09-18T01:01:04.8857370Z ##[group]Environment details
+2025-09-18T01:01:08.2810706Z node: v20.19.5
+2025-09-18T01:01:08.2811206Z npm: 10.8.2
+2025-09-18T01:01:08.2811552Z yarn: 1.22.22
+2025-09-18T01:01:08.2812709Z ##[endgroup]
+2025-09-18T01:01:08.2914400Z ##[group]Run npm install -g lighthouse@10
+2025-09-18T01:01:08.2914820Z [36;1mnpm install -g lighthouse@10[0m
+2025-09-18T01:01:08.3171472Z shell: /usr/bin/bash -e {0}
+2025-09-18T01:01:08.3172082Z ##[endgroup]
+2025-09-18T01:01:19.8312390Z npm warn deprecated intl-messageformat-parser@1.8.1: We've written a new parser that's 6x faster and is backwards compatible. Please use @formatjs/icu-messageformat-parser
+2025-09-18T01:01:20.7888354Z 
+2025-09-18T01:01:20.7888923Z added 148 packages in 12s
+2025-09-18T01:01:20.7889298Z 
+2025-09-18T01:01:20.7889607Z 11 packages are looking for funding
+2025-09-18T01:01:20.7890103Z   run `npm fund` for details
+2025-09-18T01:01:20.8102470Z ##[group]Run sudo apt-get update -y
+2025-09-18T01:01:20.8102846Z [36;1msudo apt-get update -y[0m
+2025-09-18T01:01:20.8103159Z [36;1msudo apt-get install -y chromium-browser chromium[0m
+2025-09-18T01:01:20.8134258Z shell: /usr/bin/bash -e {0}
+2025-09-18T01:01:20.8134493Z ##[endgroup]
+2025-09-18T01:01:20.9838784Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2025-09-18T01:01:21.0330628Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2025-09-18T01:01:21.0331557Z Hit:6 https://packages.microsoft.com/repos/azure-cli noble InRelease
+2025-09-18T01:01:21.0340652Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2025-09-18T01:01:21.0391982Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2025-09-18T01:01:21.0481530Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2025-09-18T01:01:21.0628768Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2025-09-18T01:01:21.3121611Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1415 kB]
+2025-09-18T01:01:21.3275184Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [278 kB]
+2025-09-18T01:01:21.3299020Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [175 kB]
+2025-09-18T01:01:21.3318219Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 c-n-f Metadata [15.2 kB]
+2025-09-18T01:01:21.3330862Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1484 kB]
+2025-09-18T01:01:21.3407655Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [299 kB]
+2025-09-18T01:01:21.3427228Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [377 kB]
+2025-09-18T01:01:21.3453166Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 c-n-f Metadata [31.1 kB]
+2025-09-18T01:01:21.3461978Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1901 kB]
+2025-09-18T01:01:21.3559148Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [426 kB]
+2025-09-18T01:01:21.4024294Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Components [212 B]
+2025-09-18T01:01:21.4031313Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 c-n-f Metadata [500 B]
+2025-09-18T01:01:21.4043065Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [32.0 kB]
+2025-09-18T01:01:21.4051567Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [5500 B]
+2025-09-18T01:01:21.4102772Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
+2025-09-18T01:01:21.4104381Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 c-n-f Metadata [644 B]
+2025-09-18T01:01:21.4113466Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [7076 B]
+2025-09-18T01:01:21.4202665Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [19.2 kB]
+2025-09-18T01:01:21.4204929Z Get:26 http://azure.archive.ubuntu.com/ubuntu noble-backports/restricted amd64 Components [216 B]
+2025-09-18T01:01:21.4210508Z Get:27 http://azure.archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Components [212 B]
+2025-09-18T01:01:21.4249112Z Get:28 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1124 kB]
+2025-09-18T01:01:21.4317142Z Get:29 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [192 kB]
+2025-09-18T01:01:21.4337646Z Get:30 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Components [21.6 kB]
+2025-09-18T01:01:21.4346729Z Get:31 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 c-n-f Metadata [8748 B]
+2025-09-18T01:01:21.4982370Z Get:44 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [36.0 kB]
+2025-09-18T01:01:21.5006667Z Get:32 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [880 kB]
+2025-09-18T01:01:21.5050497Z Get:45 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [53.5 kB]
+2025-09-18T01:01:21.5059390Z Get:33 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [195 kB]
+2025-09-18T01:01:21.5077795Z Get:34 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Components [52.2 kB]
+2025-09-18T01:01:21.5089039Z Get:35 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 c-n-f Metadata [18.0 kB]
+2025-09-18T01:01:21.5098311Z Get:36 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1770 kB]
+2025-09-18T01:01:21.5184651Z Get:37 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [396 kB]
+2025-09-18T01:01:21.5211449Z Get:38 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Components [208 B]
+2025-09-18T01:01:21.5218666Z Get:39 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 c-n-f Metadata [496 B]
+2025-09-18T01:01:21.5227569Z Get:40 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [33.1 kB]
+2025-09-18T01:01:21.5238410Z Get:41 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [5768 B]
+2025-09-18T01:01:21.5247551Z Get:42 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse amd64 Components [212 B]
+2025-09-18T01:01:21.5255499Z Get:43 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse amd64 c-n-f Metadata [452 B]
+2025-09-18T01:01:30.9719376Z Fetched 11.6 MB in 2s (7625 kB/s)
+2025-09-18T01:01:31.7286828Z Reading package lists...
+2025-09-18T01:01:31.7610038Z Reading package lists...
+2025-09-18T01:01:31.9392651Z Building dependency tree...
+2025-09-18T01:01:31.9400318Z Reading state information...
+2025-09-18T01:01:32.1551390Z The following NEW packages will be installed:
+2025-09-18T01:01:32.1559962Z   chromium-browser
+2025-09-18T01:01:32.1735236Z 0 upgraded, 1 newly installed, 0 to remove and 43 not upgraded.
+2025-09-18T01:01:32.1735788Z Need to get 50.0 kB of archives.
+2025-09-18T01:01:32.1736332Z After this operation, 105 kB of additional disk space will be used.
+2025-09-18T01:01:32.1736780Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2025-09-18T01:01:32.2165214Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 chromium-browser amd64 2:1snap1-0ubuntu2 [50.0 kB]
+2025-09-18T01:01:32.4598545Z Preconfiguring packages ...
+2025-09-18T01:01:32.5128912Z Fetched 50.0 kB in 0s (925 kB/s)
+2025-09-18T01:01:32.5625562Z Selecting previously unselected package chromium-browser.
+2025-09-18T01:01:32.7799557Z (Reading database ... 
+2025-09-18T01:01:32.7800003Z (Reading database ... 5%
+2025-09-18T01:01:32.7800280Z (Reading database ... 10%
+2025-09-18T01:01:32.7800517Z (Reading database ... 15%
+2025-09-18T01:01:32.7800742Z (Reading database ... 20%
+2025-09-18T01:01:32.7800997Z (Reading database ... 25%
+2025-09-18T01:01:32.7801239Z (Reading database ... 30%
+2025-09-18T01:01:32.7801448Z (Reading database ... 35%
+2025-09-18T01:01:32.7801662Z (Reading database ... 40%
+2025-09-18T01:01:32.7801879Z (Reading database ... 45%
+2025-09-18T01:01:32.7802092Z (Reading database ... 50%
+2025-09-18T01:01:32.9503411Z (Reading database ... 55%
+2025-09-18T01:01:33.8622046Z (Reading database ... 60%
+2025-09-18T01:01:34.7226600Z (Reading database ... 65%
+2025-09-18T01:01:35.6251193Z (Reading database ... 70%
+2025-09-18T01:01:36.4752476Z (Reading database ... 75%
+2025-09-18T01:01:37.3270711Z (Reading database ... 80%
+2025-09-18T01:01:38.2608431Z (Reading database ... 85%
+2025-09-18T01:01:39.2348549Z (Reading database ... 90%
+2025-09-18T01:01:40.1768646Z (Reading database ... 95%
+2025-09-18T01:01:40.1769262Z (Reading database ... 100%
+2025-09-18T01:01:40.1769941Z (Reading database ... 218657 files and directories currently installed.)
+2025-09-18T01:01:40.1815796Z Preparing to unpack .../chromium-browser_2%3a1snap1-0ubuntu2_amd64.deb ...
+2025-09-18T01:01:40.2525844Z => Installing the chromium snap
+2025-09-18T01:01:40.2526709Z ==> Checking connectivity with the snap store
+2025-09-18T01:01:40.9209899Z ==> Installing the chromium snap
+2025-09-18T01:01:41.1193954Z 
+2025-09-18T01:01:41.2210457Z Ensure prerequisites for "chromium" are available                              /
+2025-09-18T01:01:41.3904574Z Ensure prerequisites for "chromium" are available                              -
+2025-09-18T01:01:41.4919674Z Ensure prerequisites for "chromium" are available                              \
+2025-09-18T01:01:41.5933056Z Ensure prerequisites for "chromium" are available                              |
+2025-09-18T01:01:41.6947014Z Ensure prerequisites for "chromium" are available                              /
+2025-09-18T01:01:41.7960925Z Ensure prerequisites for "chromium" are available                              -
+2025-09-18T01:01:41.8975150Z Ensure prerequisites for "chromium" are available                              \
+2025-09-18T01:01:41.9991075Z Ensure prerequisites for "chromium" are available                              |
+2025-09-18T01:01:42.1005813Z Ensure prerequisites for "chromium" are available                              /
+2025-09-18T01:01:42.2019526Z Ensure prerequisites for "chromium" are available                              -
+2025-09-18T01:01:42.3084036Z Ensure prerequisites for "chromium" are available                              \
+2025-09-18T01:01:42.4117453Z Download snap "snapd" (25202) from channel "stable"                            |
+2025-09-18T01:01:42.5158048Z Download snap "snapd" (25202) from channel "stable"                            /
+2025-09-18T01:01:42.6192897Z Download snap "snapd" (25202) from channel "stable"                            -
+2025-09-18T01:01:42.7228445Z Download snap "snapd" (25202) from channel "stable"                            \
+2025-09-18T01:01:42.9305928Z Download snap "snapd" (25202) from channel "stable"                            |[?25l
+2025-09-18T01:01:43.0444612Z [7mD[0mownload snap "snapd" (25202) from channel "stable"            2% 7.67MB/s 6.84s
+2025-09-18T01:01:43.1582235Z [7mDownload snap "snapd[0m" (25202) from channel "stable"           26% 62.4MB/s 636ms
+2025-09-18T01:01:43.2616701Z [7mDownload snap "snapd" (25202) from channel "stabl[0me"           62% 98.8MB/s 207ms
+2025-09-18T01:01:43.5519609Z [7mDownload snap "snapd" (25202) from channel "stable"           91%  112MB/[0ms  41ms
+2025-09-18T01:01:43.6552074Z Fetch and check assertions for snap "snapd" (25202)                            /
+2025-09-18T01:01:43.7583692Z Fetch and check assertions for snap "snapd" (25202)                            -
+2025-09-18T01:01:43.8614747Z Fetch and check assertions for snap "snapd" (25202)                            \
+2025-09-18T01:01:43.9644668Z Fetch and check assertions for snap "snapd" (25202)                            |
+2025-09-18T01:01:44.0675561Z Fetch and check assertions for snap "snapd" (25202)                            /
+2025-09-18T01:01:44.1707233Z Fetch and check assertions for snap "snapd" (25202)                            -
+2025-09-18T01:01:44.2799789Z Fetch and check assertions for snap "snapd" (25202)                            \
+2025-09-18T01:01:44.3838341Z Mount snap "snapd" (25202)                                                     |
+2025-09-18T01:01:44.4870941Z Mount snap "snapd" (25202)                                                     /
+2025-09-18T01:01:44.5900863Z Mount snap "snapd" (25202)                                                     -
+2025-09-18T01:01:44.6971447Z Setup snap "snapd" (25202) security profiles                                   \
+2025-09-18T01:01:44.8060183Z Setup snap "snapd" (25202) security profiles                                   |
+2025-09-18T01:01:44.9112250Z Setup snap "snapd" (25202) security profiles                                   /
+2025-09-18T01:01:45.1252844Z Setup snap "snapd" (25202) security profiles                                   -
+2025-09-18T01:01:45.1253784Z Automatically connect eligible plugs and slots of snap "snapd"                 \
+2025-09-18T01:01:45.1254584Z [0m[K2025-09-18T01:01:45Z INFO Waiting for automatic snapd restart...
+2025-09-18T01:01:45.2287374Z 
+2025-09-18T01:01:45.3324122Z Automatically connect eligible plugs and slots of snap "snapd"                 |
+2025-09-18T01:01:45.4355070Z Automatically connect eligible plugs and slots of snap "snapd"                 /
+2025-09-18T01:01:45.5387143Z Automatically connect eligible plugs and slots of snap "snapd"                 -
+2025-09-18T01:01:45.6421409Z Automatically connect eligible plugs and slots of snap "snapd"                 \
+2025-09-18T01:01:45.7458083Z Automatically connect eligible plugs and slots of snap "snapd"                 |
+2025-09-18T01:01:45.8501772Z Automatically connect eligible plugs and slots of snap "snapd"                 /
+2025-09-18T01:01:45.9534762Z Automatically connect eligible plugs and slots of snap "snapd"                 -
+2025-09-18T01:01:46.0571211Z Automatically connect eligible plugs and slots of snap "snapd"                 \
+2025-09-18T01:01:46.1606895Z Automatically connect eligible plugs and slots of snap "snapd"                 |
+2025-09-18T01:01:46.2639776Z Automatically connect eligible plugs and slots of snap "snapd"                 /
+2025-09-18T01:01:46.3674069Z Automatically connect eligible plugs and slots of snap "snapd"                 -
+2025-09-18T01:01:46.4706832Z Automatically connect eligible plugs and slots of snap "snapd"                 \
+2025-09-18T01:01:46.5741169Z Automatically connect eligible plugs and slots of snap "snapd"                 |
+2025-09-18T01:01:46.6786632Z Automatically connect eligible plugs and slots of snap "snapd"                 /
+2025-09-18T01:01:46.7817024Z Automatically connect eligible plugs and slots of snap "snapd"                 -
+2025-09-18T01:01:46.8849864Z Automatically connect eligible plugs and slots of snap "snapd"                 \
+2025-09-18T01:01:46.9882187Z Automatically connect eligible plugs and slots of snap "snapd"                 |
+2025-09-18T01:01:47.0916765Z Automatically connect eligible plugs and slots of snap "snapd"                 /
+2025-09-18T01:01:47.1949806Z Automatically connect eligible plugs and slots of snap "snapd"                 -
+2025-09-18T01:01:47.2991566Z Automatically connect eligible plugs and slots of snap "snapd"                 \
+2025-09-18T01:01:47.4026549Z Automatically connect eligible plugs and slots of snap "snapd"                 |
+2025-09-18T01:01:47.5062571Z Automatically connect eligible plugs and slots of snap "snapd"                 /
+2025-09-18T01:01:47.6102441Z Automatically connect eligible plugs and slots of snap "snapd"                 -
+2025-09-18T01:01:47.7138965Z Automatically connect eligible plugs and slots of snap "snapd"                 \
+2025-09-18T01:01:47.8184059Z Automatically connect eligible plugs and slots of snap "snapd"                 |
+2025-09-18T01:01:47.9217364Z Automatically connect eligible plugs and slots of snap "snapd"                 /
+2025-09-18T01:01:49.5581561Z Automatically connect eligible plugs and slots of snap "snapd"                 -
+2025-09-18T01:01:49.6625129Z Automatically connect eligible plugs and slots of snap "snapd"                 \
+2025-09-18T01:01:49.7660475Z Automatically connect eligible plugs and slots of snap "snapd"                 |
+2025-09-18T01:01:49.8697730Z Automatically connect eligible plugs and slots of snap "snapd"                 /
+2025-09-18T01:01:49.9730598Z Automatically connect eligible plugs and slots of snap "snapd"                 -
+2025-09-18T01:01:50.0765368Z Automatically connect eligible plugs and slots of snap "snapd"                 \
+2025-09-18T01:01:50.1821443Z Automatically connect eligible plugs and slots of snap "snapd"                 |
+2025-09-18T01:01:50.2869369Z Automatically connect eligible plugs and slots of snap "snapd"                 /
+2025-09-18T01:01:50.3930719Z Automatically connect eligible plugs and slots of snap "snapd"                 -
+2025-09-18T01:01:50.4963429Z Download snap "core22" (2111) from channel "stable"                            \
+2025-09-18T01:01:50.5994048Z Download snap "core22" (2111) from channel "stable"                            |
+2025-09-18T01:01:50.7029523Z Download snap "core22" (2111) from channel "stable"                            /
+2025-09-18T01:01:50.8061598Z Download snap "core22" (2111) from channel "stable"                            -
+2025-09-18T01:01:51.0147732Z Download snap "core22" (2111) from channel "stable"                            \[?25l
+2025-09-18T01:01:51.1181186Z [7mD[0mownload snap "core22" (2111) from channel "stable"            2% 17.0MB/s 4.45s
+2025-09-18T01:01:51.2276753Z [7mDownload snap [0m"core22" (2111) from channel "stable"           19% 68.8MB/s 918ms
+2025-09-18T01:01:51.3390282Z [7mDownload snap "core22" (2111) [0mfrom channel "stable"           39% 94.4MB/s 503ms
+2025-09-18T01:01:51.4499163Z [7mDownload snap "core22" (2111) from channel "sta[0mble"           59%  106MB/s 299ms
+2025-09-18T01:01:51.5678238Z [7mDownload snap "core22" (2111) from channel "stable"          [0m 77%  110MB/s 165ms
+2025-09-18T01:01:51.6703940Z [7mDownload snap "core22" (2111) from channel "stable"          100%  118MB/s 0.0ns[0m
+2025-09-18T01:01:51.7743371Z [7mDownload snap "core22" (2111) from channel "stable"          100%  102MB/s 0.0ns[0m
+2025-09-18T01:01:51.8779720Z [7mDownload snap "core22" (2111) from channel "stable"          100% 89.6MB/s 0.0ns[0m
+2025-09-18T01:01:51.9810601Z [7mDownload snap "core22" (2111) from channel "stable"          100% 80.0MB/s 0.0ns[0m
+2025-09-18T01:01:52.0842638Z [7mDownload snap "core22" (2111) from channel "stable"          100% 72.3MB/s 0.0ns[0m
+2025-09-18T01:01:52.1875124Z [7mDownload snap "core22" (2111) from channel "stable"          100% 66.0MB/s 0.0ns[0m
+2025-09-18T01:01:52.6085540Z [7mDownload snap "core22" (2111) from channel "stable"          100% 60.6MB/s 0.0ns[0m
+2025-09-18T01:01:52.7125263Z Fetch and check assertions for snap "core22" (2111)                            |
+2025-09-18T01:01:52.8159616Z Fetch and check assertions for snap "core22" (2111)                            /
+2025-09-18T01:01:53.0320485Z Fetch and check assertions for snap "core22" (2111)                            -
+2025-09-18T01:01:53.1357087Z Mount snap "core22" (2111)                                                     \
+2025-09-18T01:01:53.2442382Z Mount snap "core22" (2111)                                                     |
+2025-09-18T01:01:53.3487008Z Mount snap "core22" (2111)                                                     /
+2025-09-18T01:01:53.4535597Z Mount snap "core22" (2111)                                                     -
+2025-09-18T01:01:53.6644272Z Mount snap "core22" (2111)                                                     \
+2025-09-18T01:01:53.7683306Z Download snap "chromium" (3248) from channel "stable"                          |
+2025-09-18T01:01:53.8808333Z Download snap "chromium" (3248) from channel "stable"                          /
+2025-09-18T01:01:53.9847048Z Download snap "chromium" (3248) from channel "stable"                          -
+2025-09-18T01:01:54.1922466Z Download snap "chromium" (3248) from channel "stable"                          \[?25l
+2025-09-18T01:01:54.2995578Z [7m[0mDownload snap "chromium" (3248) from channel "stable"          0% 3.91MB/s 49.7s
+2025-09-18T01:01:54.4032745Z [7mDow[0mnload snap "chromium" (3248) from channel "stable"          4% 40.9MB/s 4.56s
+2025-09-18T01:01:54.5181545Z [7mDownload [0msnap "chromium" (3248) from channel "stable"         12% 73.5MB/s 2.34s
+2025-09-18T01:01:54.6221215Z [7mDownload snap "ch[0mromium" (3248) from channel "stable"         21% 97.6MB/s 1.57s
+2025-09-18T01:01:54.7272231Z [7mDownload snap "chromium"[0m (3248) from channel "stable"         30%  111MB/s 1.23s
+2025-09-18T01:01:54.8342716Z [7mDownload snap "chromium" (3248)[0m from channel "stable"         39%  119MB/s 1.00s
+2025-09-18T01:01:54.9401132Z [7mDownload snap "chromium" (3248) from[0m channel "stable"         46%  121MB/s 868ms
+2025-09-18T01:01:55.0458603Z [7mDownload snap "chromium" (3248) from chan[0mnel "stable"         52%  120MB/s 779ms
+2025-09-18T01:01:55.1515316Z [7mDownload snap "chromium" (3248) from channel "s[0mtable"         60%  122MB/s 647ms
+2025-09-18T01:01:55.2578503Z [7mDownload snap "chromium" (3248) from channel "stable"[0m         66%  122MB/s 536ms
+2025-09-18T01:01:55.3632697Z [7mDownload snap "chromium" (3248) from channel "stable"   [0m      71%  119MB/s 475ms
+2025-09-18T01:01:55.4669027Z [7mDownload snap "chromium" (3248) from channel "stable"      [0m   74%  113MB/s 450ms
+2025-09-18T01:01:55.5749232Z [7mDownload snap "chromium" (3248) from channel "stable"         82%[0m  117MB/s 295ms
+2025-09-18T01:01:55.6903053Z [7mDownload snap "chromium" (3248) from channel "stable"         90%  119MB[0m/s 158ms
+2025-09-18T01:01:55.7946679Z [7mDownload snap "chromium" (3248) from channel "stable"         99%  121MB/s 9.2m[0ms
+2025-09-18T01:01:55.8985710Z [7mDownload snap "chromium" (3248) from channel "stable"        100%  114MB/s 0.0ns[0m
+2025-09-18T01:01:56.0040373Z [7mDownload snap "chromium" (3248) from channel "stable"        100%  108MB/s 0.0ns[0m
+2025-09-18T01:01:56.1088903Z [7mDownload snap "chromium" (3248) from channel "stable"        100%  102MB/s 0.0ns[0m
+2025-09-18T01:01:56.2134307Z [7mDownload snap "chromium" (3248) from channel "stable"        100% 96.5MB/s 0.0ns[0m
+2025-09-18T01:01:57.0214431Z [7mDownload snap "chromium" (3248) from channel "stable"        100% 91.8MB/s 0.0ns[0m
+2025-09-18T01:01:57.1261830Z Fetch and check assertions for snap "chromium" (3248)                          |
+2025-09-18T01:01:57.2318959Z Fetch and check assertions for snap "chromium" (3248)                          /
+2025-09-18T01:01:57.4488640Z Fetch and check assertions for snap "chromium" (3248)                          -[?25l
+2025-09-18T01:01:57.5546717Z Mount snap "chromium" (3248)                                                   \
+2025-09-18T01:01:57.9201867Z Mount snap "chromium" (3248)                                                   |
+2025-09-18T01:01:58.0265853Z Mount snap "chromium" (3248)                                                   /
+2025-09-18T01:01:58.1304997Z Setup snap "chromium" (3248) security profiles                                 -
+2025-09-18T01:01:58.2343277Z Setup snap "chromium" (3248) security profiles                                 \
+2025-09-18T01:01:58.6194848Z Setup snap "chromium" (3248) security profiles                                 |
+2025-09-18T01:01:58.7251518Z Make snap "chromium" (3248) available to the system                            /
+2025-09-18T01:01:58.8318283Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:01:58.9352066Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:01:59.0418071Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:01:59.1488831Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:01:59.2540550Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:01:59.3597650Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:01:59.4672903Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:01:59.5729833Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:01:59.6784289Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:01:59.7844223Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:01:59.8906966Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:01:59.9980190Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:00.1048401Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:00.2137121Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:00.3195106Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:00.4262279Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:00.5359660Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:00.6398834Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:00.7453474Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:00.8528084Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:01.2472148Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:01.6679602Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:01.7727276Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:01.8794681Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:01.9870952Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:02.0954719Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:02.2053869Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:02.3153297Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:02.4306737Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:02.5516890Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:02.6658039Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:02.7715623Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:02.8839354Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:02.9950948Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:03.1076403Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:03.2152356Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:03.3261965Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:03.4361602Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:03.5440375Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:03.6592677Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:03.7671359Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:03.8773521Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:03.9878777Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:04.1001559Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:04.2207679Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:04.3297904Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:04.4394079Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:04.5464584Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:04.6543587Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:04.7605802Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:04.8666552Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:04.9806682Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:05.0861649Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:05.1902346Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:05.2944792Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:05.4002177Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:05.5056497Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:05.6128676Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:05.7176531Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:05.8231904Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:05.9297617Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:06.0364745Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:06.1420847Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:06.2475511Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:06.3525182Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:06.4586951Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:06.5661968Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:06.6716653Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:06.7769471Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:06.8815123Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:06.9859036Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:07.0914639Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:07.1970523Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:07.3039511Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:07.4089712Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:07.5132823Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:07.6199571Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:07.7244820Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:07.8291910Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:07.9333814Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:08.0381882Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:08.1425770Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:08.2469436Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:08.3512538Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:08.4555163Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:08.5596801Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:08.6680275Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:08.7721387Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:08.8763767Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:08.9807075Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:09.0854956Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:09.1897005Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:09.2934751Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:09.3977329Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:09.5021244Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:09.6068704Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:09.7118476Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:09.8159893Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:09.9198196Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:10.0235310Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:10.1272919Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:10.2309114Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:10.3349412Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:10.4389059Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:10.5429394Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:10.6466062Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:10.7509735Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:10.8558706Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:13.0197385Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:13.1237654Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:13.2274634Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:13.3311880Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:13.4352412Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:13.5405452Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:13.6443583Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:13.7488292Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:13.8533742Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:13.9575006Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:14.0613938Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:14.1663837Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:14.2779943Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:14.3820608Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:14.4862198Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:14.5899876Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:14.6954276Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:14.7998616Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:14.9036467Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:15.0074947Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:15.1112205Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:15.2150510Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:15.3188569Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:15.4227365Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:15.5269244Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:15.6311759Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:15.7363184Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:15.8404150Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:15.9449181Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:16.0486031Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:16.1524163Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:16.2562344Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:16.3605696Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:16.4643517Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:16.5681068Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:16.6725697Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:16.7764141Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:16.8815058Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:16.9857229Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:17.0899469Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:17.1937690Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:17.2976312Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:17.4017431Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:17.5060221Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:17.6095904Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:17.7137965Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:17.8177944Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:17.9229365Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:18.0268404Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:18.1307842Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:18.2348370Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:18.3386373Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:18.4424462Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:18.5468520Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:18.6508753Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:18.7547777Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:18.8590187Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:18.9638345Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:19.0675560Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:19.1713297Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:19.2753301Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:19.3790595Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:19.4830372Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:19.5881085Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:19.6920514Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:19.7958962Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:19.8997187Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:20.0036570Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:20.1087898Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:20.2128285Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:20.3167136Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:20.4204828Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:20.5243779Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:20.6286584Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:20.7331452Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:20.8370402Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:20.9410447Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:21.0451435Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:21.1489737Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:21.2539676Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:21.3577081Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:21.4615548Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:21.5661972Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:21.6700429Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:21.7742377Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:21.8781660Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:21.9819029Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:22.0857225Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:22.1895403Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:22.2932890Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:22.3982188Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:22.5025928Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:22.6064365Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:22.7106586Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:22.8143480Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:22.9180844Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:23.0221303Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:23.1262522Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:23.2304935Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:23.3342191Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:23.4398714Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:23.5444329Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:23.6481346Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:23.7522123Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:23.8559104Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:23.9597100Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:24.0635886Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:24.1673432Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:24.2711745Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:24.3749391Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:24.4794013Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:24.5848093Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:24.6887281Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:24.7925432Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:24.8963284Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:25.0002803Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:25.1040749Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:25.2077853Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:25.3114622Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:25.4151921Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:25.5195273Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:25.6233038Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:25.7281789Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:25.8319658Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:25.9356950Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:26.0394279Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:26.1433823Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:26.2472515Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:26.3515057Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:26.4553511Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:26.5596908Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:26.6634683Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:26.7684902Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:26.8723432Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:26.9764697Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:27.0807503Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:27.1845470Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:27.2885572Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:27.3922104Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:27.4963479Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:27.6006937Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:27.7045938Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:27.8084901Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:27.9131552Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:28.0171056Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:28.1207307Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:28.2245636Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:28.3283765Z Automatically connect eligible plugs and slots of snap "chromium"              /
+2025-09-18T01:02:28.4320011Z Automatically connect eligible plugs and slots of snap "chromium"              -
+2025-09-18T01:02:28.5364800Z Automatically connect eligible plugs and slots of snap "chromium"              \
+2025-09-18T01:02:28.9080526Z Automatically connect eligible plugs and slots of snap "chromium"              |
+2025-09-18T01:02:29.2262413Z Connect chromium:upower-observe to snapd:upower-observe                        /
+2025-09-18T01:02:29.3367339Z Setup snap "chromium" (3248) security profiles for auto-connections            -
+2025-09-18T01:02:29.4462404Z Setup snap "chromium" (3248) security profiles for auto-connections            \
+2025-09-18T01:02:29.5553032Z Setup snap "chromium" (3248) security profiles for auto-connections            |
+2025-09-18T01:02:29.6606508Z Setup snap "chromium" (3248) security profiles for auto-connections            /
+2025-09-18T01:02:29.7674165Z Setup snap "chromium" (3248) security profiles for auto-connections            -
+2025-09-18T01:02:29.8754056Z Setup snap "chromium" (3248) security profiles for auto-connections            \
+2025-09-18T01:02:29.9813875Z Setup snap "chromium" (3248) security profiles for auto-connections            |
+2025-09-18T01:02:30.0879359Z Setup snap "chromium" (3248) security profiles for auto-connections            /
+2025-09-18T01:02:30.1945289Z Setup snap "chromium" (3248) security profiles for auto-connections            -
+2025-09-18T01:02:30.3009015Z Setup snap "chromium" (3248) security profiles for auto-connections            \
+2025-09-18T01:02:30.4074997Z Setup snap "chromium" (3248) security profiles for auto-connections            |
+2025-09-18T01:02:30.5154782Z Setup snap "chromium" (3248) security profiles for auto-connections            /
+2025-09-18T01:02:30.6225697Z Setup snap "chromium" (3248) security profiles for auto-connections            -
+2025-09-18T01:02:30.7284270Z Setup snap "chromium" (3248) security profiles for auto-connections            \
+2025-09-18T01:02:30.8346693Z Setup snap "chromium" (3248) security profiles for auto-connections            |
+2025-09-18T01:02:30.9419454Z Setup snap "chromium" (3248) security profiles for auto-connections            /
+2025-09-18T01:02:31.0498616Z Run default-configure hook of "chromium" snap if present                       -
+2025-09-18T01:02:31.1555916Z Run configure hook of "chromium" snap if present                               \
+2025-09-18T01:02:31.2607647Z Run configure hook of "chromium" snap if present                               |
+2025-09-18T01:02:31.3648192Z Run configure hook of "chromium" snap if present                               /
+2025-09-18T01:02:31.4693273Z Run configure hook of "chromium" snap if present                               -
+2025-09-18T01:02:31.5734302Z Run configure hook of "chromium" snap if present                               \
+2025-09-18T01:02:31.6781509Z Run configure hook of "chromium" snap if present                               |
+2025-09-18T01:02:31.7823188Z Run configure hook of "chromium" snap if present                               /
+2025-09-18T01:02:31.8871252Z Run configure hook of "chromium" snap if present                               -
+2025-09-18T01:02:31.9913791Z Run configure hook of "chromium" snap if present                               \
+2025-09-18T01:02:32.0960424Z Run configure hook of "chromium" snap if present                               |
+2025-09-18T01:02:32.2012928Z Run configure hook of "chromium" snap if present                               /
+2025-09-18T01:02:32.3064416Z Run configure hook of "chromium" snap if present                               -
+2025-09-18T01:02:32.4107930Z Run configure hook of "chromium" snap if present                               \
+2025-09-18T01:02:32.5153320Z Run configure hook of "chromium" snap if present                               |
+2025-09-18T01:02:32.6197798Z Run configure hook of "chromium" snap if present                               /
+2025-09-18T01:02:32.7241721Z Run configure hook of "chromium" snap if present                               -
+2025-09-18T01:02:32.8291858Z Run configure hook of "chromium" snap if present                               \
+2025-09-18T01:02:32.9338480Z Run configure hook of "chromium" snap if present                               |
+2025-09-18T01:02:33.0383546Z Run configure hook of "chromium" snap if present                               /
+2025-09-18T01:02:33.1430804Z Run configure hook of "chromium" snap if present                               -
+2025-09-18T01:02:33.2486944Z Run configure hook of "chromium" snap if present                               \
+2025-09-18T01:02:33.3528220Z Run configure hook of "chromium" snap if present                               |
+2025-09-18T01:02:33.4576400Z Run configure hook of "chromium" snap if present                               /
+2025-09-18T01:02:33.5619955Z Run configure hook of "chromium" snap if present                               -
+2025-09-18T01:02:33.6667231Z Run configure hook of "chromium" snap if present                               \
+2025-09-18T01:02:33.7716698Z Run configure hook of "chromium" snap if present                               |
+2025-09-18T01:02:33.8764699Z Run configure hook of "chromium" snap if present                               /
+2025-09-18T01:02:33.9817932Z Run configure hook of "chromium" snap if present                               -
+2025-09-18T01:02:34.0860674Z Run configure hook of "chromium" snap if present                               \
+2025-09-18T01:02:34.1917227Z Run configure hook of "chromium" snap if present                               |
+2025-09-18T01:02:34.2963826Z Run configure hook of "chromium" snap if present                               /
+2025-09-18T01:02:34.4005953Z Run configure hook of "chromium" snap if present                               -
+2025-09-18T01:02:34.5049777Z Run configure hook of "chromium" snap if present                               \
+2025-09-18T01:02:34.6097339Z Run configure hook of "chromium" snap if present                               |
+2025-09-18T01:02:34.7147425Z Run configure hook of "chromium" snap if present                               /
+2025-09-18T01:02:34.9282367Z Run configure hook of "chromium" snap if present                               -
+2025-09-18T01:02:35.0340991Z Run service command "stop" for services ["daemon"] of snap "chromium"          \
+2025-09-18T01:02:35.1430206Z Run service command "stop" for services ["daemon"] of snap "chromium"          |
+2025-09-18T01:02:35.2462727Z Run service command "stop" for services ["daemon"] of snap "chromium"          /
+2025-09-18T01:02:35.2578484Z [0m[?25h[Kchromium 140.0.7339.127 from Canonical[32m✓[0m installed
+2025-09-18T01:02:35.2593106Z => Snap installation complete
+2025-09-18T01:02:35.2926849Z Unpacking chromium-browser (2:1snap1-0ubuntu2) ...
+2025-09-18T01:02:35.4052091Z Setting up chromium-browser (2:1snap1-0ubuntu2) ...
+2025-09-18T01:02:35.4215290Z Processing triggers for hicolor-icon-theme (0.17-2) ...
+2025-09-18T01:02:39.1092002Z 
+2025-09-18T01:02:39.1092590Z Running kernel seems to be up-to-date.
+2025-09-18T01:02:39.1092993Z 
+2025-09-18T01:02:39.1093238Z Restarting services...
+2025-09-18T01:02:39.1162103Z 
+2025-09-18T01:02:39.1162494Z Service restarts being deferred:
+2025-09-18T01:02:39.1167406Z  systemctl restart hosted-compute-agent.service
+2025-09-18T01:02:39.1167762Z 
+2025-09-18T01:02:39.1168210Z No containers need to be restarted.
+2025-09-18T01:02:39.1168606Z 
+2025-09-18T01:02:39.1168923Z No user sessions are running outdated binaries.
+2025-09-18T01:02:39.1169243Z 
+2025-09-18T01:02:40.1605155Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2025-09-18T01:02:40.1641668Z ##[group]Run mkdir -p reports
+2025-09-18T01:02:40.1641975Z [36;1mmkdir -p reports[0m
+2025-09-18T01:02:40.1642350Z [36;1m# JSON and HTML outputs. Pass chrome flags to run headless in CI and disable sandbox.[0m
+2025-09-18T01:02:40.1643153Z [36;1mlighthouse "$TARGET_URL" --only-categories=pwa --output=json --output=html --output-path=reports/lighthouse --chrome-flags="--headless --no-sandbox --disable-gpu"[0m
+2025-09-18T01:02:40.1643792Z [36;1mls -la reports[0m
+2025-09-18T01:02:40.1675581Z shell: /usr/bin/bash -e {0}
+2025-09-18T01:02:40.1675800Z env:
+2025-09-18T01:02:40.1676011Z   TARGET_URL: https://loto-app-45ud.onrender.com
+2025-09-18T01:02:40.1676511Z ##[endgroup]
+2025-09-18T01:02:40.7180462Z Thu, 18 Sep 2025 01:02:40 GMT LH:ChromeLauncher Waiting for browser.
+2025-09-18T01:02:40.7200880Z Thu, 18 Sep 2025 01:02:40 GMT LH:ChromeLauncher Waiting for browser...
+2025-09-18T01:02:41.2236423Z Thu, 18 Sep 2025 01:02:41 GMT LH:ChromeLauncher Waiting for browser.....
+2025-09-18T01:02:41.7251407Z Thu, 18 Sep 2025 01:02:41 GMT LH:ChromeLauncher Waiting for browser.......
+2025-09-18T01:02:42.2265750Z Thu, 18 Sep 2025 01:02:42 GMT LH:ChromeLauncher Waiting for browser.........
+2025-09-18T01:02:42.7279928Z Thu, 18 Sep 2025 01:02:42 GMT LH:ChromeLauncher Waiting for browser...........
+2025-09-18T01:02:43.2293916Z Thu, 18 Sep 2025 01:02:43 GMT LH:ChromeLauncher Waiting for browser.............
+2025-09-18T01:02:43.7307724Z Thu, 18 Sep 2025 01:02:43 GMT LH:ChromeLauncher Waiting for browser...............
+2025-09-18T01:02:44.2320991Z Thu, 18 Sep 2025 01:02:44 GMT LH:ChromeLauncher Waiting for browser.................
+2025-09-18T01:02:44.7335118Z Thu, 18 Sep 2025 01:02:44 GMT LH:ChromeLauncher Waiting for browser...................
+2025-09-18T01:02:45.2350075Z Thu, 18 Sep 2025 01:02:45 GMT LH:ChromeLauncher Waiting for browser.....................
+2025-09-18T01:02:45.7364893Z Thu, 18 Sep 2025 01:02:45 GMT LH:ChromeLauncher Waiting for browser.......................
+2025-09-18T01:02:46.2380476Z Thu, 18 Sep 2025 01:02:46 GMT LH:ChromeLauncher Waiting for browser.........................
+2025-09-18T01:02:46.7395151Z Thu, 18 Sep 2025 01:02:46 GMT LH:ChromeLauncher Waiting for browser...........................
+2025-09-18T01:02:47.2410266Z Thu, 18 Sep 2025 01:02:47 GMT LH:ChromeLauncher Waiting for browser.............................
+2025-09-18T01:02:47.7423818Z Thu, 18 Sep 2025 01:02:47 GMT LH:ChromeLauncher Waiting for browser...............................
+2025-09-18T01:02:48.2440398Z Thu, 18 Sep 2025 01:02:48 GMT LH:ChromeLauncher Waiting for browser.................................
+2025-09-18T01:02:48.7444529Z Thu, 18 Sep 2025 01:02:48 GMT LH:ChromeLauncher Waiting for browser...................................
+2025-09-18T01:02:49.2461025Z Thu, 18 Sep 2025 01:02:49 GMT LH:ChromeLauncher Waiting for browser.....................................
+2025-09-18T01:02:49.7473372Z Thu, 18 Sep 2025 01:02:49 GMT LH:ChromeLauncher Waiting for browser.......................................
+2025-09-18T01:02:50.2488208Z Thu, 18 Sep 2025 01:02:50 GMT LH:ChromeLauncher Waiting for browser.........................................
+2025-09-18T01:02:50.7502646Z Thu, 18 Sep 2025 01:02:50 GMT LH:ChromeLauncher Waiting for browser...........................................
+2025-09-18T01:02:51.2515379Z Thu, 18 Sep 2025 01:02:51 GMT LH:ChromeLauncher Waiting for browser.............................................
+2025-09-18T01:02:51.7528698Z Thu, 18 Sep 2025 01:02:51 GMT LH:ChromeLauncher Waiting for browser...............................................
+2025-09-18T01:02:51.7540528Z Thu, 18 Sep 2025 01:02:51 GMT LH:ChromeLauncher Waiting for browser...............................................[32m✓[0m
+2025-09-18T01:02:56.1701433Z Thu, 18 Sep 2025 01:02:56 GMT LH:status Connecting to browser
+2025-09-18T01:02:56.1781294Z Thu, 18 Sep 2025 01:02:56 GMT LH:status Navigating to about:blank
+2025-09-18T01:02:56.1985587Z Thu, 18 Sep 2025 01:02:56 GMT LH:status Benchmarking machine
+2025-09-18T01:02:57.6465347Z Thu, 18 Sep 2025 01:02:57 GMT LH:status Preparing target for navigation mode
+2025-09-18T01:02:57.8487939Z Thu, 18 Sep 2025 01:02:57 GMT LH:status Navigating to about:blank
+2025-09-18T01:02:57.8616954Z Thu, 18 Sep 2025 01:02:57 GMT LH:status Preparing target for navigation
+2025-09-18T01:02:57.9229570Z Thu, 18 Sep 2025 01:02:57 GMT LH:status Cleaning origin data
+2025-09-18T01:02:58.0179624Z Thu, 18 Sep 2025 01:02:58 GMT LH:status Cleaning browser cache
+2025-09-18T01:02:58.1710331Z Thu, 18 Sep 2025 01:02:58 GMT LH:status Preparing network conditions
+2025-09-18T01:02:58.1931007Z Thu, 18 Sep 2025 01:02:58 GMT LH:status Navigating to https://loto-app-45ud.onrender.com/
+2025-09-18T01:03:06.6116716Z Thu, 18 Sep 2025 01:03:06 GMT LH:status Getting artifact: DevtoolsLog
+2025-09-18T01:03:06.6143560Z Thu, 18 Sep 2025 01:03:06 GMT LH:NavigationRunner:error Lighthouse was unable to reliably load the page you requested. Make sure you are testing the correct URL and that the server is properly responding to all requests. (Details: net::ERR_ABORTED) https://loto-app-45ud.onrender.com/
+2025-09-18T01:03:06.7148167Z Thu, 18 Sep 2025 01:03:06 GMT LH:status Analyzing and running audits...
+2025-09-18T01:03:06.7152636Z Thu, 18 Sep 2025 01:03:06 GMT LH:status Auditing: Registers a service worker that controls page and `start_url`
+2025-09-18T01:03:06.7154228Z Thu, 18 Sep 2025 01:03:06 GMT LH:Runner:warn ServiceWorker gatherer, required by audit service-worker, did not run.
+2025-09-18T01:03:06.7161551Z Thu, 18 Sep 2025 01:03:06 GMT LH:status Auditing: Has a `<meta name="viewport">` tag with `width` or `initial-scale`
+2025-09-18T01:03:06.7162676Z Thu, 18 Sep 2025 01:03:06 GMT LH:Runner:warn MetaElements gatherer, required by audit viewport, did not run.
+2025-09-18T01:03:06.7167726Z Thu, 18 Sep 2025 01:03:06 GMT LH:status Auditing: Web app manifest and service worker meet the installability requirements
+2025-09-18T01:03:06.7169044Z Thu, 18 Sep 2025 01:03:06 GMT LH:Runner:warn WebAppManifest gatherer, required by audit installable-manifest, did not run.
+2025-09-18T01:03:06.7172385Z Thu, 18 Sep 2025 01:03:06 GMT LH:status Auditing: Configured for a custom splash screen
+2025-09-18T01:03:06.7173193Z Thu, 18 Sep 2025 01:03:06 GMT LH:Runner:warn WebAppManifest gatherer, required by audit splash-screen, did not run.
+2025-09-18T01:03:06.7184578Z Thu, 18 Sep 2025 01:03:06 GMT LH:status Auditing: Sets a theme color for the address bar.
+2025-09-18T01:03:06.7185735Z Thu, 18 Sep 2025 01:03:06 GMT LH:Runner:warn WebAppManifest gatherer, required by audit themed-omnibox, did not run.
+2025-09-18T01:03:06.7187064Z Thu, 18 Sep 2025 01:03:06 GMT LH:status Auditing: Manifest has a maskable icon
+2025-09-18T01:03:06.7188042Z Thu, 18 Sep 2025 01:03:06 GMT LH:Runner:warn WebAppManifest gatherer, required by audit maskable-icon, did not run.
+2025-09-18T01:03:06.7189490Z Thu, 18 Sep 2025 01:03:06 GMT LH:status Auditing: Content is sized correctly for the viewport
+2025-09-18T01:03:06.7190293Z Thu, 18 Sep 2025 01:03:06 GMT LH:Runner:warn ViewportDimensions gatherer, required by audit content-width, did not run.
+2025-09-18T01:03:06.7194182Z Thu, 18 Sep 2025 01:03:06 GMT LH:status Auditing: Site works cross-browser
+2025-09-18T01:03:06.7197527Z Thu, 18 Sep 2025 01:03:06 GMT LH:status Auditing: Page transitions don't feel like they block on the network
+2025-09-18T01:03:06.7198841Z Thu, 18 Sep 2025 01:03:06 GMT LH:status Auditing: Each page has a URL
+2025-09-18T01:03:06.7200326Z Thu, 18 Sep 2025 01:03:06 GMT LH:status Generating results...
+2025-09-18T01:03:06.7272638Z Thu, 18 Sep 2025 01:03:06 GMT LH:Printer json output written to /home/runner/work/loto-app/loto-app/reports/lighthouse.report.json
+2025-09-18T01:03:06.7280503Z Thu, 18 Sep 2025 01:03:06 GMT LH:Printer html output written to /home/runner/work/loto-app/loto-app/reports/lighthouse.report.html
+2025-09-18T01:03:06.7281605Z Thu, 18 Sep 2025 01:03:06 GMT LH:CLI Protip: Run lighthouse with `--view` to immediately open the HTML report in your browser
+2025-09-18T01:03:06.7283788Z Thu, 18 Sep 2025 01:03:06 GMT LH:ChromeLauncher Killing Chrome instance 5282
+2025-09-18T01:03:06.7491871Z Runtime error encountered: Lighthouse was unable to reliably load the page you requested. Make sure you are testing the correct URL and that the server is properly responding to all requests. (Details: net::ERR_ABORTED)
+2025-09-18T01:03:06.7590515Z ##[error]Process completed with exit code 1.
+2025-09-18T01:03:06.7685382Z Post job cleanup.
+2025-09-18T01:03:06.8637019Z [command]/usr/bin/git version
+2025-09-18T01:03:06.8675749Z git version 2.51.0
+2025-09-18T01:03:06.8719627Z Temporarily overriding HOME='/home/runner/work/_temp/f5311c87-c925-4a8e-a830-a881b5f9c0a9' before making global git config changes
+2025-09-18T01:03:06.8720626Z Adding repository directory to the temporary git global config as a safe directory
+2025-09-18T01:03:06.8725266Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/loto-app/loto-app
+2025-09-18T01:03:06.8768640Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-09-18T01:03:06.8801790Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-09-18T01:03:06.9029463Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-09-18T01:03:06.9051272Z http.https://github.com/.extraheader
+2025-09-18T01:03:06.9064666Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2025-09-18T01:03:06.9096881Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-09-18T01:03:06.9430397Z Cleaning up orphan processes

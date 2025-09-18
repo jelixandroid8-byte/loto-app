@@ -10,7 +10,11 @@ const APP_SHELL = [
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL))
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)).then(() => {
+      // Activate this service worker immediately without waiting for old workers to be released.
+      // This helps CI audits (like Lighthouse) detect a controlling service worker on the next navigation.
+      try { self.skipWaiting(); } catch (e) { /* skipWaiting not available in some environments */ }
+    })
   );
 });
 

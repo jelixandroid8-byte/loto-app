@@ -38,7 +38,8 @@
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
                     // Register the service worker at the site root so its scope covers the app
-                    navigator.serviceWorker.register('/service-worker.js')
+                    // Register the service worker at the site root and explicitly request scope '/'
+                    navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
                         .then(function(reg) { console.log('ServiceWorker registered.', reg); })
                         .catch(function(err) { console.warn('ServiceWorker registration failed:', err); });
                 });

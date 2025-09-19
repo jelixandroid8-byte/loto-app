@@ -31,6 +31,11 @@ body {
     text-decoration: none;
 }
 
+/* Ensure actions sit to the right of the brand by default */
+.navbar-actions {
+    margin-left: auto;
+}
+
 .navbar-menu {
     display: flex;
     align-items: center;
@@ -212,27 +217,24 @@ tbody tr:hover {
         align-items: center;
     }
 
-    /* Keep navbar compact on mobile: brand and actions on the same line */
+    /* Force horizontal layout: brand and actions on the same row */
     .navbar {
-        flex-direction: row;
+        flex-direction: row !important;
         align-items: center;
-        padding: 0.25rem 0.5rem;
-    }
-
-    .navbar-menu {
-        margin-top: 0;
-        width: auto;
-        justify-content: flex-end;
+        padding: 0.2rem 0.5rem;
     }
 
     .navbar-actions {
-        position: static; /* flow with document on smaller screens */
-        margin-left: 8px;
+        position: static; /* let it flow on small screens but keep it to the right */
+        margin-left: auto;
         font-size: 0.82rem;
+        display: flex;
+        gap: 8px;
     }
 
+    /* Remove any extra top padding so content is flush with header */
     .container {
-        padding-top: 6px; /* minimal spacing on mobile */
+        padding-top: 0;
     }
 
     /* New: Make tables horizontally scrollable */

@@ -8,7 +8,7 @@ body {
 }
 
 .container {
-    padding: 8px 20px 20px 20px; /* less top padding so content sits higher */
+    padding: 0 20px 12px 20px; /* remove top padding so content sits directly below header */
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -16,7 +16,8 @@ body {
 /* Navbar */
 .navbar {
     background-color: #ffffff;
-    padding: 0.6rem 1rem; /* tighter header */
+    padding: 0.35rem 0.75rem; /* even tighter header */
+    position: relative; /* anchor absolute actions inside the navbar */
     border-bottom: 1px solid #ddd;
     display: flex;
     justify-content: space-between;
@@ -40,10 +41,10 @@ body {
     display: flex;
     gap: 10px;
     align-items: center;
-    font-size: 0.85rem; /* smaller to save vertical space */
+    font-size: 0.78rem; /* smaller to save vertical space */
     position: absolute;
-    right: 12px;
-    top: 8px;
+    right: 8px;
+    top: 6px; /* closer to the top */
 }
 
 .navbar-item {

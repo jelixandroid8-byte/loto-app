@@ -22,6 +22,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: nowrap; /* prevent brand/actions from wrapping */
 }
 
 .navbar-brand {
@@ -29,6 +30,10 @@ body {
     font-weight: bold;
     color: #007bff;
     text-decoration: none;
+    max-width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* Ensure actions sit to the right of the brand by default */
@@ -50,6 +55,24 @@ body {
     position: absolute;
     right: 8px;
     top: 6px; /* closer to the top */
+}
+
+/* Stronger mobile rule to keep items on one row */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.2rem 0.5rem;
+        flex-wrap: nowrap;
+    }
+    .navbar-actions {
+        position: static;
+        margin-left: auto;
+        white-space: nowrap;
+        gap: 6px;
+        font-size: 0.78rem;
+    }
+    .navbar-brand {
+        max-width: 55%;
+    }
 }
 
 .navbar-item {

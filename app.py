@@ -96,8 +96,10 @@ def login():
         password = request.form['password']
         conn = get_db_connection()
         cur = get_cursor(conn)
-        
-        cur.execute('SELECT * FROM users WHERE username = %s', (username,))
+        # Choose placeholder depending on DB adapter (sqlite uses '?', psycopg2 uses '%s')
+        ph = '?' if isinstance(conn, sqlite3.Connection) else '%s'
+
+        cur.execute(f'SELECT * FROM users WHERE username = {ph}', (username,))
         user = cur.fetchone()
         
         cur.close()
@@ -134,7 +136,8 @@ def change_password():
 
         conn = get_db_connection()
         cur = get_cursor(conn)
-        cur.execute('SELECT id, password FROM users WHERE id = %s', (session['user_id'],))
+        ph = '?' if isinstance(conn, sqlite3.Connection) else '%s'
+        cur.execute(f'SELECT id, password FROM users WHERE id = {ph}', (session['user_id'],))
         user = cur.fetchone()
         cur.close()
         conn.close()
@@ -157,7 +160,8 @@ def change_password():
 
         conn = get_db_connection()
         cur = get_cursor(conn)
-        cur.execute('UPDATE users SET password = %s WHERE id = %s', (generate_password_hash(new_password), session['user_id']))
+        ph = '?' if isinstance(conn, sqlite3.Connection) else '%s'
+        cur.execute(f'UPDATE users SET password = {ph} WHERE id = {ph}', (generate_password_hash(new_password), session['user_id']))
         conn.commit()
         cur.close()
         conn.close()

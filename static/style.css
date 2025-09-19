@@ -8,7 +8,7 @@ body {
 }
 
 .container {
-    padding: 20px;
+    padding: 8px 20px 20px 20px; /* less top padding so content sits higher */
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -24,7 +24,7 @@ body {
 }
 
 .navbar-brand {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: bold;
     color: #007bff;
     text-decoration: none;
@@ -40,7 +40,10 @@ body {
     display: flex;
     gap: 10px;
     align-items: center;
-    font-size: 0.95rem; /* slightly smaller to save vertical space */
+    font-size: 0.85rem; /* smaller to save vertical space */
+    position: absolute;
+    right: 12px;
+    top: 8px;
 }
 
 .navbar-item {
@@ -146,8 +149,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 16px;
-    margin-top: 1rem; /* reduce space between header and dashboard */
+    gap: 12px;
+    margin-top: 0; /* no space between header and dashboard */
 }
 
 .dashboard-item {

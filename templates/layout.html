@@ -15,9 +15,10 @@
         <a href="{{ url_for('index') }}" class="navbar-brand">LotoWeb</a>
         {% if 'user_id' in session %}
             <div class="navbar-menu">
-                <span class="navbar-item">Usuario: {{ session['username'] }} ({{ session['user_role'] }})</span>
-                <a href="{{ url_for('change_password') }}" class="navbar-item">Cambiar Contraseña</a>
-                <a href="{{ url_for('logout') }}" class="navbar-item">Cerrar Sesión</a>
+                <div class="navbar-actions">
+                    <a href="{{ url_for('change_password') }}" class="navbar-item">Cambiar Contraseña</a>
+                    <a href="{{ url_for('logout') }}" class="navbar-item">Cerrar Sesión</a>
+                </div>
             </div>
         {% endif %}
     </nav>

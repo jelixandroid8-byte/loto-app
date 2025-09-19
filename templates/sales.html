@@ -64,7 +64,10 @@
         <tr>
             <th>Cliente</th>
             <th>Monto</th>
-            <th>Fecha Sorteo</th>
+            {% if session['user_role'] == 'admin' %}
+            <th>Vendedor</th>
+            {% endif %}
+            <th>Sorteo</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -73,6 +76,9 @@
         <tr>
             <td>{{ sale['client_name'] }} {{ sale['client_last_name'] }}</td>
             <td>${{ '%.2f'|format(sale['total_amount']) }}</td>
+            {% if session['user_role'] == 'admin' %}
+            <td>{{ sale['seller_name'] }}</td>
+            {% endif %}
             <td>{{ sale['raffle_date'].strftime('%Y-%m-%d') }}</td>
             <td class="actions-cell">
                 <a href="{{ url_for('printpdf', invoice_id=sale['id']) }}" target="_blank" class="btn btn-secondary btn-sm">Imprimir</a>
@@ -89,7 +95,7 @@
         </tr>
         {% else %}
         <tr>
-            <td colspan="4">No hay ventas que coincidan con los filtros seleccionados.</td>
+            <td colspan="{{ 5 if session['user_role'] == 'admin' else 4 }}">No hay ventas que coincidan con los filtros seleccionados.</td>
         </tr>
         {% endfor %}
     </tbody>

@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.onrender.loto_app_45ud.twa",
+      "sha256_cert_fingerprints": [
+        "D5:5F:8B:5D:C6:EF:5A:65:6F:55:A6:5E:CD:5F:09:6A:FC:FF:A8:5F:5E:50:7F:BE:1F:C5:53:9C:6E:D7:0E:85"
+      ]
+    }
+  }
+]

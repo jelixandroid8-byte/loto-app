@@ -1,4 +1,3 @@
-
 import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, session, flash, send_from_directory
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -1060,3 +1059,8 @@ def commissions_report():
 # --- Main execution ---
 if __name__ == '__main__':
     app.run(debug=True)
+
+# Serve Digital Asset Links for TWA verification
+@app.route('/.well-known/assetlinks.json')
+def assetlinks():
+    return send_from_directory('static/.well-known', 'assetlinks.json')

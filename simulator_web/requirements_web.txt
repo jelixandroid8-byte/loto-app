@@ -1,0 +1,3 @@
+Flask
+numpy
+chart.js  # referenced via CDN in template, no need to install

@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Resultados - Simulador LotoWeb</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Resultados de la simulación</h1>
+      <dl>
+        <dt>Horizonte (meses)</dt><dd>{{ result.months }}</dd>
+        <dt>Simulaciones</dt><dd>{{ result.simulations }}</dd>
+        <dt>Ganancia media</dt><dd>${{ '%.2f'|format(result.mean) }}</dd>
+        <dt>Ganancia mediana</dt><dd>${{ '%.2f'|format(result.median) }}</dd>
+        <dt>Percentiles</dt>
+        <dd>5%=${{ '%.2f'|format(result.percentiles[0]) }}, 25%=${{ '%.2f'|format(result.percentiles[1]) }}, 50%=${{ '%.2f'|format(result.percentiles[2]) }}, 75%=${{ '%.2f'|format(result.percentiles[3]) }}, 95%=${{ '%.2f'|format(result.percentiles[4]) }}</dd>
+        <dt>Probabilidad de ganancia &gt; 0</dt><dd>{{ (result.prob_positive*100)|round(1) }}%</dd>
+      </dl>
+
+      <canvas id="hist"></canvas>
+      <script>
+        const profits = {{ result.profits_sample|tojson }};
+        const ctx = document.getElementById('hist').getContext('2d');
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: profits.map((_,i)=>i+1),
+            datasets: [{ label: 'Ganancia (muestra)', data: profits }]
+          },
+          options: { scales: { y: { beginAtZero: true } } }
+        });
+      </script>
+
+      <p><a href="/">Volver</a></p>
+    </div>
+  </body>
+</html>

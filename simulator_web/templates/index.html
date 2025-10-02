@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Simulador LotoWeb</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Simulador financiero - LotoWeb</h1>
+      <form action="/run" method="post">
+        <label>Meses (horizonte): <input name="months" type="number" value="{{ defaults.months }}"></label>
+        <label>Simulaciones: <input name="simulations" type="number" value="{{ defaults.simulations }}"></label>
+        <label>Ventas por sorteo (USD): <input name="sales_per_draw" type="number" step="0.01" value="{{ defaults.sales_per_draw }}"></label>
+        <label>Sorteos por semana: <input name="draws_per_week" type="number" step="0.1" value="{{ defaults.draws_per_week }}"></label>
+        <label>% Billetes: <input name="billete_ratio" type="number" step="0.01" value="{{ defaults.billete_ratio }}"></label>
+        <label>Clientes (estimados): <input name="customers" type="number" value="{{ defaults.customers }}"></label>
+        <label>Costos fijos mensuales (USD): <input name="fixed_monthly_cost" type="number" step="0.01" value="{{ defaults.fixed_monthly_cost }}"></label>
+        <label>Costos variables (% ingresos): <input name="variable_cost_rate" type="number" step="0.01" value="{{ defaults.variable_cost_rate }}"></label>
+        <div class="actions">
+          <button type="submit">Ejecutar simulación</button>
+        </div>
+      </form>
+      <p class="note">Nota: el modelo mantiene compra aleatoria de números entre clientes; cada cliente puede comprar una cantidad ilimitada.</p>
+    </div>
+  </body>
+</html>

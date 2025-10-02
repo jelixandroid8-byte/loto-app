@@ -1,0 +1,7 @@
+body { font-family: Arial, Helvetica, sans-serif; background:#f7f7f7; color:#222 }
+.container { max-width:900px; margin:40px auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.06) }
+h1{margin-top:0}
+form label{display:block;margin:8px 0}
+form input{padding:6px 8px;border:1px solid #ccc;border-radius:4px}
+.actions{margin-top:12px}
+.note{font-size:0.9em;color:#666}
